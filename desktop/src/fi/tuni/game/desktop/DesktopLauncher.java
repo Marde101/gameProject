@@ -12,6 +12,9 @@ public class DesktopLauncher {
 		// windows size is (pixels * tiles)
         config.width = 1280;
         config.height = 640;
+        //config.width = 1800;
+        //config.height = 900;
+
 		new LwjglApplication(new Main(), config);
 	}
 }
