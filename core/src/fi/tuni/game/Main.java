@@ -28,8 +28,8 @@ public class Main extends Game {
         return batch;
     }
 
-    FieldScreen field;
-    CityScreen city;
+    private FieldScreen field;
+    private CityScreen city;
 
     private FreeTypeFontGenerator generator;
     private BitmapFont font;
@@ -41,7 +41,10 @@ public class Main extends Game {
         city = new CityScreen(this);
         field = new FieldScreen(this);
         setScreen(field);
+        createFont();
+    }
 
+    private void createFont() {
         generator = new FreeTypeFontGenerator(Gdx.files.internal("font2.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 60;
@@ -71,5 +74,7 @@ public class Main extends Game {
         batch.dispose();
         field.dispose();
         city.dispose();
+        font.dispose();
+        generator.dispose();
     }
 }
