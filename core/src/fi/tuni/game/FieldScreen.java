@@ -23,9 +23,6 @@ public class FieldScreen implements Screen {
     private TiledMap fieldtiledMap;
     private TiledMapRenderer fieldtiledMapRenderer;
 
-    //private Skin sceneSwitch;
-    //private Stage stage;
-
 
     public FieldScreen(Main x) {
         batch = x.getBatch();
@@ -41,8 +38,6 @@ public class FieldScreen implements Screen {
                 WINDOW_HEIGHT);          // height
         fieldtiledMap = new TmxMapLoader().load("prototiled.tmx");
         fieldtiledMapRenderer = new OrthogonalTiledMapRenderer(fieldtiledMap, 1 / 100f);
-        //sceneSwitch = new Skin(Gdx.files.internal(skin.png));
-        //stage = new Stage(game.screenPort());
 
     }
 

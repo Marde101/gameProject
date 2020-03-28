@@ -14,16 +14,21 @@ public class CityScreen implements Screen {
     private final float WINDOW_WIDTH = 12.8f;
     private final float WINDOW_HEIGHT = 6.4f;
     private SpriteBatch batch;
-    private Main object;
+    private Main objectMain;
     private OrthographicCamera camera;
+    private OrthographicCamera fontCamera;
     private TiledMap cityTiledMap;
     private TiledMapRenderer cityTiledMapRenderer;
 
 
     public CityScreen(Main x) {
         batch = x.getBatch();
-        object = x;
+        objectMain = x;
         camera = new OrthographicCamera();
+        fontCamera = new OrthographicCamera();
+        fontCamera.setToOrtho(false,
+                WINDOW_WIDTH*100,
+                WINDOW_WIDTH*100);
         // Show always area of our world 8.00 x 4.80
         camera.setToOrtho(false,         // y points up
                 WINDOW_WIDTH,            // width
@@ -42,6 +47,10 @@ public class CityScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
         cityTiledMapRenderer.setView(camera);
         cityTiledMapRenderer.render();
+        batch.setProjectionMatrix(fontCamera.combined);
+        batch.begin();
+        objectMain.getFont().draw(batch, "$ 12350", 800, 1250);
+        batch.end();
     }
 
     @Override
