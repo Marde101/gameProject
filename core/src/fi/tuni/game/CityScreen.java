@@ -1,5 +1,6 @@
 package fi.tuni.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -51,6 +52,17 @@ public class CityScreen implements Screen {
         batch.begin();
         objectMain.getFont().draw(batch, "$ 12350", 800, 1250);
         batch.end();
+
+        //scenenvaihto nappi
+        objectMain.getStage().act(Gdx.graphics.getDeltaTime());
+        objectMain.getStage().draw();
+
+        //toiminnallisuus nappiin
+        Gdx.input.setInputProcessor(objectMain.getStage());
+        if (objectMain.getSceneSwitch().getHappened()) {
+            objectMain.switchScene();
+            objectMain.getSceneSwitch().setHappened(false);
+        }
     }
 
     @Override

@@ -15,6 +15,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class Main extends Game {
 
@@ -34,6 +37,10 @@ public class Main extends Game {
     private FreeTypeFontGenerator generator;
     private BitmapFont font;
 
+    private Stage stage;
+    private float width = WINDOW_WIDTH;
+    private float height = WINDOW_HEIGHT;
+    private Clickable sceneSwitch;
 
     @Override
     public void create () {
@@ -42,6 +49,12 @@ public class Main extends Game {
         field = new FieldScreen(this);
         setScreen(field);
         createFont();
+
+        stage = new Stage(new FitViewport(width, height));
+        sceneSwitch = new Clickable();
+        stage.addActor(sceneSwitch);
+
+
     }
 
     private void createFont() {
@@ -57,9 +70,20 @@ public class Main extends Game {
         return font;
     }
 
+    public Stage getStage() {
+        return stage;
+    }
+
+    public Clickable getSceneSwitch() {
+        return sceneSwitch;
+    }
+
     @Override
     public void render () {
         super.render();
+    }
+
+    public void switchScene() {
         if (Gdx.input.justTouched() && inCity == false) {
             inCity = true;
             setScreen(city);
