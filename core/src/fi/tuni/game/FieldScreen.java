@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
@@ -25,7 +27,7 @@ public class FieldScreen implements Screen {
     private TiledMapRenderer fieldtiledMapRenderer;
 
 
-
+    private Texture balanceBackground;
 
     public FieldScreen(Main x) {
         batch = x.getBatch();
@@ -34,7 +36,7 @@ public class FieldScreen implements Screen {
         fontCamera = new OrthographicCamera();
         fontCamera.setToOrtho(false,
                 WINDOW_WIDTH*100,
-                WINDOW_WIDTH*100);
+                WINDOW_HEIGHT*100);
         // Show always area of our world 8.00 x 4.80
         camera.setToOrtho(false,         // y points up
                 WINDOW_WIDTH,            // width
@@ -42,8 +44,7 @@ public class FieldScreen implements Screen {
         fieldtiledMap = new TmxMapLoader().load("prototiled.tmx");
         fieldtiledMapRenderer = new OrthogonalTiledMapRenderer(fieldtiledMap, 1 / 100f);
 
-
-
+        balanceBackground = new Texture("coin.png");
     }
 
     @Override
@@ -60,7 +61,8 @@ public class FieldScreen implements Screen {
         //rahamäärä
         batch.setProjectionMatrix(fontCamera.combined);
         batch.begin();
-        objectMain.getFont().draw(batch, "$ 12350", 800, 1250);
+        objectMain.getFont().draw(batch, Currency.getStringBalance(), 825, 615);
+        batch.draw(balanceBackground, 740, 555);
         batch.end();
 
         //scenenvaihto nappi

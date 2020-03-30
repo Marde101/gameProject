@@ -3,6 +3,7 @@ package fi.tuni.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
@@ -21,6 +22,7 @@ public class CityScreen implements Screen {
     private TiledMap cityTiledMap;
     private TiledMapRenderer cityTiledMapRenderer;
 
+    private Texture balanceBackground;
 
     public CityScreen(Main x) {
         batch = x.getBatch();
@@ -29,13 +31,15 @@ public class CityScreen implements Screen {
         fontCamera = new OrthographicCamera();
         fontCamera.setToOrtho(false,
                 WINDOW_WIDTH*100,
-                WINDOW_WIDTH*100);
+                WINDOW_HEIGHT*100);
         // Show always area of our world 8.00 x 4.80
         camera.setToOrtho(false,         // y points up
                 WINDOW_WIDTH,            // width
                 WINDOW_HEIGHT);          // height
         cityTiledMap = new TmxMapLoader().load("protoCity.tmx");
         cityTiledMapRenderer = new OrthogonalTiledMapRenderer(cityTiledMap, 1 / 100f);
+
+        balanceBackground = new Texture("coin.png");
     }
 
     @Override
@@ -50,7 +54,8 @@ public class CityScreen implements Screen {
         cityTiledMapRenderer.render();
         batch.setProjectionMatrix(fontCamera.combined);
         batch.begin();
-        objectMain.getFont().draw(batch, "$ 12350", 800, 1250);
+        objectMain.getFont().draw(batch, Currency.getStringBalance(), 825, 615);
+        batch.draw(balanceBackground, 740, 555);
         batch.end();
 
         //scenenvaihto nappi

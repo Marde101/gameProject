@@ -17,7 +17,6 @@ public class Clickable extends Actor {
         setWidth(0.8f);
         setHeight(0.8f);
         setBounds(11.9f,5.5f, getWidth(), getHeight());
-
         addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("here");

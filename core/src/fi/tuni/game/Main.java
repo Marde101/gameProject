@@ -54,7 +54,7 @@ public class Main extends Game {
         sceneSwitch = new Clickable();
         stage.addActor(sceneSwitch);
 
-
+        Currency.setBalance(1234561);
     }
 
     private void createFont() {
