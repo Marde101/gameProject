@@ -53,10 +53,8 @@ public class FieldScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
         fieldtiledMapRenderer.setView(camera);
         fieldtiledMapRenderer.render();
-
 
         //rahamäärä
         batch.setProjectionMatrix(fontCamera.combined);

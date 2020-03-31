@@ -19,7 +19,6 @@ public class Clickable extends Actor {
         setBounds(11.9f,5.5f, getWidth(), getHeight());
         addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("here");
                 happened = true;
                 ParallelAction parallel = new ParallelAction();
                 Clickable.this.addAction(parallel);
