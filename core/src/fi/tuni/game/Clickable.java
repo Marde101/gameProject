@@ -27,9 +27,6 @@ public class Clickable extends Actor {
         });
     }
 
-
-
-
     public boolean getHappened() {
         return happened;
     }

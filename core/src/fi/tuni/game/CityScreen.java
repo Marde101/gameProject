@@ -73,7 +73,7 @@ public class CityScreen implements Screen {
         //rahamäärä
         batch.setProjectionMatrix(fontCamera.combined);
         batch.begin();
-        objectMain.getFont().draw(batch, objectMain.getBalance().getStringValue(), 825, 615);
+        objectMain.getFont().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
         batch.draw(cashBackground, 740, 555);
         batch.end();
 

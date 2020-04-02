@@ -32,14 +32,9 @@ public class Main extends Game {
     private float height = WINDOW_HEIGHT;
     private Clickable sceneSwitch;
 
-
-    private Balance cash = new Balance("Cash", 123124561);
-    private Balance pee = new Balance("Pee", 1234123561);
-    private Balance poo = new Balance("Poo", 1234512361);
-
-    public Balance getBalance() {
-        return cash;
-    }
+    private Balance cash;
+    private Balance pee;
+    private Balance poo;
 
     @Override
     public void create () {
@@ -53,17 +48,26 @@ public class Main extends Game {
         sceneSwitch = new Clickable();
         uiStage.addActor(sceneSwitch);
 
-        initValues();
+        fetchValues();
 
         // work in progress
         //Localization test = new Localization();
-
     }
 
-    private void initValues() {
-        MemoryWriter memCash = new MemoryWriter(cash);
-        MemoryWriter memPee = new MemoryWriter(pee);
-        MemoryWriter memPoo = new MemoryWriter(poo);
+    private void fetchValues() {
+        cash = new Balance("Cash");
+        pee = new Balance("Pee");
+        poo = new Balance("Poo");
+    }
+
+    public Balance getBalanceCash() {
+        return cash;
+    }
+    public Balance getBalancePee() {
+        return pee;
+    }
+    public Balance getBalancePoo() {
+        return poo;
     }
 
     private void createFont(int size) {
@@ -110,9 +114,6 @@ public class Main extends Game {
         uiStage.addActor(sceneSwitch);
     }
 
-
-
-
     @Override
     public void dispose () {
         batch.dispose();
@@ -120,5 +121,6 @@ public class Main extends Game {
         city.dispose();
         font.dispose();
         generator.dispose();
+        uiStage.dispose();
     }
 }
