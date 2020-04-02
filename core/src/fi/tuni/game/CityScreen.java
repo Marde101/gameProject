@@ -5,16 +5,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.Array;
+
+import java.util.ArrayList;
 
 public class CityScreen implements Screen {
 
@@ -28,7 +24,11 @@ public class CityScreen implements Screen {
     private TiledMap cityTiledMap;
     private TiledMapRenderer cityTiledMapRenderer;
 
-    private Texture balanceBackground;
+    private Texture cashBackground;
+
+    private Toilet toilet;
+    private Menut menut;
+    private ArrayList<Menut> allMenut;
 
     public CityScreen(Main x) {
         batch = x.getBatch();
@@ -45,16 +45,24 @@ public class CityScreen implements Screen {
         cityTiledMap = new TmxMapLoader().load("siti.tmx");
         cityTiledMapRenderer = new OrthogonalTiledMapRenderer(cityTiledMap, 1 / 100f);
 
-        balanceBackground = new Texture("coin.png");
+        cashBackground = new Texture("coin.png");
 
+        allMenut = new ArrayList<>();
+        generateHuusseja(5);
 
+    }
 
+    private void generateHuusseja(int x) {
+        for (int y = 0; y < x; y++) {
+            toilet = new Toilet(y, 1f);
+            menut = new Menut(toilet);
+            allMenut.add(menut);
+        }
     }
 
 
     @Override
     public void show() {
-
     }
 
     @Override
@@ -62,63 +70,57 @@ public class CityScreen implements Screen {
         cityTiledMapRenderer.setView(camera);
         cityTiledMapRenderer.render();
 
-        if (Gdx.input.justTouched()) {
-            checkClick(Gdx.input.getX(), Gdx.input.getY());
-        }
-
         //rahamäärä
         batch.setProjectionMatrix(fontCamera.combined);
         batch.begin();
-        objectMain.getFont().draw(batch, Currency.getStringBalance(), 825, 615);
-        batch.draw(balanceBackground, 740, 555);
+        objectMain.getFont().draw(batch, objectMain.getBalance().getStringValue(), 825, 615);
+        batch.draw(cashBackground, 740, 555);
         batch.end();
 
         //scenenvaihto nappi
-        objectMain.getStage().act(Gdx.graphics.getDeltaTime());
-        objectMain.getStage().draw();
-
-        //toiminnallisuus nappiin
-        Gdx.input.setInputProcessor(objectMain.getStage());
-        if (objectMain.getSceneSwitch().getHappened()) {
-            objectMain.switchScene();
-            objectMain.getSceneSwitch().setHappened(false);
+        objectMain.getUIStage().act(Gdx.graphics.getDeltaTime());
+        objectMain.getUIStage().draw();
+        //lisätään huussit stagelle
+        for(Menut huus: allMenut) {
+            Toilet tmpHuussi = huus.getToilet();
+            Menu tmpMenu = huus.getMenu();
+            BackButton tmpBackButton = huus.getBackButton();
+            objectMain.getUIStage().addActor(huus.getToilet());
+            //huussi menu avautuu
+            if (tmpHuussi.getHappened()) {
+                objectMain.getUIStage().addActor(tmpMenu);
+                objectMain.getUIStage().addActor(tmpBackButton);
+                if (tmpBackButton.getHappened()) {
+                    closeMenu();
+                }
+            }
         }
 
+        //toiminnallisuus nappiin
+        Gdx.input.setInputProcessor(objectMain.getUIStage());
+        if (objectMain.getSceneSwitch().getHappened()) {
+            closeMenu();
+            objectMain.getUIStage().clear();
+            objectMain.switchScene();
+            objectMain.getSceneSwitch().setHappened(false);
+
+        }
 
 
     }
 
-    private void checkClick(float posX, float posY) {
+    private void closeMenu() {
+        for(Menut huus: allMenut) {
+            Toilet tmpHuussi = huus.getToilet();
+            Menu tmpMenu = huus.getMenu();
+            BackButton tmpBackButton = huus.getBackButton();
 
-        // Let's get the collectable rectangles layer
-        MapLayer objectLayer = (MapLayer)cityTiledMap.getLayers().get("object");
-
-        //TiledMapTileLayer collectableCells = (TiledMapTileLayer) cityTiledMap.getLayers().get("huussi");
-        //System.out.println(collectableXPos + " " + collectableYPos);
-        //collectableCells.getCell(collectableXPos, collectableYPos).setTile(null);
-        //collectableCells.getCell(collectableXPos, collectableYPos + 1).setTile(null);
-
-        // All the rectangles of the layer
-        MapObjects mapObjects = objectLayer.getObjects();
-        // Cast it to RectangleObjects array
-        Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
-
-        float width;
-        float height;
-        posY = WINDOW_HEIGHT*100-posY;
-
-        // Iterate all the rectangles
-        for (RectangleMapObject rectangleObject : rectangleObjects) {
-            Rectangle tmp = rectangleObject.getRectangle();
-
-            width = tmp.getX() + tmp.getWidth();
-            height = tmp.getY() + tmp.getHeight();
-
-            if (tmp.getX() < posX && width > posX
-                        && tmp.getY() < posY && height > posY) {
-                System.out.println("hit");
-            }
+            tmpHuussi.setHappened(false);
+            tmpMenu.setHappened(false);
+            tmpBackButton.setHappened(false);
         }
+
+        objectMain.resetStage();
     }
 
     @Override

@@ -2,18 +2,13 @@ package fi.tuni.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class FieldScreen implements Screen {
 
@@ -45,6 +40,8 @@ public class FieldScreen implements Screen {
         fieldtiledMapRenderer = new OrthogonalTiledMapRenderer(fieldtiledMap, 1 / 100f);
 
         balanceBackground = new Texture("coin.png");
+
+
     }
 
     @Override
@@ -59,16 +56,16 @@ public class FieldScreen implements Screen {
         //rahamäärä
         batch.setProjectionMatrix(fontCamera.combined);
         batch.begin();
-        objectMain.getFont().draw(batch, Currency.getStringBalance(), 825, 615);
+        objectMain.getFont().draw(batch, objectMain.getBalance().getStringValue(), 825, 615);
         batch.draw(balanceBackground, 740, 555);
         batch.end();
 
         //scenenvaihto nappi
-        objectMain.getStage().act(Gdx.graphics.getDeltaTime());
-        objectMain.getStage().draw();
+        objectMain.getUIStage().act(Gdx.graphics.getDeltaTime());
+        objectMain.getUIStage().draw();
 
         //toiminnallisuus nappiin
-        Gdx.input.setInputProcessor(objectMain.getStage());
+        Gdx.input.setInputProcessor(objectMain.getUIStage());
         if (objectMain.getSceneSwitch().getHappened()) {
             objectMain.switchScene();
             objectMain.getSceneSwitch().setHappened(false);

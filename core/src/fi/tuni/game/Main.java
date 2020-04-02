@@ -1,22 +1,12 @@
 package fi.tuni.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class Main extends Game {
@@ -25,7 +15,7 @@ public class Main extends Game {
     private final float WINDOW_HEIGHT = 6.4f;
 
     SpriteBatch batch;
-    private boolean inCity = false;
+    private boolean inCity = true;
 
     public SpriteBatch getBatch() {
         return batch;
@@ -37,30 +27,49 @@ public class Main extends Game {
     private FreeTypeFontGenerator generator;
     private BitmapFont font;
 
-    private Stage stage;
+    private Stage uiStage;
     private float width = WINDOW_WIDTH;
     private float height = WINDOW_HEIGHT;
     private Clickable sceneSwitch;
+
+
+    private Balance cash = new Balance("Cash", 123124561);
+    private Balance pee = new Balance("Pee", 1234123561);
+    private Balance poo = new Balance("Poo", 1234512361);
+
+    public Balance getBalance() {
+        return cash;
+    }
 
     @Override
     public void create () {
         batch = new SpriteBatch();
         city = new CityScreen(this);
         field = new FieldScreen(this);
-        setScreen(field);
-        createFont();
+        setScreen(city);
+        createFont(60);
 
-        stage = new Stage(new FitViewport(width, height));
+        uiStage = new Stage(new FitViewport(width, height));
         sceneSwitch = new Clickable();
-        stage.addActor(sceneSwitch);
+        uiStage.addActor(sceneSwitch);
 
-        Currency.setBalance(1234561);
+        initValues();
+
+        // work in progress
+        //Localization test = new Localization();
+
     }
 
-    private void createFont() {
+    private void initValues() {
+        MemoryWriter memCash = new MemoryWriter(cash);
+        MemoryWriter memPee = new MemoryWriter(pee);
+        MemoryWriter memPoo = new MemoryWriter(poo);
+    }
+
+    private void createFont(int size) {
         generator = new FreeTypeFontGenerator(Gdx.files.internal("font2.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 60;
+        parameter.size = size;
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 3;
         font = generator.generateFont(parameter);
@@ -70,9 +79,10 @@ public class Main extends Game {
         return font;
     }
 
-    public Stage getStage() {
-        return stage;
+    public Stage getUIStage() {
+        return uiStage;
     }
+
 
     public Clickable getSceneSwitch() {
         return sceneSwitch;
@@ -87,11 +97,21 @@ public class Main extends Game {
         if (Gdx.input.justTouched() && inCity == false) {
             inCity = true;
             setScreen(city);
+            resetStage();
         } else if (Gdx.input.justTouched() && inCity == true) {
             inCity = false;
             setScreen(field);
+            resetStage();
         }
     }
+
+    public void resetStage() {
+        uiStage.clear();
+        uiStage.addActor(sceneSwitch);
+    }
+
+
+
 
     @Override
     public void dispose () {
