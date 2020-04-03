@@ -10,6 +10,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
+import java.util.ArrayList;
+
 public class FieldScreen implements Screen {
 
     private final float WINDOW_WIDTH = 12.8f;
@@ -21,8 +23,11 @@ public class FieldScreen implements Screen {
     private TiledMap fieldtiledMap;
     private TiledMapRenderer fieldtiledMapRenderer;
 
-
     private Texture balanceBackground;
+
+    private ArrayList<Fields> allFields;
+    private Field field;
+    private Fields fields;
 
     public FieldScreen(Main x) {
         batch = x.getBatch();
@@ -30,16 +35,36 @@ public class FieldScreen implements Screen {
         camera = new OrthographicCamera();
         fontCamera = new OrthographicCamera();
         fontCamera.setToOrtho(false,
-                WINDOW_WIDTH*100,
-                WINDOW_HEIGHT*100);
-        // Show always area of our world 8.00 x 4.80
-        camera.setToOrtho(false,         // y points up
-                WINDOW_WIDTH,            // width
-                WINDOW_HEIGHT);          // height
+                    WINDOW_WIDTH*100,
+                    WINDOW_HEIGHT*100);
+        //Camera for tiledmap
+        camera.setToOrtho(false,
+                                WINDOW_WIDTH,
+                                WINDOW_HEIGHT);
         fieldtiledMap = new TmxMapLoader().load("prototiled.tmx");
-        fieldtiledMapRenderer = new OrthogonalTiledMapRenderer(fieldtiledMap, 1 / 100f);
+        fieldtiledMapRenderer = new OrthogonalTiledMapRenderer(fieldtiledMap,
+                        1 / 100f);
 
         balanceBackground = new Texture("coin.png");
+        allFields = new ArrayList<>();
+        generateFields();
+
+    }
+
+    private void generateFields() {
+        /*generateField(2.86f,1f);
+        generateField(2.22f,3.88f);
+        generateField(9.58f,3.88f);
+        generateField(10.55f,0.36f);
+        generateField(5.75f,2.6f);
+        generateField(7.98f,2.28f);*/
+        generateField(1f,1f);
+    }
+
+    private void generateField(float posX, float posY) {
+        field = new Field(posX, posY);
+        fields = new Fields(field);
+        allFields.add(fields);
     }
 
     @Override
@@ -51,25 +76,57 @@ public class FieldScreen implements Screen {
         fieldtiledMapRenderer.setView(camera);
         fieldtiledMapRenderer.render();
 
-        //rahamäärä
+        //cash
         batch.setProjectionMatrix(fontCamera.combined);
         batch.begin();
         objectMain.getFont().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
         batch.draw(balanceBackground, 740, 555);
         batch.end();
 
-        //scenenvaihto nappi
+        //stage
         objectMain.getUIStage().act(Gdx.graphics.getDeltaTime());
         objectMain.getUIStage().draw();
 
-        //toiminnallisuus nappiin
+        //add actors
+        for(Fields fied: allFields) {
+            Field tmpField = fied.getField();
+            Menu tmpMenu = fied.getMenu();
+            BackButton tmpBackButton = fied.getBackButton();
+            objectMain.getUIStage().addActor(fied.getField());
+            objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
+
+            //field menu
+            if (tmpField.getHappened()) {
+                objectMain.getUIStage().addActor(tmpMenu);
+                objectMain.getUIStage().addActor(tmpBackButton);
+
+                if (tmpBackButton.getHappened()) {
+                    closeMenu();
+                }
+            }
+        }
+
+        //sceneswitch function
         Gdx.input.setInputProcessor(objectMain.getUIStage());
         if (objectMain.getSceneSwitch().getHappened()) {
+            closeMenu();
             objectMain.switchScene();
             objectMain.getSceneSwitch().setHappened(false);
         }
     }
 
+    private void closeMenu() {
+        for(Fields fied: allFields) {
+            Field tmpFied = fied.getField();
+            Menu tmpMenu = fied.getMenu();
+            BackButton tmpBackButton = fied.getBackButton();
+
+            tmpFied.setHappened(false);
+            tmpMenu.setHappened(false);
+            tmpBackButton.setHappened(false);
+        }
+        objectMain.getUIStage().clear();
+    }
 
     @Override
     public void resize(int width, int height) { }

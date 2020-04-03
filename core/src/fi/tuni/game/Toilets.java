@@ -1,11 +1,11 @@
 package fi.tuni.game;
 
-public class Menut {
+public class Toilets {
     Toilet toilet;
     Menu menu;
     BackButton backButton;
 
-    public Menut(Toilet x) {
+    public Toilets(Toilet x) {
         toilet = x;
         menu = new Menu();
         backButton = new BackButton();

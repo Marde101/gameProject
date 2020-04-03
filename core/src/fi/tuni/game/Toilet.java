@@ -8,9 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 
-public class Toilet extends Actor {
+public class Toilet extends Clickable {
     private Texture texture;
-    public boolean happened = false;
+    private boolean happened = false;
 
     public Toilet(float x, float y) {
         texture = new Texture(Gdx.files.internal("sinihus.png"));
@@ -18,7 +18,7 @@ public class Toilet extends Actor {
         setHeight(0.95f);
         float posX = x;
         float posY = y;
-        setBounds(posX,posX, getWidth(), getHeight());
+        setBounds(posX, posY, getWidth(), getHeight());
         addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 happened = true;
@@ -29,21 +29,9 @@ public class Toilet extends Actor {
         });
     }
 
-    public boolean getHappened() {
-        return happened;
-    }
-
-    public void setHappened(boolean x) {
-        happened = x;
-    }
-
     @Override
     public void draw(Batch batch, float alpha) {
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
     }
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-    }
 }

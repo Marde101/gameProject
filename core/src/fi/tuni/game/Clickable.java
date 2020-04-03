@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 
 public class Clickable extends Actor {
     private Texture texture;
-    public boolean happened = false;
+    private boolean happened = false;
 
     public Clickable() {
         texture = new Texture(Gdx.files.internal("sceneSwitch.png"));
@@ -28,11 +28,11 @@ public class Clickable extends Actor {
     }
 
     public boolean getHappened() {
-        return happened;
+        return this.happened;
     }
 
     public void setHappened(boolean x) {
-        happened = x;
+        this.happened = x;
     }
 
     @Override

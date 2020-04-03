@@ -8,9 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 
-public class Menu extends Actor {
+public class Menu extends Clickable {
     private Texture texture;
-    public boolean happened = false;
+    private boolean happened = false;
 
     public Menu() {
         texture = new Texture(Gdx.files.internal("menu.png"));
@@ -29,21 +29,9 @@ public class Menu extends Actor {
         });
     }
 
-    public boolean getHappened() {
-        return happened;
-    }
-
-    public void setHappened(boolean x) {
-        happened = x;
-    }
-
     @Override
     public void draw(Batch batch, float alpha) {
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
     }
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-    }
 }

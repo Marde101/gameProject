@@ -27,8 +27,8 @@ public class CityScreen implements Screen {
     private Texture cashBackground;
 
     private Toilet toilet;
-    private Menut menut;
-    private ArrayList<Menut> allMenut;
+    private Toilets toilets;
+    private ArrayList<Toilets> allToilets;
 
     public CityScreen(Main x) {
         batch = x.getBatch();
@@ -38,26 +38,33 @@ public class CityScreen implements Screen {
         fontCamera.setToOrtho(false,
                 WINDOW_WIDTH*100,
                 WINDOW_HEIGHT*100);
-        // Show always area of our world 8.00 x 4.80
-        camera.setToOrtho(false,         // y points up
-                WINDOW_WIDTH,            // width
-                WINDOW_HEIGHT);          // height
-        cityTiledMap = new TmxMapLoader().load("siti.tmx");
+        //Camera for tiledmap
+        camera.setToOrtho(false,
+                WINDOW_WIDTH,
+                WINDOW_HEIGHT);
+        cityTiledMap = new TmxMapLoader().load("kaupunkikesken.tmx");
         cityTiledMapRenderer = new OrthogonalTiledMapRenderer(cityTiledMap, 1 / 100f);
 
         cashBackground = new Texture("coin.png");
 
-        allMenut = new ArrayList<>();
-        generateHuusseja(5);
-
+        allToilets = new ArrayList<>();
+        generateToilets();
     }
 
-    private void generateHuusseja(int x) {
-        for (int y = 0; y < x; y++) {
-            toilet = new Toilet(y, 1f);
-            menut = new Menut(toilet);
-            allMenut.add(menut);
-        }
+    private void generateToilets() {
+        generateToilet(2.86f,1f);
+        generateToilet(2.22f,3.88f);
+        generateToilet(9.58f,3.88f);
+        generateToilet(10.55f,0.36f);
+        generateToilet(5.75f,2.6f);
+        generateToilet(7.98f,2.28f);
+        generateToilet(10.87f,4.53f);
+    }
+
+    private void generateToilet(float posX, float posY) {
+        toilet = new Toilet(posX, posY);
+        toilets = new Toilets(toilet);
+        allToilets.add(toilets);
     }
 
 
@@ -70,47 +77,47 @@ public class CityScreen implements Screen {
         cityTiledMapRenderer.setView(camera);
         cityTiledMapRenderer.render();
 
-        //rahamäärä
+        //cash
         batch.setProjectionMatrix(fontCamera.combined);
         batch.begin();
         objectMain.getFont().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
         batch.draw(cashBackground, 740, 555);
         batch.end();
 
-        //scenenvaihto nappi
+        //stage
         objectMain.getUIStage().act(Gdx.graphics.getDeltaTime());
         objectMain.getUIStage().draw();
-        //lisätään huussit stagelle
-        for(Menut huus: allMenut) {
+
+        //add actors
+        for(Toilets huus: allToilets) {
             Toilet tmpHuussi = huus.getToilet();
             Menu tmpMenu = huus.getMenu();
             BackButton tmpBackButton = huus.getBackButton();
             objectMain.getUIStage().addActor(huus.getToilet());
-            //huussi menu avautuu
+            objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
+
+            //toilet menu
             if (tmpHuussi.getHappened()) {
                 objectMain.getUIStage().addActor(tmpMenu);
                 objectMain.getUIStage().addActor(tmpBackButton);
+
                 if (tmpBackButton.getHappened()) {
                     closeMenu();
                 }
             }
         }
 
-        //toiminnallisuus nappiin
+        //sceneswitch function
         Gdx.input.setInputProcessor(objectMain.getUIStage());
         if (objectMain.getSceneSwitch().getHappened()) {
             closeMenu();
-            objectMain.getUIStage().clear();
             objectMain.switchScene();
             objectMain.getSceneSwitch().setHappened(false);
-
         }
-
-
     }
 
     private void closeMenu() {
-        for(Menut huus: allMenut) {
+        for(Toilets huus: allToilets) {
             Toilet tmpHuussi = huus.getToilet();
             Menu tmpMenu = huus.getMenu();
             BackButton tmpBackButton = huus.getBackButton();
@@ -119,8 +126,7 @@ public class CityScreen implements Screen {
             tmpMenu.setHappened(false);
             tmpBackButton.setHappened(false);
         }
-
-        objectMain.resetStage();
+        objectMain.getUIStage().clear();
     }
 
     @Override

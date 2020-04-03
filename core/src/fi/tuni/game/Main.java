@@ -15,14 +15,14 @@ public class Main extends Game {
     private final float WINDOW_HEIGHT = 6.4f;
 
     SpriteBatch batch;
-    private boolean inCity = true;
+    private boolean inCity = false;
 
     public SpriteBatch getBatch() {
         return batch;
     }
 
-    private FieldScreen field;
-    private CityScreen city;
+    private FieldScreen fieldScreen;
+    private CityScreen cityScreen;
 
     private FreeTypeFontGenerator generator;
     private BitmapFont font;
@@ -39,14 +39,13 @@ public class Main extends Game {
     @Override
     public void create () {
         batch = new SpriteBatch();
-        city = new CityScreen(this);
-        field = new FieldScreen(this);
-        setScreen(city);
+        cityScreen = new CityScreen(this);
+        fieldScreen = new FieldScreen(this);
+        setScreen(fieldScreen);
         createFont(60);
 
         uiStage = new Stage(new FitViewport(width, height));
         sceneSwitch = new Clickable();
-        uiStage.addActor(sceneSwitch);
 
         fetchValues();
 
@@ -100,25 +99,20 @@ public class Main extends Game {
     public void switchScene() {
         if (Gdx.input.justTouched() && inCity == false) {
             inCity = true;
-            setScreen(city);
-            resetStage();
+            setScreen(cityScreen);
+            uiStage.clear();
         } else if (Gdx.input.justTouched() && inCity == true) {
             inCity = false;
-            setScreen(field);
-            resetStage();
+            setScreen(fieldScreen);
+            uiStage.clear();
         }
-    }
-
-    public void resetStage() {
-        uiStage.clear();
-        uiStage.addActor(sceneSwitch);
     }
 
     @Override
     public void dispose () {
         batch.dispose();
-        field.dispose();
-        city.dispose();
+        fieldScreen.dispose();
+        cityScreen.dispose();
         font.dispose();
         generator.dispose();
         uiStage.dispose();
