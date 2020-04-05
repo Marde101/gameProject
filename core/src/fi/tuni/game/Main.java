@@ -21,6 +21,7 @@ public class Main extends Game {
         return batch;
     }
 
+    private StartScreen startScreen;
     private FieldScreen fieldScreen;
     private CityScreen cityScreen;
 
@@ -41,7 +42,8 @@ public class Main extends Game {
         batch = new SpriteBatch();
         cityScreen = new CityScreen(this);
         fieldScreen = new FieldScreen(this);
-        setScreen(fieldScreen);
+        startScreen = new StartScreen(this);
+        setScreen(startScreen);
         createFont(60);
 
         uiStage = new Stage(new FitViewport(width, height));
@@ -49,8 +51,6 @@ public class Main extends Game {
 
         fetchValues();
 
-        // work in progress
-        //Localization test = new Localization();
     }
 
     private void fetchValues() {
@@ -105,6 +105,8 @@ public class Main extends Game {
             inCity = false;
             setScreen(fieldScreen);
             uiStage.clear();
+        } else {
+            setScreen(cityScreen);
         }
     }
 
