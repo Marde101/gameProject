@@ -13,8 +13,8 @@ public class Field extends Clickable  {
 
     public Field(float x, float y) {
         texture = new Texture(Gdx.files.internal("textureField.png"));
-        setWidth(15f);
-        setHeight(15f);
+        setWidth(4.266f);
+        setHeight(3.2f);
         float posX = x;
         float posY = y;
         setBounds(posX, posY, getWidth(), getHeight());

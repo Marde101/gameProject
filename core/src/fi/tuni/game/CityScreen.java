@@ -77,24 +77,37 @@ public class CityScreen implements Screen {
         cityTiledMapRenderer.setView(camera);
         cityTiledMapRenderer.render();
 
-        //cash
+        //fontCamera
         batch.setProjectionMatrix(fontCamera.combined);
-        batch.begin();
-        objectMain.getFont().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
-        batch.draw(cashBackground, 740, 555);
-        batch.end();
 
         //stage
         objectMain.getUIStage().act(Gdx.graphics.getDeltaTime());
         objectMain.getUIStage().draw();
 
+        drawToilets();
+
+        //ui
+        batch.begin();
+        objectMain.getFont().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
+        batch.draw(cashBackground, 740, 555);
+        batch.end();
+        objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
+        //sceneswitch function
+        Gdx.input.setInputProcessor(objectMain.getUIStage());
+        if (objectMain.getSceneSwitch().getHappened()) {
+            closeMenu();
+            objectMain.switchScene();
+            objectMain.getSceneSwitch().setHappened(false);
+        }
+    }
+
+    private void drawToilets() {
         //add actors
         for(Toilets huus: allToilets) {
             Toilet tmpHuussi = huus.getToilet();
             Menu tmpMenu = huus.getMenu();
             BackButton tmpBackButton = huus.getBackButton();
             objectMain.getUIStage().addActor(huus.getToilet());
-            objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
 
             //toilet menu
             if (tmpHuussi.getHappened()) {
@@ -105,14 +118,6 @@ public class CityScreen implements Screen {
                     closeMenu();
                 }
             }
-        }
-
-        //sceneswitch function
-        Gdx.input.setInputProcessor(objectMain.getUIStage());
-        if (objectMain.getSceneSwitch().getHappened()) {
-            closeMenu();
-            objectMain.switchScene();
-            objectMain.getSceneSwitch().setHappened(false);
         }
     }
 
@@ -127,6 +132,7 @@ public class CityScreen implements Screen {
             tmpBackButton.setHappened(false);
         }
         objectMain.getUIStage().clear();
+        drawToilets();
     }
 
     @Override

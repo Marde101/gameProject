@@ -52,13 +52,12 @@ public class FieldScreen implements Screen {
     }
 
     private void generateFields() {
-        /*generateField(2.86f,1f);
-        generateField(2.22f,3.88f);
-        generateField(9.58f,3.88f);
-        generateField(10.55f,0.36f);
-        generateField(5.75f,2.6f);
-        generateField(7.98f,2.28f);*/
-        generateField(1f,1f);
+        generateField(0f,0f);
+        generateField(0f,3.2f);
+        generateField(4.266f,0f);
+        generateField(4.266f,3.2f);
+        generateField(8.532f,0f);
+        generateField(8.532f,3.2f);
     }
 
     private void generateField(float posX, float posY) {
@@ -76,24 +75,38 @@ public class FieldScreen implements Screen {
         fieldtiledMapRenderer.setView(camera);
         fieldtiledMapRenderer.render();
 
-        //cash
+        //fontCamera
         batch.setProjectionMatrix(fontCamera.combined);
-        batch.begin();
-        objectMain.getFont().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
-        batch.draw(balanceBackground, 740, 555);
-        batch.end();
 
         //stage
         objectMain.getUIStage().act(Gdx.graphics.getDeltaTime());
         objectMain.getUIStage().draw();
 
+        drawFields();
+
+        //ui
+        batch.begin();
+        objectMain.getFont().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
+        batch.draw(balanceBackground, 740, 555);
+        batch.end();
+        objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
+
+        //sceneswitch function
+        Gdx.input.setInputProcessor(objectMain.getUIStage());
+        if (objectMain.getSceneSwitch().getHappened()) {
+            closeMenu();
+            objectMain.switchScene();
+            objectMain.getSceneSwitch().setHappened(false);
+        }
+    }
+
+    private void drawFields() {
         //add actors
         for(Fields fied: allFields) {
             Field tmpField = fied.getField();
             Menu tmpMenu = fied.getMenu();
             BackButton tmpBackButton = fied.getBackButton();
             objectMain.getUIStage().addActor(fied.getField());
-            objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
 
             //field menu
             if (tmpField.getHappened()) {
@@ -104,14 +117,6 @@ public class FieldScreen implements Screen {
                     closeMenu();
                 }
             }
-        }
-
-        //sceneswitch function
-        Gdx.input.setInputProcessor(objectMain.getUIStage());
-        if (objectMain.getSceneSwitch().getHappened()) {
-            closeMenu();
-            objectMain.switchScene();
-            objectMain.getSceneSwitch().setHappened(false);
         }
     }
 
@@ -126,6 +131,7 @@ public class FieldScreen implements Screen {
             tmpBackButton.setHappened(false);
         }
         objectMain.getUIStage().clear();
+        drawFields();
     }
 
     @Override
