@@ -11,12 +11,12 @@ public class ButtonBackground extends Clickable {
     private Texture texture;
     private boolean happened = false;
 
-    public ButtonBackground() {
+    public ButtonBackground(float y) {
         texture = new Texture(Gdx.files.internal("menuButtonPlain.png"));
-        setWidth(2f);
+        setWidth(3f);
         setHeight(1f);
         float posX = (12.8f-getWidth()) / 2;
-        float posY = (6.4f-getHeight()) / 2;
+        float posY = y;
         setBounds(posX,posY-2.2f, getWidth(), getHeight());
         addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

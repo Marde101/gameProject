@@ -105,8 +105,6 @@ public class Main extends Game {
             inCity = false;
             setScreen(fieldScreen);
             uiStage.clear();
-        } else {
-            setScreen(cityScreen);
         }
     }
 
