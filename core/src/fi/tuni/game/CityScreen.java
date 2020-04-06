@@ -52,18 +52,18 @@ public class CityScreen implements Screen {
     }
 
     private void generateToilets() {
-        generateToilet(2.86f,1f);
-        generateToilet(2.22f,3.88f);
-        generateToilet(9.58f,3.88f);
-        generateToilet(10.55f,0.36f);
-        generateToilet(5.75f,2.6f);
-        generateToilet(7.98f,2.28f);
-        generateToilet(10.87f,4.53f);
+        generateToilet(2.86f,1f, "Toilet_1");
+        generateToilet(2.22f,3.88f, "Toilet_2");
+        generateToilet(9.58f,3.88f, "Toilet_3");
+        generateToilet(10.55f,0.36f, "Toilet_4");
+        generateToilet(5.75f,2.6f, "Toilet_5");
+        generateToilet(7.98f,2.28f, "Toilet_6");
+        generateToilet(10.87f,4.53f, "Toilet_7");
     }
 
-    private void generateToilet(float posX, float posY) {
+    private void generateToilet(float posX, float posY, String key) {
         toilet = new Toilet(posX, posY);
-        toilets = new Toilets(toilet);
+        toilets = new Toilets(toilet, key);
         allToilets.add(toilets);
     }
 
@@ -84,11 +84,9 @@ public class CityScreen implements Screen {
         objectMain.getUIStage().act(Gdx.graphics.getDeltaTime());
         objectMain.getUIStage().draw();
 
-        drawToilets();
-
-        //ui
         batch.begin();
-        objectMain.getFont().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
+        drawToilets();
+        objectMain.getFontBig().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
         batch.draw(cashBackground, 740, 555);
         batch.end();
         objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
@@ -107,12 +105,32 @@ public class CityScreen implements Screen {
             Toilet tmpHuussi = huus.getToilet();
             Menu tmpMenu = huus.getMenu();
             BackButton tmpBackButton = huus.getBackButton();
+            ButtonBackground tmpContract = huus.getContractButton();
+            ButtonBackground tmpContract2 = huus.getContractButton2();
+            ButtonBackground tmpUpgrade = huus.getUpgradeButton();
             objectMain.getUIStage().addActor(huus.getToilet());
 
             //toilet menu
             if (tmpHuussi.getHappened()) {
                 objectMain.getUIStage().addActor(tmpMenu);
                 objectMain.getUIStage().addActor(tmpBackButton);
+
+                objectMain.getUIStage().addActor(tmpContract);
+                objectMain.getFontSmall().draw(batch, "Virtsa", 810, 425);
+                objectMain.getUIStage().addActor(tmpContract2);
+                objectMain.getFontSmall().draw(batch, "Uloste", 810, 325);
+
+                if (huus.getTier() < 4) {
+                    objectMain.getUIStage().addActor(tmpUpgrade);
+                    objectMain.getFontSmall().draw(batch, huus.getPrice(), 855, 225);
+                }
+
+                if (tmpUpgrade.getHappened()) {
+                    objectMain.getBalanceCash().removeValue(100);
+                    huus.upgrade();
+
+                    closeMenu();
+                }
 
                 if (tmpBackButton.getHappened()) {
                     closeMenu();
@@ -126,10 +144,16 @@ public class CityScreen implements Screen {
             Toilet tmpHuussi = huus.getToilet();
             Menu tmpMenu = huus.getMenu();
             BackButton tmpBackButton = huus.getBackButton();
+            ButtonBackground tmpContract = huus.getContractButton();
+            ButtonBackground tmpContract2 = huus.getContractButton2();
+            ButtonBackground tmpUpgrade = huus.getUpgradeButton();
 
             tmpHuussi.setHappened(false);
             tmpMenu.setHappened(false);
             tmpBackButton.setHappened(false);
+            tmpContract.setHappened(false);
+            tmpContract2.setHappened(false);
+            tmpUpgrade.setHappened(false);
         }
         objectMain.getUIStage().clear();
         drawToilets();

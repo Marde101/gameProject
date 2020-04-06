@@ -10,4 +10,10 @@ public class MemoryReader {
         int value = prefs.getInteger(x.getKey());
         x.setValue(value);
     }
+
+    static public void readToilet(Toilets x) {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
+        int value = prefs.getInteger(x.getKey());
+        x.setTier(value);
+    }
 }

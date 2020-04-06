@@ -26,7 +26,8 @@ public class Main extends Game {
     private CityScreen cityScreen;
 
     private FreeTypeFontGenerator generator;
-    private BitmapFont font;
+    private BitmapFont fontBig;
+    private BitmapFont fontSmall;
 
     private Stage uiStage;
     private float width = WINDOW_WIDTH;
@@ -44,8 +45,8 @@ public class Main extends Game {
         fieldScreen = new FieldScreen(this);
         startScreen = new StartScreen(this);
         setScreen(startScreen);
-        createFont(60);
-
+        fontBig = createFont(60);
+        fontSmall = createFont(40);
         uiStage = new Stage(new FitViewport(width, height));
         sceneSwitch = new Clickable();
 
@@ -69,17 +70,20 @@ public class Main extends Game {
         return poo;
     }
 
-    private void createFont(int size) {
+    private BitmapFont createFont(int size) {
         generator = new FreeTypeFontGenerator(Gdx.files.internal("font2.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = size;
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 3;
-        font = generator.generateFont(parameter);
+        return generator.generateFont(parameter);
     }
 
-    public BitmapFont getFont() {
-        return font;
+    public BitmapFont getFontBig() {
+        return fontBig;
+    }
+    public BitmapFont getFontSmall() {
+        return fontSmall;
     }
 
     public Stage getUIStage() {
@@ -113,7 +117,8 @@ public class Main extends Game {
         batch.dispose();
         fieldScreen.dispose();
         cityScreen.dispose();
-        font.dispose();
+        fontBig.dispose();
+        fontSmall.dispose();
         generator.dispose();
         uiStage.dispose();
     }

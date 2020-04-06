@@ -13,7 +13,6 @@ public class Toilet extends Clickable {
     private boolean happened = false;
 
     public Toilet(float x, float y) {
-        texture = new Texture(Gdx.files.internal("sinihus.png"));
         setWidth(0.67f);
         setHeight(0.95f);
         float posX = x;
@@ -27,6 +26,10 @@ public class Toilet extends Clickable {
                 return true;
             }
         });
+    }
+
+    public void setToiletTexture(Texture t) {
+        texture = t;
     }
 
     @Override

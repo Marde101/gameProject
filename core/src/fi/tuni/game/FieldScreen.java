@@ -5,10 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import java.util.ArrayList;
 
@@ -20,8 +16,6 @@ public class FieldScreen implements Screen {
     private Main objectMain;
     private OrthographicCamera camera;
     private OrthographicCamera fontCamera;
-    private TiledMap fieldtiledMap;
-    private TiledMapRenderer fieldtiledMapRenderer;
 
     private Texture balanceBackground;
 
@@ -37,13 +31,6 @@ public class FieldScreen implements Screen {
         fontCamera.setToOrtho(false,
                     WINDOW_WIDTH*100,
                     WINDOW_HEIGHT*100);
-        //Camera for tiledmap
-        camera.setToOrtho(false,
-                                WINDOW_WIDTH,
-                                WINDOW_HEIGHT);
-        fieldtiledMap = new TmxMapLoader().load("prototiled.tmx");
-        fieldtiledMapRenderer = new OrthogonalTiledMapRenderer(fieldtiledMap,
-                        1 / 100f);
 
         balanceBackground = new Texture("coin.png");
         allFields = new ArrayList<>();
@@ -72,8 +59,6 @@ public class FieldScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        fieldtiledMapRenderer.setView(camera);
-        fieldtiledMapRenderer.render();
 
         //fontCamera
         batch.setProjectionMatrix(fontCamera.combined);
@@ -86,7 +71,7 @@ public class FieldScreen implements Screen {
 
         //ui
         batch.begin();
-        objectMain.getFont().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
+        objectMain.getFontBig().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
         batch.draw(balanceBackground, 740, 555);
         batch.end();
         objectMain.getUIStage().addActor(objectMain.getSceneSwitch());

@@ -11,4 +11,10 @@ public class MemoryWriter {
         prefs.putInteger(key, value);
         prefs.flush();
     }
+
+    static public void writeToilet(String key, int tier) {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
+        prefs.putInteger(key, tier);
+        prefs.flush();
+    }
 }

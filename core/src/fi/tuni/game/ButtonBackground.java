@@ -11,11 +11,28 @@ public class ButtonBackground extends Clickable {
     private Texture texture;
     private boolean happened = false;
 
-    public ButtonBackground(float y) {
+    public ButtonBackground(float x, float y) {
         texture = new Texture(Gdx.files.internal("menuButtonPlain.png"));
         setWidth(3f);
         setHeight(1f);
-        float posX = (12.8f-getWidth()) / 2;
+        float posX = x;
+        float posY = y;
+        setBounds(posX,posY-2.2f, getWidth(), getHeight());
+        addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                happened = true;
+                ParallelAction parallel = new ParallelAction();
+                ButtonBackground.this.addAction(parallel);
+                return true;
+            }
+        });
+    }
+
+    public ButtonBackground(float x, float y, Texture t) {
+        texture = t;
+        setWidth(1.8f);
+        setHeight(0.64f);
+        float posX = x;
         float posY = y;
         setBounds(posX,posY-2.2f, getWidth(), getHeight());
         addListener(new InputListener() {

@@ -25,8 +25,8 @@ public class StartScreen implements Screen {
                 WINDOW_WIDTH*100,
                 WINDOW_HEIGHT*100);
         background = new Texture(Gdx.files.internal("menuBG.png"));
-        startButton = new ButtonBackground(5.6f);
-        setButton = new ButtonBackground(4.3f);
+        startButton = new ButtonBackground((12.8f-3) / 2, 5.6f);
+        setButton = new ButtonBackground((12.8f-3) / 2, 4.3f);
     }
 
     @Override
@@ -54,8 +54,8 @@ public class StartScreen implements Screen {
         }
         //texts
         batch.begin();
-        objectMain.getFont().draw(batch, "Start", WINDOW_WIDTH*100/2-60, 410);
-        objectMain.getFont().draw(batch, "Settings", WINDOW_WIDTH*100/2-95, 280);
+        objectMain.getFontBig().draw(batch, "Start", WINDOW_WIDTH*100/2-60, 410);
+        objectMain.getFontBig().draw(batch, "Settings", WINDOW_WIDTH*100/2-95, 280);
         batch.end();
     }
 
