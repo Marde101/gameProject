@@ -2,6 +2,7 @@ package fi.tuni.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.utils.TimeUtils;
 
 
 public class MemoryWriter {
@@ -17,4 +18,11 @@ public class MemoryWriter {
         prefs.putInteger(key, tier);
         prefs.flush();
     }
+
+    static public void writeCurrentTimestamp() {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
+        prefs.putLong("SavedTimestamp", TimeUtils.millis());
+        prefs.flush();
+    }
+
 }

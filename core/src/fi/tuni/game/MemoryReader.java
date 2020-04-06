@@ -17,4 +17,15 @@ public class MemoryReader {
         x.setTier(tier);
     }
 
+    static public void readField(Fields x) {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
+        //int tier = prefs.getInteger(x.getKey());
+        //x.setTier(tier);
+    }
+
+    static public long readSavedTimestamp() {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
+        long time = prefs.getLong("SavedTimestamp");
+        return time;
+    }
 }

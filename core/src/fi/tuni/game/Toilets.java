@@ -33,7 +33,6 @@ public class Toilets {
         contract = new ButtonBackground(7.3f,6f, contractTe);
         contract2 = new ButtonBackground(7.3f,5f, contractTe);
         upgrade = new ButtonBackground(7.3f,4f, upgradeTe);
-        resetTiers();
         getTier();
 
         toilet.setToiletTexture(setTextureByTier());

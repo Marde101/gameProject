@@ -51,7 +51,7 @@ public class Main extends Game {
         sceneSwitch = new Clickable();
 
         fetchValues();
-
+        MemoryWriter.writeCurrentTimestamp();
     }
 
     private void fetchValues() {
