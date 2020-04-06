@@ -13,7 +13,8 @@ public class MemoryReader {
 
     static public void readToilet(Toilets x) {
         Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
-        int value = prefs.getInteger(x.getKey());
-        x.setTier(value);
+        int tier = prefs.getInteger(x.getKey());
+        x.setTier(tier);
     }
+
 }

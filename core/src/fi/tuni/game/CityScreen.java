@@ -114,20 +114,21 @@ public class CityScreen implements Screen {
             if (tmpHuussi.getHappened()) {
                 objectMain.getUIStage().addActor(tmpMenu);
                 objectMain.getUIStage().addActor(tmpBackButton);
-
-                objectMain.getUIStage().addActor(tmpContract);
-                objectMain.getFontSmall().draw(batch, "Virtsa", 810, 425);
-                objectMain.getUIStage().addActor(tmpContract2);
-                objectMain.getFontSmall().draw(batch, "Uloste", 810, 325);
+                if (huus.getTier() > 0) {
+                    objectMain.getUIStage().addActor(tmpContract);
+                    objectMain.getFontSmall().draw(batch, "Virtsa", 810, 425);
+                    objectMain.getUIStage().addActor(tmpContract2);
+                    objectMain.getFontSmall().draw(batch, "Uloste", 810, 325);
+                }
 
                 if (huus.getTier() < 4) {
                     objectMain.getUIStage().addActor(tmpUpgrade);
-                    objectMain.getFontSmall().draw(batch, huus.getPriceString(), 855, 225);
+                    objectMain.getFontSmall().draw(batch, huus.getPrice(), 855, 225);
                 }
 
                 if (tmpUpgrade.getHappened()) {
-                    if (objectMain.getBalanceCash().getValue() > huus.getPriceInt()) {
-                        objectMain.getBalanceCash().removeValue(huus.getPriceInt());
+                    if (objectMain.getBalanceCash().getValue() > Integer.parseInt(huus.getPrice())) {
+                        objectMain.getBalanceCash().removeValue(Integer.parseInt(huus.getPrice()));
                         huus.upgrade();
                         closeMenu();
                     }
