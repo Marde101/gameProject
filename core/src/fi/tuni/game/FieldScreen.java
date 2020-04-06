@@ -67,10 +67,8 @@ public class FieldScreen implements Screen {
         objectMain.getUIStage().act(Gdx.graphics.getDeltaTime());
         objectMain.getUIStage().draw();
 
-        drawFields();
-
-        //ui
         batch.begin();
+        drawFields();
         objectMain.getFontBig().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
         batch.draw(balanceBackground, 740, 555);
         batch.end();
@@ -91,13 +89,23 @@ public class FieldScreen implements Screen {
             Field tmpField = fied.getField();
             Menu tmpMenu = fied.getMenu();
             BackButton tmpBackButton = fied.getBackButton();
+            ButtonBackground tmpContract = fied.getContractButton();
+            ButtonBackground tmpContract2 = fied.getContractButton2();
+            ButtonBackground tmpUpgrade = fied.getContractButton3();
+
             objectMain.getUIStage().addActor(fied.getField());
+
 
             //field menu
             if (tmpField.getHappened()) {
                 objectMain.getUIStage().addActor(tmpMenu);
                 objectMain.getUIStage().addActor(tmpBackButton);
-
+                objectMain.getUIStage().addActor(tmpContract);
+                objectMain.getFontSmall().draw(batch, "Mansikka", 740, 440);
+                objectMain.getUIStage().addActor(tmpContract2);
+                objectMain.getFontSmall().draw(batch, "Porkkana", 740, 340);
+                objectMain.getUIStage().addActor(tmpUpgrade);
+                objectMain.getFontSmall().draw(batch, "Peruna", 740, 240);
                 if (tmpBackButton.getHappened()) {
                     closeMenu();
                 }

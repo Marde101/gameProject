@@ -30,9 +30,9 @@ public class Toilets {
         key = k;
         menu = new Menu();
         backButton = new BackButton();
-        contract = new ButtonBackground(8f,6f, contractTe);
-        contract2 = new ButtonBackground(8f,5f, contractTe);
-        upgrade = new ButtonBackground(8f,4f, upgradeTe);
+        contract = new ButtonBackground(7.3f,6f, contractTe);
+        contract2 = new ButtonBackground(7.3f,5f, contractTe);
+        upgrade = new ButtonBackground(7.3f,4f, upgradeTe);
         resetTiers();
         getTier();
 

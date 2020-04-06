@@ -46,7 +46,7 @@ public class Main extends Game {
         startScreen = new StartScreen(this);
         setScreen(startScreen);
         fontBig = createFont(60);
-        fontSmall = createFont(40);
+        fontSmall = createFont(35);
         uiStage = new Stage(new FitViewport(width, height));
         sceneSwitch = new Clickable();
 

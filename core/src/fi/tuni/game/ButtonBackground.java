@@ -30,8 +30,8 @@ public class ButtonBackground extends Clickable {
 
     public ButtonBackground(float x, float y, Texture t) {
         texture = t;
-        setWidth(1.8f);
-        setHeight(0.64f);
+        setWidth(2.7f);
+        setHeight(0.96f);
         float posX = x;
         float posY = y;
         setBounds(posX,posY-2.2f, getWidth(), getHeight());

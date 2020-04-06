@@ -116,14 +116,14 @@ public class CityScreen implements Screen {
                 objectMain.getUIStage().addActor(tmpBackButton);
                 if (huus.getTier() > 0) {
                     objectMain.getUIStage().addActor(tmpContract);
-                    objectMain.getFontSmall().draw(batch, "Virtsa", 810, 425);
+                    objectMain.getFontSmall().draw(batch, "Virtsa", 740, 440);
                     objectMain.getUIStage().addActor(tmpContract2);
-                    objectMain.getFontSmall().draw(batch, "Uloste", 810, 325);
+                    objectMain.getFontSmall().draw(batch, "Uloste", 740, 340);
                 }
 
                 if (huus.getTier() < 4) {
                     objectMain.getUIStage().addActor(tmpUpgrade);
-                    objectMain.getFontSmall().draw(batch, huus.getPrice(), 855, 225);
+                    objectMain.getFontSmall().draw(batch, huus.getPrice(), 810, 240);
                 }
 
                 if (tmpUpgrade.getHappened()) {
