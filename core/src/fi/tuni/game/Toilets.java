@@ -81,7 +81,7 @@ public class Toilets {
         tier = x;
     }
 
-    public String getPrice() {
+    public String getPriceString() {
         if (tier==0) {
             return price0;
         } else if (tier==1) {
@@ -95,6 +95,21 @@ public class Toilets {
         }
     }
 
+    public int getPriceInt() {
+        int i = 0;
+        if (tier==0) {
+            return i = Integer.parseInt(price0);
+        } else if (tier==1) {
+            return i = Integer.parseInt(price1);
+        } else if (tier==2) {
+            return i = Integer.parseInt(price2);
+        } else if (tier==3){
+            return i = Integer.parseInt(price3);
+        } else {
+            return 0;
+        }
+    }
+
     private Texture setTexturebyTier() {
         if (tier==0) {
             return tier0;
@@ -105,7 +120,7 @@ public class Toilets {
         } else if (tier==3){
             return tier3;
         } else {
-            return tier0;
+            return tier3;
         }
     }
 
