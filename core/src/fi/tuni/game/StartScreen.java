@@ -24,7 +24,7 @@ public class StartScreen implements Screen {
         camera.setToOrtho(false,
                 WINDOW_WIDTH*100,
                 WINDOW_HEIGHT*100);
-        background = new Texture(Gdx.files.internal("menuBG.png"));
+        background = new Texture(Gdx.files.internal("menuBg.png"));
         startButton = new ButtonBackground((12.8f-3) / 2, 5.6f);
         setButton = new ButtonBackground((12.8f-3) / 2, 4.3f);
     }
