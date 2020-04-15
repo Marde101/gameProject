@@ -19,9 +19,16 @@ public class MemoryWriter {
         prefs.flush();
     }
 
+    static public void writeToiletTime(String key, long saved) {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
+        prefs.putLong(key, saved);
+        prefs.flush();
+    }
+
+
     static public void writeCurrentTimestamp() {
         Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
-        prefs.putLong("SavedTimestamp", TimeUtils.millis());
+        prefs.putLong("CurrentTimestamp", TimeUtils.millis());
         prefs.flush();
     }
 

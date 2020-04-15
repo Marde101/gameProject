@@ -14,6 +14,7 @@ public class Toilets {
     private ButtonBackground upgrade;
     private int tier;
     private String key;
+    private String keyS;
     private Texture contractTe = new Texture(Gdx.files.internal("plainButton.png"));
     private Texture upgradeTe = new Texture(Gdx.files.internal("euroNappi.png"));
     private String price0 = "1000";
@@ -25,9 +26,15 @@ public class Toilets {
     private Texture tier2 = new Texture(Gdx.files.internal("sinihuus.png"));
     private Texture tier3 = new Texture(Gdx.files.internal("huussi.png"));
 
+    private long example = 15000;
+    private boolean state;
+    private long startedTime;
+
+
     public Toilets(Toilet x, String k) {
         toilet = x;
         key = k;
+        keyS = k+"_S";
         menu = new Menu();
         backButton = new BackButton();
         contract = new ButtonBackground(7.3f,6f, contractTe);
@@ -36,6 +43,22 @@ public class Toilets {
         getTier();
 
         toilet.setToiletTexture(setTextureByTier());
+    }
+
+    public void startProduction() {
+        startedTime = example + MemoryReader.readCurrentTimestamp();
+        state = true;
+        MemoryWriter.writeToiletTime(keyS, startedTime);
+    }
+
+    public void checkProduction() {
+        if (startedTime < MemoryReader.readCurrentTimestamp()) {
+            state = false;
+        }
+    }
+
+    public boolean getState() {
+        return state;
     }
 
     public int getTier() {

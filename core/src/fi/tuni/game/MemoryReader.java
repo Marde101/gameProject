@@ -23,9 +23,9 @@ public class MemoryReader {
         //x.setTier(tier);
     }
 
-    static public long readSavedTimestamp() {
+    static public long readCurrentTimestamp() {
         Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
-        long time = prefs.getLong("SavedTimestamp");
+        long time = prefs.getLong("CurrentTimestamp");
         return time;
     }
 }

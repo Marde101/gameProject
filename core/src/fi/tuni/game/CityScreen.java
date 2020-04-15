@@ -74,6 +74,7 @@ public class CityScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        MemoryWriter.writeCurrentTimestamp();
         cityTiledMapRenderer.setView(camera);
         cityTiledMapRenderer.render();
 
@@ -126,6 +127,11 @@ public class CityScreen implements Screen {
                     objectMain.getFontSmall().draw(batch, huus.getPrice(), 810, 240);
                 }
 
+                if (tmpContract.getHappened()) {
+                    huus.startProduction();
+                    closeMenu();
+                }
+
                 if (tmpUpgrade.getHappened()) {
                     if (objectMain.getBalanceCash().getValue() > Integer.parseInt(huus.getPrice())) {
                         objectMain.getBalanceCash().removeValue(Integer.parseInt(huus.getPrice()));
@@ -137,6 +143,12 @@ public class CityScreen implements Screen {
                 if (tmpBackButton.getHappened()) {
                     closeMenu();
                 }
+            }
+
+            //production check
+            huus.checkProduction();
+            if (!huus.getState()) {
+                tmpHuussi.bounce();
             }
         }
     }

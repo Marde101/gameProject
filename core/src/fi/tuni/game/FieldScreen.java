@@ -16,12 +16,14 @@ public class FieldScreen implements Screen {
     private Main objectMain;
     private OrthographicCamera camera;
     private OrthographicCamera fontCamera;
-
+    private Texture fence;
     private Texture balanceBackground;
 
     private ArrayList<Fields> allFields;
     private Field field;
     private Fields fields;
+    private boolean fenced = false;
+
 
     public FieldScreen(Main x) {
         batch = x.getBatch();
@@ -33,6 +35,7 @@ public class FieldScreen implements Screen {
                     WINDOW_HEIGHT*100);
 
         balanceBackground = new Texture("coin.png");
+        fence = new Texture("fence.png");
         allFields = new ArrayList<>();
         generateFields();
 
@@ -69,6 +72,9 @@ public class FieldScreen implements Screen {
 
         batch.begin();
         drawFields();
+        if (!fenced) {
+            batch.draw(fence, 0,0);
+        }
         objectMain.getFontBig().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
         batch.draw(balanceBackground, 740, 555);
         batch.end();
@@ -98,6 +104,9 @@ public class FieldScreen implements Screen {
 
             //field menu
             if (tmpField.getHappened()) {
+                if (!fenced) {
+                    fenced = true;
+                }
                 objectMain.getUIStage().addActor(tmpMenu);
                 objectMain.getUIStage().addActor(tmpBackButton);
                 objectMain.getUIStage().addActor(tmpContract);
@@ -123,6 +132,7 @@ public class FieldScreen implements Screen {
             tmpMenu.setHappened(false);
             tmpBackButton.setHappened(false);
         }
+        fenced = false;
         objectMain.getUIStage().clear();
         drawFields();
     }
