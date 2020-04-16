@@ -25,13 +25,12 @@ public class Toilet extends Clickable {
         addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 happened = true;
-                ParallelAction parallel = new ParallelAction();
-                Toilet.this.addAction(parallel);
                 return true;
             }
         });
     }
 
+    //fix this
     public void bounce() {
         float width = standardWidth + counter/100;
         float height = standardHeight + counter/100;

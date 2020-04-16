@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public class CityScreen implements Screen {
 
-
     private final float WINDOW_WIDTH = 12.8f;
     private final float WINDOW_HEIGHT = 6.4f;
     private SpriteBatch batch;
@@ -148,7 +147,7 @@ public class CityScreen implements Screen {
             //production check
             huus.checkProduction();
             if (!huus.getState()) {
-                tmpHuussi.bounce();
+                //tmpHuussi.bounce();
             }
         }
     }

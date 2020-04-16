@@ -21,8 +21,6 @@ public class ButtonBackground extends Clickable {
         addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 happened = true;
-                ParallelAction parallel = new ParallelAction();
-                ButtonBackground.this.addAction(parallel);
                 return true;
             }
         });
