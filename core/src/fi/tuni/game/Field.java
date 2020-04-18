@@ -12,7 +12,6 @@ public class Field extends Clickable  {
     private boolean happened = false;
 
     public Field(float x, float y) {
-        texture = new Texture(Gdx.files.internal("textureField.png"));
         setWidth(4.266f);
         setHeight(3.2f);
         float posX = x;
@@ -24,6 +23,10 @@ public class Field extends Clickable  {
                 return true;
             }
         });
+    }
+
+    public void setFieldTexture(Texture t) {
+        texture = t;
     }
 
     @Override

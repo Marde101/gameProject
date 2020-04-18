@@ -22,7 +22,8 @@ public class FieldScreen implements Screen {
     private ArrayList<Fields> allFields;
     private Field field;
     private Fields fields;
-    private boolean fenced = false;
+
+    private boolean menuOpen = false;
 
 
     public FieldScreen(Main x) {
@@ -42,17 +43,17 @@ public class FieldScreen implements Screen {
     }
 
     private void generateFields() {
-        generateField(0f,0f);
-        generateField(0f,3.2f);
-        generateField(4.266f,0f);
-        generateField(4.266f,3.2f);
-        generateField(8.532f,0f);
-        generateField(8.532f,3.2f);
+        generateField(0f,0f, "Field_1");
+        generateField(0f,3.2f, "Field_2");
+        generateField(4.266f,0f, "Field_3");
+        generateField(4.266f,3.2f, "Field_4");
+        generateField(8.532f,0f, "Field_5");
+        generateField(8.532f,3.2f, "Field_6");
     }
 
-    private void generateField(float posX, float posY) {
+    private void generateField(float posX, float posY, String key) {
         field = new Field(posX, posY);
-        fields = new Fields(field);
+        fields = new Fields(field, key);
         allFields.add(fields);
     }
 
@@ -72,7 +73,7 @@ public class FieldScreen implements Screen {
 
         batch.begin();
         drawFields();
-        if (!fenced) {
+        if (!menuOpen) {
             batch.draw(fence, 0,0);
         }
         objectMain.getFontBig().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
@@ -91,50 +92,74 @@ public class FieldScreen implements Screen {
 
     private void drawFields() {
         //add actors
-        for(Fields fied: allFields) {
-            Field tmpField = fied.getField();
-            Menu tmpMenu = fied.getMenu();
-            BackButton tmpBackButton = fied.getBackButton();
-            ButtonBackground tmpContract = fied.getContractButton();
-            ButtonBackground tmpContract2 = fied.getContractButton2();
-            ButtonBackground tmpUpgrade = fied.getContractButton3();
+        for(Fields tmpFields: allFields) {
+            Field tmpField = tmpFields.getField();
+            Menu tmpMenu = tmpFields.getMenu();
+            BackButton tmpBackButton = tmpFields.getBackButton();
+            ButtonBackground tmpContract = tmpFields.getContractButton();
+            ButtonBackground tmpContract2 = tmpFields.getContractButton2();
+            ButtonBackground tmpContract3 = tmpFields.getContractButton3();
 
-            objectMain.getUIStage().addActor(fied.getField());
+            objectMain.getUIStage().addActor(tmpFields.getField());
 
 
             //field menu
             if (tmpField.getHappened()) {
-                if (!fenced) {
-                    fenced = true;
+                menuOpen = true;
+                if (!tmpFields.getState()) {
+                    objectMain.getUIStage().addActor(tmpMenu);
+                    objectMain.getUIStage().addActor(tmpBackButton);
+                    objectMain.getUIStage().addActor(tmpContract);
+                    objectMain.getFontSmall().draw(batch, "Vilja", 740, 440);
+                    objectMain.getUIStage().addActor(tmpContract2);
+                    objectMain.getFontSmall().draw(batch, "Kaali", 740, 340);
+                    objectMain.getUIStage().addActor(tmpContract3);
+                    objectMain.getFontSmall().draw(batch, "Sipuli", 740, 240);
+                } else {
+                    objectMain.getUIStage().addActor(tmpMenu);
+                    objectMain.getUIStage().addActor(tmpBackButton);
                 }
-                objectMain.getUIStage().addActor(tmpMenu);
-                objectMain.getUIStage().addActor(tmpBackButton);
-                objectMain.getUIStage().addActor(tmpContract);
-                objectMain.getFontSmall().draw(batch, "Mansikka", 740, 440);
-                objectMain.getUIStage().addActor(tmpContract2);
-                objectMain.getFontSmall().draw(batch, "Porkkana", 740, 340);
-                objectMain.getUIStage().addActor(tmpUpgrade);
-                objectMain.getFontSmall().draw(batch, "Peruna", 740, 240);
+
+                if (tmpContract.getHappened()) {
+                    tmpFields.startProduction(0);
+                    closeMenu();
+                } else if (tmpContract2.getHappened()) {
+                    tmpFields.startProduction(1);
+                    closeMenu();
+                } else if (tmpContract3.getHappened()) {
+                    tmpFields.startProduction(2);
+                    closeMenu();
+                }
+
                 if (tmpBackButton.getHappened()) {
                     closeMenu();
                 }
+            }
+
+            if (tmpFields.getState()) {
+                tmpFields.checkProduction(objectMain.getBalanceCash());
             }
         }
     }
 
     private void closeMenu() {
-        for(Fields fied: allFields) {
-            Field tmpFied = fied.getField();
-            Menu tmpMenu = fied.getMenu();
-            BackButton tmpBackButton = fied.getBackButton();
+        for(Fields tmpFields: allFields) {
+            Field tmpField = tmpFields.getField();
+            Menu tmpMenu = tmpFields.getMenu();
+            BackButton tmpBackButton = tmpFields.getBackButton();
+            ButtonBackground tmpContract = tmpFields.getContractButton();
+            ButtonBackground tmpContract2 = tmpFields.getContractButton2();
+            ButtonBackground tmpContract3 = tmpFields.getContractButton3();
 
-            tmpFied.setHappened(false);
+            tmpField.setHappened(false);
             tmpMenu.setHappened(false);
             tmpBackButton.setHappened(false);
+            tmpContract.setHappened(false);
+            tmpContract2.setHappened(false);
+            tmpContract3.setHappened(false);
         }
-        fenced = false;
         objectMain.getUIStage().clear();
-        drawFields();
+        menuOpen = false;
     }
 
     @Override

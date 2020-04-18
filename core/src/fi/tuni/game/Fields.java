@@ -12,34 +12,70 @@ public class Fields {
     private ButtonBackground contract3;
     private int tier;
     private String key;
+    private String keyS;
     private Texture contractTe = new Texture(Gdx.files.internal("plainButton.png"));
 
-    private String price0 = "1000";
-    private String price1 = "5600";
-    private String price2 = "23400";
-    private String price3 = "99000";
+    private Texture state0 = new Texture(Gdx.files.internal("textureField.png"));
+    private Texture state1 = new Texture(Gdx.files.internal("cabbageField.png"));
+    private Texture state2 = new Texture(Gdx.files.internal("onionField.png"));
+    private Texture none = new Texture(Gdx.files.internal("plainField.png"));
 
-    public Fields(Field x) {
+    private int cont = -1;
+    private long example = 1000;
+    private boolean state;
+    private long startedTime;
+
+    public Fields(Field x, String k) {
         field = x;
+        key = k;
+        keyS = k+"S";
         menu = new Menu();
         backButton = new BackButton();
         contract = new ButtonBackground(7.3f,6f, contractTe);
         contract2 = new ButtonBackground(7.3f,5f, contractTe);
         contract3 = new ButtonBackground(7.3f,4f, contractTe);
+
+        field.setFieldTexture(setTextureByState());
     }
 
-    public String getPrice() {
-        if (tier==0) {
-            return price0;
-        } else if (tier==1) {
-            return price1;
-        } else if (tier==2) {
-            return price2;
-        } else if (tier==3){
-            return price3;
-        } else {
-            return "";
+    public void startProduction(int which) {
+        // 0 = vilja, 1 = kaali, 2 = sipuli
+        cont = which;
+        startedTime = example + MemoryReader.readCurrentTimestamp();
+        state = true;
+        field.setFieldTexture(setTextureByState());
+        MemoryWriter.writeToiletTime(keyS, startedTime);
+    }
+
+    public void checkProduction(Balance cash) {
+        if (startedTime < MemoryReader.readCurrentTimestamp()) {
+            state = false;
+            if (cont==0) {
+                cash.addValue(1500);
+            } else if (cont==1) {
+                cash.addValue(1500);
+            } else if (cont==2) {
+                cash.addValue(1500);
+            }
+            cont = -1;
+            field.setFieldTexture(setTextureByState());
         }
+    }
+
+    private Texture setTextureByState() {
+        if (cont==0) {
+            return state0;
+        } else if (cont==1) {
+            return state1;
+        } else if (cont==2){
+            return state2;
+        } else {
+            return none;
+        }
+    }
+
+    public boolean getState() {
+        return state;
     }
 
     public Field getField() {

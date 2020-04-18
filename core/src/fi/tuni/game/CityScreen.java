@@ -101,40 +101,44 @@ public class CityScreen implements Screen {
 
     private void drawToilets() {
         //add actors
-        for(Toilets huus: allToilets) {
-            Toilet tmpHuussi = huus.getToilet();
-            Menu tmpMenu = huus.getMenu();
-            BackButton tmpBackButton = huus.getBackButton();
-            ButtonBackground tmpContract = huus.getContractButton();
-            ButtonBackground tmpContract2 = huus.getContractButton2();
-            ButtonBackground tmpUpgrade = huus.getUpgradeButton();
-            objectMain.getUIStage().addActor(huus.getToilet());
+        for(Toilets tmpToilets: allToilets) {
+            Toilet tmpToilet = tmpToilets.getToilet();
+            Menu tmpMenu = tmpToilets.getMenu();
+            BackButton tmpBackButton = tmpToilets.getBackButton();
+            ButtonBackground tmpContract = tmpToilets.getContractButton();
+            ButtonBackground tmpContract2 = tmpToilets.getContractButton2();
+            ButtonBackground tmpUpgrade = tmpToilets.getUpgradeButton();
+            objectMain.getUIStage().addActor(tmpToilets.getToilet());
 
             //toilet menu
-            if (tmpHuussi.getHappened()) {
+            if (tmpToilet.getHappened()) {
                 objectMain.getUIStage().addActor(tmpMenu);
                 objectMain.getUIStage().addActor(tmpBackButton);
-                if (huus.getTier() > 0) {
+                if (tmpToilets.getTier() > 0 && !tmpToilets.getState()) {
                     objectMain.getUIStage().addActor(tmpContract);
                     objectMain.getFontSmall().draw(batch, "Virtsa", 740, 440);
                     objectMain.getUIStage().addActor(tmpContract2);
                     objectMain.getFontSmall().draw(batch, "Uloste", 740, 340);
                 }
 
-                if (huus.getTier() < 4) {
+                if (tmpToilets.getTier() < 4) {
                     objectMain.getUIStage().addActor(tmpUpgrade);
-                    objectMain.getFontSmall().draw(batch, huus.getPrice(), 810, 240);
+                    objectMain.getFontSmall().draw(batch, tmpToilets.getPrice(), 810, 240);
                 }
 
                 if (tmpContract.getHappened()) {
-                    huus.startProduction();
+                    tmpToilets.startProduction(0);
+                    closeMenu();
+                } else if (tmpContract2.getHappened()) {
+                    tmpToilets.startProduction(1);
                     closeMenu();
                 }
 
+
                 if (tmpUpgrade.getHappened()) {
-                    if (objectMain.getBalanceCash().getValue() > Integer.parseInt(huus.getPrice())) {
-                        objectMain.getBalanceCash().removeValue(Integer.parseInt(huus.getPrice()));
-                        huus.upgrade();
+                    if (objectMain.getBalanceCash().getValue() > Integer.parseInt(tmpToilets.getPrice())) {
+                        objectMain.getBalanceCash().removeValue(Integer.parseInt(tmpToilets.getPrice()));
+                        tmpToilets.upgrade();
                         closeMenu();
                     }
                 }
@@ -145,8 +149,9 @@ public class CityScreen implements Screen {
             }
 
             //production check
-            huus.checkProduction();
-            if (!huus.getState()) {
+            if (tmpToilets.getState()) {
+                tmpToilets.checkProduction(objectMain.getBalancePee(), objectMain.getBalancePoo());
+            } else {
                 //tmpHuussi.bounce();
             }
         }

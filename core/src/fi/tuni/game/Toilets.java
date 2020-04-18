@@ -26,6 +26,7 @@ public class Toilets {
     private Texture tier2 = new Texture(Gdx.files.internal("sinihuus.png"));
     private Texture tier3 = new Texture(Gdx.files.internal("huussi.png"));
 
+    private int cont;
     private long example = 15000;
     private boolean state;
     private long startedTime;
@@ -45,15 +46,23 @@ public class Toilets {
         toilet.setToiletTexture(setTextureByTier());
     }
 
-    public void startProduction() {
+    public void startProduction(int which) {
+        // 0 = pee, 1 = poo
+        cont = which;
+
         startedTime = example + MemoryReader.readCurrentTimestamp();
         state = true;
         MemoryWriter.writeToiletTime(keyS, startedTime);
     }
 
-    public void checkProduction() {
+    public void checkProduction(Balance pee, Balance poo) {
         if (startedTime < MemoryReader.readCurrentTimestamp()) {
             state = false;
+            if (cont==0) {
+                pee.addValue(1500);
+            } else if (cont==1) {
+                poo.addValue(1500);
+            }
         }
     }
 

@@ -85,12 +85,9 @@ public class Main extends Game {
     public BitmapFont getFontSmall() {
         return fontSmall;
     }
-
     public Stage getUIStage() {
         return uiStage;
     }
-
-
     public Clickable getSceneSwitch() {
         return sceneSwitch;
     }
