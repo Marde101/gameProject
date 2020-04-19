@@ -16,7 +16,7 @@ public class Fields {
     private Texture contractPoo = new Texture(Gdx.files.internal("pooButton.png"));
     private String price0 = "1000";
     private String price1 = "5600";
-    private String price2 = "23400";
+    private String price2 = "8000";
     private Texture cont0 = new Texture(Gdx.files.internal("textureField.png"));
     private Texture cont1 = new Texture(Gdx.files.internal("cabbageField.png"));
     private Texture cont2 = new Texture(Gdx.files.internal("onionField.png"));
@@ -54,9 +54,9 @@ public class Fields {
             if (cont==0) {
                 cash.addValue(1500);
             } else if (cont==1) {
-                cash.addValue(1500);
+                cash.addValue(2500);
             } else if (cont==2) {
-                cash.addValue(1500);
+                cash.addValue(10000);
             }
             setCont(-1);
             field.setFieldTexture(setTextureByCont());

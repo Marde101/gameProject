@@ -60,6 +60,10 @@ public class Main extends Game {
         cash = new Balance("Cash");
         pee = new Balance("Pee");
         poo = new Balance("Poo");
+
+        if (cash.getValue()==0 && pee.getValue()==0 && poo.getValue()==0) {
+            cash.addValue(1000);
+        }
     }
 
     public Balance getBalanceCash() {

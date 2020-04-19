@@ -137,7 +137,9 @@ public class CityScreen implements Screen {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
                     objectMain.getFontBig().draw(batch, "BACK",575, 125);
-                    objectMain.getFontBig().draw(batch, tmpToilets.getTimeLeftString(),600, 420);
+                    if (tmpToilets.getState()) {
+                        objectMain.getFontBig().draw(batch, tmpToilets.getTimeLeftString(),600, 420);
+                    }
                 }
 
                 if (tmpToilets.getTier() < 4) {

@@ -57,9 +57,9 @@ public class Toilets {
         if (startedTime < MemoryReader.readCurrentTimestamp()) {
             state = false;
             if (cont==0) {
-                pee.addValue(1500);
+                pee.addValue(1500*tier);
             } else if (cont==1) {
-                poo.addValue(1500);
+                poo.addValue(1500*tier);
             }
         }
     }

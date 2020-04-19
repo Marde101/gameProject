@@ -130,7 +130,9 @@ public class FieldScreen implements Screen {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
                     objectMain.getFontBig().draw(batch, "BACK",575, 125);
-                    objectMain.getFontBig().draw(batch, tmpFields.getTimeLeftString(),600, 300);
+                    if (tmpFields.getState()) {
+                        objectMain.getFontBig().draw(batch, tmpFields.getTimeLeftString(),600, 300);
+                    }
                 }
 
                 if (tmpContract.getHappened()) {
