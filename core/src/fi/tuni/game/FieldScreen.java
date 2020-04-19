@@ -119,13 +119,16 @@ public class FieldScreen implements Screen {
                     objectMain.getFontBig().draw(batch, "BACK",575, 125);
                     objectMain.getUIStage().addActor(tmpContract);
                     objectMain.getFontSmall().draw(batch, tmpFields.getPrice(1), 825, 440);
-                    objectMain.getFontSmallest().draw(batch, "Vitusti omenoita",265, 460);
+                    objectMain.getFontSmallest().draw(batch, "Kasvata viljaa. Rahaa saat vähiten.\n" +
+                            "Kasvamiseen menee aikaa vähiten.",265, 460);
                     objectMain.getUIStage().addActor(tmpContract2);
                     objectMain.getFontSmall().draw(batch, tmpFields.getPrice(2), 825, 340);
-                    objectMain.getFontSmallest().draw(batch, "Kasvata sieniä",265, 360);
+                    objectMain.getFontSmallest().draw(batch, "Kasvata kaalia. Rahaa saat keskiverrosti.\n" +
+                            "Kasvamiseen menee aikaa keskiverrosti.",265, 360);
                     objectMain.getUIStage().addActor(tmpContract3);
                     objectMain.getFontSmall().draw(batch, tmpFields.getPrice(3), 825, 240);
-                    objectMain.getFontSmallest().draw(batch, "Kasvata ruohoa",265, 260);
+                    objectMain.getFontSmallest().draw(batch, "Kasvata sipuleita. Rahaa saat eniten.\n" +
+                            "Kasvamiseen menee aikaa kauiten.",265, 260);
                 } else {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
@@ -138,19 +141,19 @@ public class FieldScreen implements Screen {
                 if (tmpContract.getHappened()) {
                     if (objectMain.getBalancePee().getValue() >= Integer.parseInt(tmpFields.getPrice(1))) {
                         objectMain.getBalancePee().removeValue(Integer.parseInt(tmpFields.getPrice(1)));
-                        tmpFields.startProduction(0);
+                        tmpFields.startProduction(1);
                         closeMenu();
                     }
                 } else if (tmpContract2.getHappened()) {
                     if (objectMain.getBalancePee().getValue() >= Integer.parseInt(tmpFields.getPrice(2))) {
                         objectMain.getBalancePee().removeValue(Integer.parseInt(tmpFields.getPrice(2)));
-                        tmpFields.startProduction(1);
+                        tmpFields.startProduction(2);
                         closeMenu();
                     }
                 } else if (tmpContract3.getHappened()) {
                     if (objectMain.getBalancePoo().getValue() >= Integer.parseInt(tmpFields.getPrice(3))) {
                         objectMain.getBalancePoo().removeValue(Integer.parseInt(tmpFields.getPrice(3)));
-                        tmpFields.startProduction(2);
+                        tmpFields.startProduction(3);
                         closeMenu();
                     }
                 }
