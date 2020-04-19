@@ -4,15 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Fields {
-    Field field;
-    Menu menu;
-    BackButton backButton;
+    private Field field;
+    private Menu menu;
+    private BackButton backButton;
     private ButtonBackground contract;
     private ButtonBackground contract2;
     private ButtonBackground contract3;
     private String key;
     private String keyS;
-    private Texture contractTe = new Texture(Gdx.files.internal("plainButton.png"));
+    private Texture contractPee = new Texture(Gdx.files.internal("peeButton.png"));
+    private Texture contractPoo = new Texture(Gdx.files.internal("pooButton.png"));
 
     private Texture cont0 = new Texture(Gdx.files.internal("textureField.png"));
     private Texture cont1 = new Texture(Gdx.files.internal("cabbageField.png"));
@@ -30,9 +31,9 @@ public class Fields {
         keyS = k+"S";
         menu = new Menu();
         backButton = new BackButton();
-        contract = new ButtonBackground(7.3f,6f, contractTe);
-        contract2 = new ButtonBackground(7.3f,5f, contractTe);
-        contract3 = new ButtonBackground(7.3f,4f, contractTe);
+        contract = new ButtonBackground(7.3f,6f, contractPee);
+        contract2 = new ButtonBackground(7.3f,5f, contractPee);
+        contract3 = new ButtonBackground(7.3f,4f, contractPoo);
         getCont();
         field.setFieldTexture(setTextureByCont());
     }

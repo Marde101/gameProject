@@ -3,6 +3,7 @@ package fi.tuni.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -33,7 +34,9 @@ public class Main extends Game {
     private float width = WINDOW_WIDTH;
     private float height = WINDOW_HEIGHT;
     private Clickable sceneSwitch;
-
+    private Clickable settings;
+    private Texture scen;
+    private Texture settin;
     private Balance cash;
     private Balance pee;
     private Balance poo;
@@ -48,7 +51,10 @@ public class Main extends Game {
         fontBig = createFont(60);
         fontSmall = createFont(35);
         uiStage = new Stage(new FitViewport(width, height));
-        sceneSwitch = new Clickable();
+        scen = new Texture(Gdx.files.internal("sceneSwitch.png"));
+        settin = new Texture(Gdx.files.internal("settingsButton.png"));
+        sceneSwitch = new Clickable(scen, 11.9f,5.5f);
+        settings = new Clickable(settin, 0.2f,5.5f);
 
         fetchValues();
         MemoryWriter.writeCurrentTimestamp();
@@ -90,6 +96,9 @@ public class Main extends Game {
     }
     public Clickable getSceneSwitch() {
         return sceneSwitch;
+    }
+    public Clickable getSettings() {
+        return settings;
     }
 
     @Override

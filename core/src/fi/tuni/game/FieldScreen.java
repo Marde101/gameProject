@@ -14,30 +14,24 @@ public class FieldScreen implements Screen {
     private final float WINDOW_HEIGHT = 6.4f;
     private SpriteBatch batch;
     private Main objectMain;
-    private OrthographicCamera camera;
     private OrthographicCamera fontCamera;
     private Texture fence;
     private Texture balancePee;
     private Texture balancePoo;
-
     private ArrayList<Fields> allFields;
     private Field field;
     private Fields fields;
-
     private boolean menuOpen = false;
-
 
     public FieldScreen(Main x) {
         batch = x.getBatch();
         objectMain = x;
-        camera = new OrthographicCamera();
         fontCamera = new OrthographicCamera();
         fontCamera.setToOrtho(false,
                     WINDOW_WIDTH*100,
                     WINDOW_HEIGHT*100);
-
         balancePee = new Texture("peeMoney.png");
-        balancePoo = new Texture("shitMoney.png");
+        balancePoo = new Texture("pooMani.png");
         fence = new Texture("fenceFix.png");
         allFields = new ArrayList<>();
         generateFields();
@@ -84,7 +78,6 @@ public class FieldScreen implements Screen {
         batch.draw(balancePoo, 240, 555);
         batch.end();
 
-
         //sceneswitch function
         objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
         Gdx.input.setInputProcessor(objectMain.getUIStage());
@@ -92,6 +85,14 @@ public class FieldScreen implements Screen {
             closeMenu();
             objectMain.switchScene();
             objectMain.getSceneSwitch().setHappened(false);
+        }
+        //settings function
+        objectMain.getUIStage().addActor(objectMain.getSettings());
+        Gdx.input.setInputProcessor(objectMain.getUIStage());
+        if (objectMain.getSettings().getHappened()) {
+
+            closeMenu();
+            objectMain.getSettings().setHappened(false);
         }
     }
 
@@ -115,21 +116,21 @@ public class FieldScreen implements Screen {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
                     objectMain.getUIStage().addActor(tmpContract);
-                    objectMain.getFontSmall().draw(batch, "1515", 740, 440);
+                    objectMain.getFontSmall().draw(batch, "15", 825, 440);
                     objectMain.getFontSmall().draw(batch, "Vitusti omenoita",260, 460);
                     objectMain.getFontSmall().draw(batch, "Kasvata myytäväksi tuote",260, 430);
                     objectMain.getUIStage().addActor(tmpContract2);
-                    objectMain.getFontSmall().draw(batch, "1515", 740, 340);
+                    objectMain.getFontSmall().draw(batch, "1234567", 825, 340);
                     objectMain.getFontSmall().draw(batch, "Kasvata sieniä",260, 360);
                     objectMain.getFontSmall().draw(batch, "Kasvaminen kestää vuoden",260, 330);
                     objectMain.getUIStage().addActor(tmpContract3);
-                    objectMain.getFontSmall().draw(batch, "151515", 740, 240);
+                    objectMain.getFontSmall().draw(batch, "15115", 825, 240);
                     objectMain.getFontSmall().draw(batch, "Kasvata ruohoa",260, 260);
                     objectMain.getFontSmall().draw(batch, "Vitusti massii, kesto 15s",260, 230);
                 } else {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
-                    objectMain.getFontSmall().draw(batch, tmpFields.getTimeLeftString(),600, 300);
+                    objectMain.getFontBig().draw(batch, tmpFields.getTimeLeftString(),600, 300);
                 }
 
                 if (tmpContract.getHappened()) {

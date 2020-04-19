@@ -90,13 +90,21 @@ public class CityScreen implements Screen {
         batch.draw(cashBackground, 740, 555);
         batch.end();
 
-        objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
         //sceneswitch function
+        objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
         Gdx.input.setInputProcessor(objectMain.getUIStage());
         if (objectMain.getSceneSwitch().getHappened()) {
             closeMenu();
             objectMain.switchScene();
             objectMain.getSceneSwitch().setHappened(false);
+        }
+        //settings function
+        objectMain.getUIStage().addActor(objectMain.getSettings());
+        Gdx.input.setInputProcessor(objectMain.getUIStage());
+        if (objectMain.getSettings().getHappened()) {
+
+            closeMenu();
+            objectMain.getSettings().setHappened(false);
         }
     }
 
