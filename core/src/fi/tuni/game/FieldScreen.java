@@ -136,19 +136,19 @@ public class FieldScreen implements Screen {
                 }
 
                 if (tmpContract.getHappened()) {
-                    if (objectMain.getBalancePee().getValue() > Integer.parseInt(tmpFields.getPrice(1))) {
+                    if (objectMain.getBalancePee().getValue() >= Integer.parseInt(tmpFields.getPrice(1))) {
                         objectMain.getBalancePee().removeValue(Integer.parseInt(tmpFields.getPrice(1)));
                         tmpFields.startProduction(0);
                         closeMenu();
                     }
                 } else if (tmpContract2.getHappened()) {
-                    if (objectMain.getBalancePee().getValue() > Integer.parseInt(tmpFields.getPrice(2))) {
+                    if (objectMain.getBalancePee().getValue() >= Integer.parseInt(tmpFields.getPrice(2))) {
                         objectMain.getBalancePee().removeValue(Integer.parseInt(tmpFields.getPrice(2)));
                         tmpFields.startProduction(1);
                         closeMenu();
                     }
                 } else if (tmpContract3.getHappened()) {
-                    if (objectMain.getBalancePoo().getValue() > Integer.parseInt(tmpFields.getPrice(3))) {
+                    if (objectMain.getBalancePoo().getValue() >= Integer.parseInt(tmpFields.getPrice(3))) {
                         objectMain.getBalancePoo().removeValue(Integer.parseInt(tmpFields.getPrice(3)));
                         tmpFields.startProduction(2);
                         closeMenu();

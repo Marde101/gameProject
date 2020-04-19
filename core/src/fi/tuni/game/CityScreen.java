@@ -159,7 +159,7 @@ public class CityScreen implements Screen {
 
 
                 if (tmpUpgrade.getHappened()) {
-                    if (objectMain.getBalanceCash().getValue() > Integer.parseInt(tmpToilets.getPrice())) {
+                    if (objectMain.getBalanceCash().getValue() >= Integer.parseInt(tmpToilets.getPrice())) {
                         objectMain.getBalanceCash().removeValue(Integer.parseInt(tmpToilets.getPrice()));
                         tmpToilets.upgrade();
                         closeMenu();

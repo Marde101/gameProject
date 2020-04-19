@@ -62,7 +62,7 @@ public class Main extends Game {
         poo = new Balance("Poo");
 
         if (cash.getValue()==0 && pee.getValue()==0 && poo.getValue()==0) {
-            cash.addValue(1000);
+            cash.addValue(100);
         }
     }
 
