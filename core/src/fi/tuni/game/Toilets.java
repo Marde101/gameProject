@@ -17,7 +17,7 @@ public class Toilets {
     private String keyS;
     private Texture contractTe = new Texture(Gdx.files.internal("plainButton.png"));
     private Texture upgradeTe = new Texture(Gdx.files.internal("euroNappi.png"));
-    private String price0 = "9000";
+    private String price0 = "1000";
     private String price1 = "15600";
     private String price2 = "64400";
     private String price3 = "420000";

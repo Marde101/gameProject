@@ -22,7 +22,7 @@ public class Fields {
     private Texture cont2 = new Texture(Gdx.files.internal("onionField.png"));
     private Texture none = new Texture(Gdx.files.internal("plainField.png"));
 
-    private int cont = -1;
+    private int cont = 0;
     private long example = 20000;
     private boolean state;
     private long startedTime;
@@ -55,11 +55,11 @@ public class Fields {
 
     public void checkProduction(Balance cash) {
         if (startedTime < MemoryReader.readCurrentTimestamp()) {
-            if (cont==0) {
+            if (cont==1) {
                 cash.addValue(1500);
-            } else if (cont==1) {
-                cash.addValue(2500);
             } else if (cont==2) {
+                cash.addValue(2500);
+            } else if (cont==3) {
                 cash.addValue(10000);
             }
             setCont(-1);
@@ -77,14 +77,14 @@ public class Fields {
 
     private Texture setTextureByCont() {
         state = true;
-        if (cont==0) {
+        if (cont==1) {
             return cont0;
-        } else if (cont==1) {
+        } else if (cont==2) {
             return cont1;
-        } else if (cont==2){
+        } else if (cont==3){
             return cont2;
         } else {
-            setCont(-1);
+            setCont(0);
             state = false;
             return none;
         }
@@ -115,7 +115,7 @@ public class Fields {
     }
 
     public boolean getState() {
-        if (cont != -1) {
+        if (cont != 0) {
             state = true;
         }
         return state;

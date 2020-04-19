@@ -65,6 +65,12 @@ public class Main extends Game {
         cash = new Balance("Cash");
         pee = new Balance("Pee");
         poo = new Balance("Poo");
+        if (cash.getValue() == 0 && pee.getValue()
+                == 0 && poo.getValue() == 0) {
+            cash.addValue(1000);
+            pee.addValue(100);
+            poo.addValue(100);
+        }
     }
 
     public Balance getBalanceCash() {
@@ -79,7 +85,8 @@ public class Main extends Game {
 
     private BitmapFont createFont(int size) {
         generator = new FreeTypeFontGenerator(Gdx.files.internal("font2.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter =
+                new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = size;
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 3;
