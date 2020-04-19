@@ -164,10 +164,8 @@ public class CityScreen implements Screen {
                     }
                 }
 
-                if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
-                    closeMenu();
-                }
-                if (tmpBackButton.getHappened()) {
+                if (Gdx.input.isKeyPressed(Input.Keys.BACK)
+                        || tmpBackButton.getHappened()){
                     closeMenu();
                 }
             }

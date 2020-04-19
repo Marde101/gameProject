@@ -1,6 +1,7 @@
 package fi.tuni.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -151,8 +152,8 @@ public class FieldScreen implements Screen {
                         closeMenu();
                     }
                 }
-
-                if (tmpBackButton.getHappened()) {
+                if (Gdx.input.isKeyPressed(Input.Keys.BACK)
+                        || tmpBackButton.getHappened()){
                     closeMenu();
                 }
             }

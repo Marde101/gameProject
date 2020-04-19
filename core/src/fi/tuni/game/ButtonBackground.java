@@ -12,6 +12,7 @@ public class ButtonBackground extends Clickable {
     private boolean happened = false;
 
     public ButtonBackground(float x, float y) {
+        
         texture = new Texture(Gdx.files.internal("menuButtonPlain.png"));
         setWidth(3f);
         setHeight(1f);
