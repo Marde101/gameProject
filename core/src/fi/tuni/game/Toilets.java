@@ -31,7 +31,6 @@ public class Toilets {
     private boolean state;
     private long startedTime;
 
-
     public Toilets(Toilet x, String k) {
         toilet = x;
         key = k;
@@ -42,7 +41,6 @@ public class Toilets {
         contract2 = new ButtonBackground(7.3f,5f, contractTe);
         upgrade = new ButtonBackground(7.3f,4f, upgradeTe);
         getTier();
-
         toilet.setToiletTexture(setTextureByTier());
     }
 
@@ -52,7 +50,7 @@ public class Toilets {
 
         startedTime = example + MemoryReader.readCurrentTimestamp();
         state = true;
-        MemoryWriter.writeToiletTime(keyS, startedTime);
+        MemoryWriter.writeTimer(keyS, startedTime);
     }
 
     public void checkProduction(Balance pee, Balance poo) {

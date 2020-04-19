@@ -19,8 +19,8 @@ public class MemoryReader {
 
     static public void readField(Fields x) {
         Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
-        //int tier = prefs.getInteger(x.getKey());
-        //x.setTier(tier);
+        int cont = prefs.getInteger(x.getKey());
+        x.setCont(cont);
     }
 
     static public long readCurrentTimestamp() {

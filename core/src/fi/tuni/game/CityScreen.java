@@ -79,16 +79,17 @@ public class CityScreen implements Screen {
 
         //fontCamera
         batch.setProjectionMatrix(fontCamera.combined);
-
         //stage
         objectMain.getUIStage().act(Gdx.graphics.getDeltaTime());
         objectMain.getUIStage().draw();
 
         batch.begin();
         drawToilets();
+        //balances
         objectMain.getFontBig().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
         batch.draw(cashBackground, 740, 555);
         batch.end();
+
         objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
         //sceneswitch function
         Gdx.input.setInputProcessor(objectMain.getUIStage());
@@ -117,13 +118,19 @@ public class CityScreen implements Screen {
                 if (tmpToilets.getTier() > 0 && !tmpToilets.getState()) {
                     objectMain.getUIStage().addActor(tmpContract);
                     objectMain.getFontSmall().draw(batch, "Virtsa", 740, 440);
+                    objectMain.getFontSmall().draw(batch, "Kerää kuses horo",260, 460);
+                    objectMain.getFontSmall().draw(batch, "Prosessi kestää 15s",260, 430);
                     objectMain.getUIStage().addActor(tmpContract2);
                     objectMain.getFontSmall().draw(batch, "Uloste", 740, 340);
+                    objectMain.getFontSmall().draw(batch, "Kerää paskaa horo",260, 360);
+                    objectMain.getFontSmall().draw(batch, "Prosessi kestää 15s",260, 330);
                 }
 
                 if (tmpToilets.getTier() < 4) {
                     objectMain.getUIStage().addActor(tmpUpgrade);
                     objectMain.getFontSmall().draw(batch, tmpToilets.getPrice(), 810, 240);
+                    objectMain.getFontSmall().draw(batch, "Päivitys kuivakäymälään",260, 260);
+                    objectMain.getFontSmall().draw(batch, "Lisää tuotanto nopeutta",260, 230);
                 }
 
                 if (tmpContract.getHappened()) {
@@ -158,15 +165,15 @@ public class CityScreen implements Screen {
     }
 
     private void closeMenu() {
-        for(Toilets huus: allToilets) {
-            Toilet tmpHuussi = huus.getToilet();
-            Menu tmpMenu = huus.getMenu();
-            BackButton tmpBackButton = huus.getBackButton();
-            ButtonBackground tmpContract = huus.getContractButton();
-            ButtonBackground tmpContract2 = huus.getContractButton2();
-            ButtonBackground tmpUpgrade = huus.getUpgradeButton();
+        for(Toilets tmpToilets: allToilets) {
+            Toilet tmpToilet = tmpToilets.getToilet();
+            Menu tmpMenu = tmpToilets.getMenu();
+            BackButton tmpBackButton = tmpToilets.getBackButton();
+            ButtonBackground tmpContract = tmpToilets.getContractButton();
+            ButtonBackground tmpContract2 = tmpToilets.getContractButton2();
+            ButtonBackground tmpUpgrade = tmpToilets.getUpgradeButton();
 
-            tmpHuussi.setHappened(false);
+            tmpToilet.setHappened(false);
             tmpMenu.setHappened(false);
             tmpBackButton.setHappened(false);
             tmpContract.setHappened(false);

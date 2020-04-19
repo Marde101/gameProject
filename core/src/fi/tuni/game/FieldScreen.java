@@ -17,7 +17,8 @@ public class FieldScreen implements Screen {
     private OrthographicCamera camera;
     private OrthographicCamera fontCamera;
     private Texture fence;
-    private Texture balanceBackground;
+    private Texture balancePee;
+    private Texture balancePoo;
 
     private ArrayList<Fields> allFields;
     private Field field;
@@ -35,11 +36,11 @@ public class FieldScreen implements Screen {
                     WINDOW_WIDTH*100,
                     WINDOW_HEIGHT*100);
 
-        balanceBackground = new Texture("coin.png");
-        fence = new Texture("fence.png");
+        balancePee = new Texture("peeMoney.png");
+        balancePoo = new Texture("shitMoney.png");
+        fence = new Texture("fenceFix.png");
         allFields = new ArrayList<>();
         generateFields();
-
     }
 
     private void generateFields() {
@@ -63,10 +64,10 @@ public class FieldScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        MemoryWriter.writeCurrentTimestamp();
 
         //fontCamera
         batch.setProjectionMatrix(fontCamera.combined);
-
         //stage
         objectMain.getUIStage().act(Gdx.graphics.getDeltaTime());
         objectMain.getUIStage().draw();
@@ -76,12 +77,16 @@ public class FieldScreen implements Screen {
         if (!menuOpen) {
             batch.draw(fence, 0,0);
         }
-        objectMain.getFontBig().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
-        batch.draw(balanceBackground, 740, 555);
+        //balances
+        objectMain.getFontBig().draw(batch, objectMain.getBalancePee().getValueToString(), 825, 615);
+        batch.draw(balancePee, 740, 555);
+        objectMain.getFontBig().draw(batch, objectMain.getBalancePoo().getValueToString(), 325, 615);
+        batch.draw(balancePoo, 240, 555);
         batch.end();
-        objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
+
 
         //sceneswitch function
+        objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
         Gdx.input.setInputProcessor(objectMain.getUIStage());
         if (objectMain.getSceneSwitch().getHappened()) {
             closeMenu();
@@ -110,14 +115,21 @@ public class FieldScreen implements Screen {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
                     objectMain.getUIStage().addActor(tmpContract);
-                    objectMain.getFontSmall().draw(batch, "Vilja", 740, 440);
+                    objectMain.getFontSmall().draw(batch, "1515", 740, 440);
+                    objectMain.getFontSmall().draw(batch, "Vitusti omenoita",260, 460);
+                    objectMain.getFontSmall().draw(batch, "Kasvata myytäväksi tuote",260, 430);
                     objectMain.getUIStage().addActor(tmpContract2);
-                    objectMain.getFontSmall().draw(batch, "Kaali", 740, 340);
+                    objectMain.getFontSmall().draw(batch, "1515", 740, 340);
+                    objectMain.getFontSmall().draw(batch, "Kasvata sieniä",260, 360);
+                    objectMain.getFontSmall().draw(batch, "Kasvaminen kestää vuoden",260, 330);
                     objectMain.getUIStage().addActor(tmpContract3);
-                    objectMain.getFontSmall().draw(batch, "Sipuli", 740, 240);
+                    objectMain.getFontSmall().draw(batch, "151515", 740, 240);
+                    objectMain.getFontSmall().draw(batch, "Kasvata ruohoa",260, 260);
+                    objectMain.getFontSmall().draw(batch, "Vitusti massii, kesto 15s",260, 230);
                 } else {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
+                    objectMain.getFontSmall().draw(batch, tmpFields.getTimeLeftString(),600, 300);
                 }
 
                 if (tmpContract.getHappened()) {
@@ -159,6 +171,7 @@ public class FieldScreen implements Screen {
             tmpContract3.setHappened(false);
         }
         objectMain.getUIStage().clear();
+        drawFields();
         menuOpen = false;
     }
 
