@@ -78,21 +78,19 @@ public class FieldScreen implements Screen {
         batch.draw(balancePoo, 240, 555);
         batch.end();
 
-        //sceneswitch function
+
         objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
+        objectMain.getUIStage().addActor(objectMain.getSettings());
         Gdx.input.setInputProcessor(objectMain.getUIStage());
+        //sceneswitch function
         if (objectMain.getSceneSwitch().getHappened()) {
             closeMenu();
             objectMain.switchScene();
             objectMain.getSceneSwitch().setHappened(false);
         }
         //settings function
-        objectMain.getUIStage().addActor(objectMain.getSettings());
-        Gdx.input.setInputProcessor(objectMain.getUIStage());
         if (objectMain.getSettings().getHappened()) {
-
-            closeMenu();
-            objectMain.getSettings().setHappened(false);
+            // open up menubg etc
         }
     }
 
@@ -108,40 +106,50 @@ public class FieldScreen implements Screen {
 
             objectMain.getUIStage().addActor(tmpFields.getField());
 
-
             //field menu
             if (tmpField.getHappened()) {
                 menuOpen = true;
                 if (!tmpFields.getState()) {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
+                    objectMain.getFontBig().draw(batch, "BACK",575, 125);
                     objectMain.getUIStage().addActor(tmpContract);
-                    objectMain.getFontSmall().draw(batch, "15", 825, 440);
+                    objectMain.getFontSmall().draw(batch, tmpFields.getPrice(1), 825, 440);
                     objectMain.getFontSmall().draw(batch, "Vitusti omenoita",260, 460);
                     objectMain.getFontSmall().draw(batch, "Kasvata myytäväksi tuote",260, 430);
                     objectMain.getUIStage().addActor(tmpContract2);
-                    objectMain.getFontSmall().draw(batch, "1234567", 825, 340);
+                    objectMain.getFontSmall().draw(batch, tmpFields.getPrice(2), 825, 340);
                     objectMain.getFontSmall().draw(batch, "Kasvata sieniä",260, 360);
                     objectMain.getFontSmall().draw(batch, "Kasvaminen kestää vuoden",260, 330);
                     objectMain.getUIStage().addActor(tmpContract3);
-                    objectMain.getFontSmall().draw(batch, "15115", 825, 240);
+                    objectMain.getFontSmall().draw(batch, tmpFields.getPrice(3), 825, 240);
                     objectMain.getFontSmall().draw(batch, "Kasvata ruohoa",260, 260);
                     objectMain.getFontSmall().draw(batch, "Vitusti massii, kesto 15s",260, 230);
                 } else {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
+                    objectMain.getFontBig().draw(batch, "BACK",575, 125);
                     objectMain.getFontBig().draw(batch, tmpFields.getTimeLeftString(),600, 300);
                 }
 
                 if (tmpContract.getHappened()) {
-                    tmpFields.startProduction(0);
-                    closeMenu();
+                    if (objectMain.getBalancePee().getValue() > Integer.parseInt(tmpFields.getPrice(1))) {
+                        objectMain.getBalancePee().removeValue(Integer.parseInt(tmpFields.getPrice(1)));
+                        tmpFields.startProduction(0);
+                        closeMenu();
+                    }
                 } else if (tmpContract2.getHappened()) {
-                    tmpFields.startProduction(1);
-                    closeMenu();
+                    if (objectMain.getBalancePee().getValue() > Integer.parseInt(tmpFields.getPrice(2))) {
+                        objectMain.getBalancePee().removeValue(Integer.parseInt(tmpFields.getPrice(2)));
+                        tmpFields.startProduction(1);
+                        closeMenu();
+                    }
                 } else if (tmpContract3.getHappened()) {
-                    tmpFields.startProduction(2);
-                    closeMenu();
+                    if (objectMain.getBalancePoo().getValue() > Integer.parseInt(tmpFields.getPrice(3))) {
+                        objectMain.getBalancePoo().removeValue(Integer.parseInt(tmpFields.getPrice(3)));
+                        tmpFields.startProduction(2);
+                        closeMenu();
+                    }
                 }
 
                 if (tmpBackButton.getHappened()) {
@@ -171,6 +179,7 @@ public class FieldScreen implements Screen {
             tmpContract2.setHappened(false);
             tmpContract3.setHappened(false);
         }
+        objectMain.getSettings().setHappened(false);
         objectMain.getUIStage().clear();
         drawFields();
         menuOpen = false;

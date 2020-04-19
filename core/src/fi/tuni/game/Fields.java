@@ -14,7 +14,9 @@ public class Fields {
     private String keyS;
     private Texture contractPee = new Texture(Gdx.files.internal("peeButton.png"));
     private Texture contractPoo = new Texture(Gdx.files.internal("pooButton.png"));
-
+    private String price0 = "1000";
+    private String price1 = "5600";
+    private String price2 = "23400";
     private Texture cont0 = new Texture(Gdx.files.internal("textureField.png"));
     private Texture cont1 = new Texture(Gdx.files.internal("cabbageField.png"));
     private Texture cont2 = new Texture(Gdx.files.internal("onionField.png"));
@@ -81,6 +83,16 @@ public class Fields {
             setCont(-1);
             state = false;
             return none;
+        }
+    }
+
+    public String getPrice(int x) {
+        if (x==1) {
+            return price0;
+        } else if (x==1) {
+            return price1;
+        } else {
+            return price2;
         }
     }
 

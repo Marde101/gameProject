@@ -13,7 +13,7 @@ public class BackButton extends Clickable {
     private boolean happened = false;
 
     public BackButton() {
-        texture = new Texture(Gdx.files.internal("scuffedbutton.png"));
+        texture = new Texture(Gdx.files.internal("backNoshadow.png"));
         setWidth(2f);
         setHeight(1f);
         float posX = (12.8f-getWidth()) / 2;

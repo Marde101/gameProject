@@ -1,6 +1,7 @@
 package fi.tuni.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -90,8 +91,11 @@ public class CityScreen implements Screen {
         batch.draw(cashBackground, 740, 555);
         batch.end();
 
-        //sceneswitch function
+
         objectMain.getUIStage().addActor(objectMain.getSceneSwitch());
+        objectMain.getUIStage().addActor(objectMain.getSettings());
+        Gdx.input.setInputProcessor(objectMain.getUIStage());
+        //sceneswitch function
         Gdx.input.setInputProcessor(objectMain.getUIStage());
         if (objectMain.getSceneSwitch().getHappened()) {
             closeMenu();
@@ -99,12 +103,8 @@ public class CityScreen implements Screen {
             objectMain.getSceneSwitch().setHappened(false);
         }
         //settings function
-        objectMain.getUIStage().addActor(objectMain.getSettings());
-        Gdx.input.setInputProcessor(objectMain.getUIStage());
         if (objectMain.getSettings().getHappened()) {
-
-            closeMenu();
-            objectMain.getSettings().setHappened(false);
+            // open up menubg etc
         }
     }
 
@@ -121,9 +121,10 @@ public class CityScreen implements Screen {
 
             //toilet menu
             if (tmpToilet.getHappened()) {
-                objectMain.getUIStage().addActor(tmpMenu);
-                objectMain.getUIStage().addActor(tmpBackButton);
                 if (tmpToilets.getTier() > 0 && !tmpToilets.getState()) {
+                    objectMain.getUIStage().addActor(tmpMenu);
+                    objectMain.getUIStage().addActor(tmpBackButton);
+                    objectMain.getFontBig().draw(batch, "BACK",575, 125);
                     objectMain.getUIStage().addActor(tmpContract);
                     objectMain.getFontSmall().draw(batch, "Virtsa", 740, 440);
                     objectMain.getFontSmall().draw(batch, "Kerää kuses horo",260, 460);
@@ -132,6 +133,11 @@ public class CityScreen implements Screen {
                     objectMain.getFontSmall().draw(batch, "Uloste", 740, 340);
                     objectMain.getFontSmall().draw(batch, "Kerää paskaa horo",260, 360);
                     objectMain.getFontSmall().draw(batch, "Prosessi kestää 15s",260, 330);
+                } else {
+                    objectMain.getUIStage().addActor(tmpMenu);
+                    objectMain.getUIStage().addActor(tmpBackButton);
+                    objectMain.getFontBig().draw(batch, "BACK",575, 125);
+                    objectMain.getFontBig().draw(batch, tmpToilets.getTimeLeftString(),600, 420);
                 }
 
                 if (tmpToilets.getTier() < 4) {
@@ -158,6 +164,9 @@ public class CityScreen implements Screen {
                     }
                 }
 
+                if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
+                    closeMenu();
+                }
                 if (tmpBackButton.getHappened()) {
                     closeMenu();
                 }
@@ -188,6 +197,7 @@ public class CityScreen implements Screen {
             tmpContract2.setHappened(false);
             tmpUpgrade.setHappened(false);
         }
+        objectMain.getSettings().setHappened(false);
         objectMain.getUIStage().clear();
         drawToilets();
     }

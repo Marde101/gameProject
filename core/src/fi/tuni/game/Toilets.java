@@ -64,6 +64,12 @@ public class Toilets {
         }
     }
 
+    public String getTimeLeftString() {
+        long timeLeft = (startedTime - MemoryReader.readCurrentTimestamp())/1000;
+        String time = timeLeft+"s";
+        return time;
+    }
+
     public boolean getState() {
         return state;
     }
