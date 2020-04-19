@@ -116,16 +116,13 @@ public class FieldScreen implements Screen {
                     objectMain.getFontBig().draw(batch, "BACK",575, 125);
                     objectMain.getUIStage().addActor(tmpContract);
                     objectMain.getFontSmall().draw(batch, tmpFields.getPrice(1), 825, 440);
-                    objectMain.getFontSmall().draw(batch, "Vitusti omenoita",260, 460);
-                    objectMain.getFontSmall().draw(batch, "Kasvata myytäväksi tuote",260, 430);
+                    objectMain.getFontSmallest().draw(batch, "Vitusti omenoita",265, 460);
                     objectMain.getUIStage().addActor(tmpContract2);
                     objectMain.getFontSmall().draw(batch, tmpFields.getPrice(2), 825, 340);
-                    objectMain.getFontSmall().draw(batch, "Kasvata sieniä",260, 360);
-                    objectMain.getFontSmall().draw(batch, "Kasvaminen kestää vuoden",260, 330);
+                    objectMain.getFontSmallest().draw(batch, "Kasvata sieniä",265, 360);
                     objectMain.getUIStage().addActor(tmpContract3);
                     objectMain.getFontSmall().draw(batch, tmpFields.getPrice(3), 825, 240);
-                    objectMain.getFontSmall().draw(batch, "Kasvata ruohoa",260, 260);
-                    objectMain.getFontSmall().draw(batch, "Vitusti massii, kesto 15s",260, 230);
+                    objectMain.getFontSmallest().draw(batch, "Kasvata ruohoa",265, 260);
                 } else {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);

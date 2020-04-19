@@ -14,9 +14,9 @@ public class Clickable extends Actor {
 
     public Clickable() {
         texture = new Texture(Gdx.files.internal("sceneSwitch.png"));
-        setWidth(0.8f);
-        setHeight(0.8f);
-        setBounds(11.9f,5.5f, getWidth(), getHeight());
+        setWidth(1f);
+        setHeight(1f);
+        setBounds(11.7f,5.3f, getWidth(), getHeight());
         addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 happened = true;

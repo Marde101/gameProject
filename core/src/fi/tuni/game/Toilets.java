@@ -17,10 +17,10 @@ public class Toilets {
     private String keyS;
     private Texture contractTe = new Texture(Gdx.files.internal("plainButton.png"));
     private Texture upgradeTe = new Texture(Gdx.files.internal("euroNappi.png"));
-    private String price0 = "1000";
-    private String price1 = "5600";
-    private String price2 = "23400";
-    private String price3 = "99000";
+    private String price0 = "9000";
+    private String price1 = "15600";
+    private String price2 = "64400";
+    private String price3 = "420000";
     private Texture tier0 = new Texture(Gdx.files.internal("puuHuusSilu.png"));
     private Texture tier1 = new Texture(Gdx.files.internal("sinihus.png"));
     private Texture tier2 = new Texture(Gdx.files.internal("sinihuus.png"));

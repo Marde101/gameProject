@@ -23,6 +23,12 @@ public class MemoryReader {
         x.setCont(cont);
     }
 
+    static public long readTimer(String key) {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
+        return prefs.getLong(key);
+    }
+
+
     static public long readCurrentTimestamp() {
         Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
         long time = prefs.getLong("CurrentTimestamp");

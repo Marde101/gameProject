@@ -15,8 +15,7 @@ public class Main extends Game {
     private final float WINDOW_WIDTH = 12.8f;
     private final float WINDOW_HEIGHT = 6.4f;
 
-    SpriteBatch batch;
-    private boolean inCity = false;
+    private SpriteBatch batch;
 
     public SpriteBatch getBatch() {
         return batch;
@@ -29,6 +28,7 @@ public class Main extends Game {
     private FreeTypeFontGenerator generator;
     private BitmapFont fontBig;
     private BitmapFont fontSmall;
+    private BitmapFont fontSmallest;
 
     private Stage uiStage;
     private float width = WINDOW_WIDTH;
@@ -39,6 +39,10 @@ public class Main extends Game {
     private Balance pee;
     private Balance poo;
 
+    // determines which screen is active
+    // and also which screen is the startscreen
+    private boolean inCity = true;
+
     @Override
     public void create () {
         batch = new SpriteBatch();
@@ -48,6 +52,7 @@ public class Main extends Game {
         setScreen(startScreen);
         fontBig = createFont(60);
         fontSmall = createFont(35);
+        fontSmallest = createFont(20);
         uiStage = new Stage(new FitViewport(width, height));
         sceneSwitch = new Clickable();
         settings = new Settings();
@@ -60,10 +65,6 @@ public class Main extends Game {
         cash = new Balance("Cash");
         pee = new Balance("Pee");
         poo = new Balance("Poo");
-
-        if (cash.getValue()==0 && pee.getValue()==0 && poo.getValue()==0) {
-            cash.addValue(100);
-        }
     }
 
     public Balance getBalanceCash() {
@@ -90,6 +91,9 @@ public class Main extends Game {
     }
     public BitmapFont getFontSmall() {
         return fontSmall;
+    }
+    public BitmapFont getFontSmallest() {
+        return fontSmallest;
     }
     public Stage getUIStage() {
         return uiStage;

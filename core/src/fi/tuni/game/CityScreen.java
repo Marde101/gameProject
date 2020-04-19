@@ -127,12 +127,12 @@ public class CityScreen implements Screen {
                     objectMain.getFontBig().draw(batch, "BACK",575, 125);
                     objectMain.getUIStage().addActor(tmpContract);
                     objectMain.getFontSmall().draw(batch, "Virtsa", 740, 440);
-                    objectMain.getFontSmall().draw(batch, "Kerää kuses horo",260, 460);
-                    objectMain.getFontSmall().draw(batch, "Prosessi kestää 15s",260, 430);
+                    objectMain.getFontSmallest().draw(batch, "Kerää virtsa kuivakäymälästä\n " +
+                            "ja aloita sen laimennus.(15s)",265, 460);
                     objectMain.getUIStage().addActor(tmpContract2);
                     objectMain.getFontSmall().draw(batch, "Uloste", 740, 340);
-                    objectMain.getFontSmall().draw(batch, "Kerää paskaa horo",260, 360);
-                    objectMain.getFontSmall().draw(batch, "Prosessi kestää 15s",260, 330);
+                    objectMain.getFontSmallest().draw(batch, "Kerää virtsa/uloste kuivakäymälästä\n" +
+                            "ja aloita kompostoiminen.(15s)",265, 360);
                 } else {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
@@ -145,8 +145,7 @@ public class CityScreen implements Screen {
                 if (tmpToilets.getTier() < 4) {
                     objectMain.getUIStage().addActor(tmpUpgrade);
                     objectMain.getFontSmall().draw(batch, tmpToilets.getPrice(), 810, 240);
-                    objectMain.getFontSmall().draw(batch, "Päivitys kuivakäymälään",260, 260);
-                    objectMain.getFontSmall().draw(batch, "Lisää tuotanto nopeutta",260, 230);
+                    objectMain.getFontSmallest().draw(batch, "Päivitys kuivakäymälään",265, 260);
                 }
 
                 if (tmpContract.getHappened()) {

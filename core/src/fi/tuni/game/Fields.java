@@ -37,6 +37,7 @@ public class Fields {
         contract2 = new ButtonBackground(7.3f,5f, contractPee);
         contract3 = new ButtonBackground(7.3f,4f, contractPoo);
         getCont();
+        getStartedTime();
         field.setFieldTexture(setTextureByCont());
     }
 
@@ -45,8 +46,11 @@ public class Fields {
         setCont(which);
         startedTime = example + MemoryReader.readCurrentTimestamp();
         MemoryWriter.writeTimer(keyS, startedTime);
-        MemoryWriter.writeField(key, cont);
         field.setFieldTexture(setTextureByCont());
+    }
+
+    private void getStartedTime() {
+        startedTime = MemoryReader.readTimer(keyS);
     }
 
     public void checkProduction(Balance cash) {
