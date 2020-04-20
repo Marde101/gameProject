@@ -15,6 +15,7 @@ public class Toilets {
     private int tier;
     private String key;
     private String keyS;
+    private String keyC;
     private Texture contractTe = new Texture(Gdx.files.internal("plainButton.png"));
     private Texture upgradeTe = new Texture(Gdx.files.internal("euroNappi.png"));
     private String price0 = "1000";
@@ -35,22 +36,33 @@ public class Toilets {
         toilet = x;
         key = k;
         keyS = k+"_S";
+        keyC = k+"_C";
         menu = new Menu();
         backButton = new BackButton();
         contract = new ButtonBackground(7.3f,6f, contractTe);
         contract2 = new ButtonBackground(7.3f,5f, contractTe);
         upgrade = new ButtonBackground(7.3f,4f, upgradeTe);
         getTier();
+        getCont();
+        getStartedTime();
+        if (cont!=0) {
+            state = true;
+        } else {
+            state = false;
+        }
         toilet.setToiletTexture(setTextureByTier());
     }
 
     public void startProduction(int which) {
         // 0 = pee, 1 = poo
-        cont = which;
-
+        setCont(which);
         startedTime = example + MemoryReader.readCurrentTimestamp();
         state = true;
         MemoryWriter.writeTimer(keyS, startedTime);
+    }
+
+    private void getStartedTime() {
+        startedTime = MemoryReader.readTimer(keyS);
     }
 
     public void checkProduction(Balance pee, Balance poo) {
@@ -61,6 +73,9 @@ public class Toilets {
             } else if (cont==1) {
                 poo.addValue(1500*tier);
             }
+            setCont(0);
+        } else {
+            state = true;
         }
     }
 
@@ -77,6 +92,15 @@ public class Toilets {
     public int getTier() {
         MemoryReader.readToilet(this);
         return tier;
+    }
+    public int getCont() {
+        MemoryReader.readToiletCont(this);
+        return cont;
+    }
+
+    public void setCont(int cunt) {
+        cont = cunt;
+        MemoryWriter.writeToiletCont(keyC, cont);
     }
 
     private void resetTiers() {

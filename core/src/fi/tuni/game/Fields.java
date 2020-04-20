@@ -62,7 +62,7 @@ public class Fields {
             } else if (cont==3) {
                 cash.addValue(10000);
             }
-            setCont(-1);
+            setCont(0);
             field.setFieldTexture(setTextureByCont());
         } else {
             state = true;

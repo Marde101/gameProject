@@ -94,7 +94,7 @@ public class CityScreen implements Screen {
             infoFetched = true;
         }
         checkFieldsProduct();
-        //balances
+        //balance
         objectMain.getFontBig().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
         batch.draw(cashBackground, 740, 555);
         batch.end();
@@ -188,8 +188,6 @@ public class CityScreen implements Screen {
 
             if (tmpToilets.getState()) {
                 tmpToilets.checkProduction(objectMain.getBalancePee(), objectMain.getBalancePoo());
-            } else {
-                //tmpHuussi.bounce();
             }
         }
     }

@@ -23,6 +23,12 @@ public class MemoryReader {
         x.setCont(cont);
     }
 
+    static public void readToiletCont(Toilets x) {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
+        int cont = prefs.getInteger(x.getKey());
+        x.setCont(cont);
+    }
+
     static public long readTimer(String key) {
         Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
         return prefs.getLong(key);

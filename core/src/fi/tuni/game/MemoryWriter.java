@@ -25,6 +25,12 @@ public class MemoryWriter {
         prefs.flush();
     }
 
+    static public void writeToiletCont(String key, int cont) {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
+        prefs.putInteger(key, cont);
+        prefs.flush();
+    }
+
     static public void writeTimer(String key, long saved) {
         Preferences prefs = Gdx.app.getPreferences("MyPreferences.xml");
         prefs.putLong(key, saved);
