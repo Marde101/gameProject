@@ -43,13 +43,14 @@ public class ButtonBackground extends Clickable {
         });
     }
 
+    //used for flags
     public ButtonBackground(Texture t) {
         texture = t;
         setWidth(2f);
         setHeight(1f);
         float posX = (12.8f-getWidth()) / 2;
         float posY = (6.4f-getHeight()) / 2;
-        setBounds(posX,posY, getWidth(), getHeight());
+        setBounds(posX-2.2f,posY, getWidth(), getHeight());
         addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 happened = true;

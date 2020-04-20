@@ -18,17 +18,25 @@ public class Toilets {
     private String keyC;
     private Texture contractTe = new Texture(Gdx.files.internal("plainButton.png"));
     private Texture upgradeTe = new Texture(Gdx.files.internal("euroNappi.png"));
+
     private String price0 = "1000";
     private String price1 = "15600";
     private String price2 = "64400";
-    private String price3 = "420000";
+    private String price3 = "609000";
+    private String price4 = "2500000";
     private Texture tier0 = new Texture(Gdx.files.internal("puuHuusSilu.png"));
     private Texture tier1 = new Texture(Gdx.files.internal("sinihus.png"));
     private Texture tier2 = new Texture(Gdx.files.internal("sinihuus.png"));
     private Texture tier3 = new Texture(Gdx.files.internal("huussi.png"));
+    private Texture tier4 = new Texture(Gdx.files.internal("huussi.png"));
+    private Texture tier5 = new Texture(Gdx.files.internal("huussi.png"));
 
     private int cont;
-    private long example = 15000;
+    private long peeTimeBase = 20000;
+    private long pooTimeBase = 30000;
+    private int perSecond = 75;
+    private long multiplierTime = 4;
+    private double multiplierValue = 1.1;
     private boolean state;
     private long startedTime;
 
@@ -56,7 +64,11 @@ public class Toilets {
     public void startProduction(int which) {
         // 0 = pee, 1 = poo
         setCont(which);
-        startedTime = example + MemoryReader.readCurrentTimestamp();
+        if (cont == 0) {
+            startedTime = (peeTimeBase + tier * multiplierTime) + MemoryReader.readCurrentTimestamp();
+        } else {
+            startedTime = (pooTimeBase + tier * multiplierTime) + MemoryReader.readCurrentTimestamp();
+        }
         state = true;
         MemoryWriter.writeTimer(keyS, startedTime);
     }
@@ -69,9 +81,13 @@ public class Toilets {
         if (startedTime < MemoryReader.readCurrentTimestamp()) {
             state = false;
             if (cont==0) {
-                pee.addValue(1500*tier);
+                pee.addValue((int)(
+                        (peeTimeBase/1000 + tier * multiplierTime)
+                                *(perSecond*tier*multiplierValue)));
             } else if (cont==1) {
-                poo.addValue(1500*tier);
+                poo.addValue((int)(
+                        (pooTimeBase/1000 + tier * multiplierTime)
+                                *(perSecond*tier*multiplierValue)));
             }
             setCont(0);
         } else {
@@ -130,6 +146,8 @@ public class Toilets {
             return price2;
         } else if (tier==3){
             return price3;
+        } else if (tier==4) {
+            return price4;
         } else {
             return "";
         }
@@ -144,8 +162,10 @@ public class Toilets {
             return tier2;
         } else if (tier==3){
             return tier3;
+        } else if (tier==4) {
+            return tier4;
         } else {
-            return tier3;
+            return tier5;
         }
     }
 
