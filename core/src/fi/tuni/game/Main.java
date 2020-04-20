@@ -134,6 +134,7 @@ public class Main extends Game {
             setScreen(fieldScreen);
             uiStage.clear();
         }
+        sceneSwitch.setHappened(false);
     }
 
     public void setStartScreen() {

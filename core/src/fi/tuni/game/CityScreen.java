@@ -230,7 +230,6 @@ public class CityScreen implements Screen {
         objectMain.getSettings().setHappened(false);
         objectMain.getSettings().getMenu().setHappened(false);
         objectMain.getSettings().getBackButton().setHappened(false);
-        objectMain.getSceneSwitch().setHappened(false);
         objectMain.getSettings().setHappened(false);
         objectMain.getUIStage().clear();
         drawToilets();

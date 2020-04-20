@@ -96,8 +96,8 @@ public class FieldScreen implements Screen {
         Gdx.input.setInputProcessor(objectMain.getUIStage());
         //sceneswitch function
         if (objectMain.getSceneSwitch().getHappened()) {
-            objectMain.switchScene();
             closeMenu();
+            objectMain.switchScene();
         }
         //settings function
         if (objectMain.getSettings().getHappened()) {
