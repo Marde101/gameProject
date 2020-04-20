@@ -100,8 +100,14 @@ public class FieldScreen implements Screen {
             objectMain.getSceneSwitch().setHappened(false);
         }
         //settings function
-        if (objectMain.getSettings().getHappened()) {
-            // open up menubg etc
+        if (objectMain.getSettings().getHappened() && !menuOpen) {
+            menuOpen = true;
+            objectMain.getUIStage().addActor(objectMain.getSettings().getMenu());
+            objectMain.getUIStage().addActor(objectMain.getSettings().getBackButton());
+            if (Gdx.input.isKeyPressed(Input.Keys.BACK)
+                    || objectMain.getSettings().getBackButton().getHappened()) {
+                closeMenu();
+            }
         }
     }
 
@@ -197,6 +203,9 @@ public class FieldScreen implements Screen {
             tmpContract2.setHappened(false);
             tmpContract3.setHappened(false);
         }
+        objectMain.getSettings().setHappened(false);
+        objectMain.getSettings().getMenu().setHappened(false);
+        objectMain.getSettings().getBackButton().setHappened(false);
         objectMain.getSettings().setHappened(false);
         objectMain.getUIStage().clear();
         drawFields();

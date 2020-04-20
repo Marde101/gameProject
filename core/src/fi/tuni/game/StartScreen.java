@@ -1,6 +1,7 @@
 package fi.tuni.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,6 +18,7 @@ public class StartScreen implements Screen {
     private Texture background;
     private ButtonBackground startButton;
     private ButtonBackground setButton;
+    private boolean menuOpen = false;
 
     public StartScreen(Main x) {
         batch = x.getBatch();
@@ -52,14 +54,34 @@ public class StartScreen implements Screen {
         if (startButton.getHappened()) {
             objectMain.switchScene();
         }
-        if (setButton.getHappened()) {
-            //open setting
-        }
+
         //texts
         batch.begin();
-        objectMain.getFontBig().draw(batch, "Start", WINDOW_WIDTH*100/2-60, 410);
-        objectMain.getFontBig().draw(batch, "Settings", WINDOW_WIDTH*100/2-95, 280);
+        if (!menuOpen) {
+            objectMain.getFontBig().draw(batch, "Start", WINDOW_WIDTH*100/2-60, 410);
+            objectMain.getFontBig().draw(batch, "Settings", WINDOW_WIDTH*100/2-95, 280);
+        }
+
+        if (setButton.getHappened()) {
+            menuOpen = true;
+            objectMain.getUIStage().addActor(objectMain.getSettings().getMenu());
+            objectMain.getUIStage().addActor(objectMain.getSettings().getBackButton());
+            objectMain.getFontBig().draw(batch, "BACK",575, 125);
+            if (Gdx.input.isKeyPressed(Input.Keys.BACK)
+                    || objectMain.getSettings().getBackButton().getHappened()) {
+                closeMenu();
+            }
+        }
         batch.end();
+    }
+
+    private void closeMenu() {
+        setButton.setHappened(false);
+        objectMain.getSettings().setHappened(false);
+        objectMain.getSettings().getMenu().setHappened(false);
+        objectMain.getSettings().getBackButton().setHappened(false);
+        objectMain.getUIStage().clear();
+        menuOpen = false;
     }
 
     @Override
