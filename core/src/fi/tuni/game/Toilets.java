@@ -35,7 +35,7 @@ public class Toilets {
     private long peeTimeBase = 20000;
     private long pooTimeBase = 30000;
     private int perSecond = 75;
-    private long multiplierTime = 4;
+    private long multiplierTime = 4000;
     private double multiplierValue = 1.1;
     private boolean state;
     private long startedTime;
