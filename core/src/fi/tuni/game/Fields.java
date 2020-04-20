@@ -25,9 +25,9 @@ public class Fields {
     private int reward1 = 2500*2;
     private int reward2 = 12000*2;
     private int reward3 = 24500*2;
-    private long time1 = 20000;
-    private long time2 = 20000;
-    private long time3 = 20000;
+    private long time1 = 15000;
+    private long time2 = 30000;
+    private long time3 = 45000;
     private int cont = 0;
     private boolean state;
     private long startedTime;
