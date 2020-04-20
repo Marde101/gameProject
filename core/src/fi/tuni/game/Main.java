@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import java.util.ArrayList;
+
 public class Main extends Game {
 
     private final float WINDOW_WIDTH = 12.8f;
@@ -71,6 +73,13 @@ public class Main extends Game {
             pee.addValue(100);
             poo.addValue(100);
         }
+    }
+    public ArrayList getFields() {
+        return fieldScreen.getAllFields();
+    }
+
+    public ArrayList getToilets() {
+        return cityScreen.getAllToilets();
     }
 
     public Balance getBalanceCash() {

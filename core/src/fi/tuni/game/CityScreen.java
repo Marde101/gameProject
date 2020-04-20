@@ -30,6 +30,8 @@ public class CityScreen implements Screen {
     private Toilet toilet;
     private Toilets toilets;
     private ArrayList<Toilets> allToilets;
+    private ArrayList<Fields> allFields;
+    private boolean infoFetched = false;
 
     public CityScreen(Main x) {
         batch = x.getBatch();
@@ -45,9 +47,7 @@ public class CityScreen implements Screen {
                 WINDOW_HEIGHT);
         cityTiledMap = new TmxMapLoader().load("kaupunkikesken.tmx");
         cityTiledMapRenderer = new OrthogonalTiledMapRenderer(cityTiledMap, 1 / 100f);
-
         cashBackground = new Texture("coin.png");
-
         allToilets = new ArrayList<>();
         generateToilets();
     }
@@ -89,6 +89,11 @@ public class CityScreen implements Screen {
 
         batch.begin();
         drawToilets();
+        if (!infoFetched) {
+            allFields = objectMain.getFields();
+            infoFetched = true;
+        }
+        checkFieldsProduct();
         //balances
         objectMain.getFontBig().draw(batch, objectMain.getBalanceCash().getValueToString(), 825, 615);
         batch.draw(cashBackground, 740, 555);
@@ -175,10 +180,23 @@ public class CityScreen implements Screen {
             }
 
             //production check
+
             if (tmpToilets.getState()) {
                 tmpToilets.checkProduction(objectMain.getBalancePee(), objectMain.getBalancePoo());
             } else {
                 //tmpHuussi.bounce();
+            }
+        }
+    }
+
+    public ArrayList getAllToilets() {
+        return allToilets;
+    }
+
+    private void checkFieldsProduct() {
+        for(Fields tmpFields: allFields) {
+            if (tmpFields.getState()) {
+            tmpFields.checkProduction(objectMain.getBalanceCash());
             }
         }
     }

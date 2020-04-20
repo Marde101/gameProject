@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FieldScreen implements Screen {
@@ -20,10 +21,12 @@ public class FieldScreen implements Screen {
     private Texture fence;
     private Texture balancePee;
     private Texture balancePoo;
-    private ArrayList<Fields> allFields;
     private Field field;
     private Fields fields;
     private boolean menuOpen = false;
+    private ArrayList<Fields> allFields;
+    private ArrayList<Toilets> allToilets;
+    private boolean infoFetched = false;
 
     public FieldScreen(Main x) {
         batch = x.getBatch();
@@ -72,6 +75,11 @@ public class FieldScreen implements Screen {
 
         batch.begin();
         drawFields();
+        if (!infoFetched) {
+            allToilets = objectMain.getToilets();
+            infoFetched = true;
+        }
+        checkToiletsProduct();
         if (!menuOpen) {
             batch.draw(fence, 0,0);
         }
@@ -144,13 +152,15 @@ public class FieldScreen implements Screen {
                         tmpFields.startProduction(1);
                         closeMenu();
                     }
-                } else if (tmpContract2.getHappened()) {
+                }
+                if (tmpContract2.getHappened()) {
                     if (objectMain.getBalancePee().getValue() >= Integer.parseInt(tmpFields.getPrice(2))) {
                         objectMain.getBalancePee().removeValue(Integer.parseInt(tmpFields.getPrice(2)));
                         tmpFields.startProduction(2);
                         closeMenu();
                     }
-                } else if (tmpContract3.getHappened()) {
+                }
+                if (tmpContract3.getHappened()) {
                     if (objectMain.getBalancePoo().getValue() >= Integer.parseInt(tmpFields.getPrice(3))) {
                         objectMain.getBalancePoo().removeValue(Integer.parseInt(tmpFields.getPrice(3)));
                         tmpFields.startProduction(3);
@@ -189,6 +199,18 @@ public class FieldScreen implements Screen {
         objectMain.getUIStage().clear();
         drawFields();
         menuOpen = false;
+    }
+
+    public ArrayList getAllFields() {
+        return allFields;
+    }
+
+    private void checkToiletsProduct() {
+        for(Toilets tmpToilets: allToilets) {
+            if (tmpToilets.getState()) {
+                tmpToilets.checkProduction(objectMain.getBalancePee(), objectMain.getBalancePoo());
+            }
+        }
     }
 
     @Override
