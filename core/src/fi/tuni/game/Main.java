@@ -17,10 +17,13 @@ public class Main extends Game {
     private final float WINDOW_HEIGHT = 6.4f;
 
     private SpriteBatch batch;
+
+    //screens
     private StartScreen startScreen;
     private FieldScreen fieldScreen;
     private CityScreen cityScreen;
 
+    //fonts
     private FreeTypeFontGenerator generator;
     private BitmapFont fontBig;
     private BitmapFont fontSmall;

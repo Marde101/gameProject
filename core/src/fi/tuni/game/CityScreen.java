@@ -45,7 +45,7 @@ public class CityScreen implements Screen {
         camera.setToOrtho(false,
                 WINDOW_WIDTH,
                 WINDOW_HEIGHT);
-        cityTiledMap = new TmxMapLoader().load("kaupunkikesken.tmx");
+        cityTiledMap = new TmxMapLoader().load("cityFinal.tmx");
         cityTiledMapRenderer = new OrthogonalTiledMapRenderer(cityTiledMap, 1 / 100f);
         cashBackground = new Texture("coin.png");
         allToilets = new ArrayList<>();

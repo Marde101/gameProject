@@ -14,16 +14,21 @@ public class Fields {
     private String keyS;
     private Texture contractPee = new Texture(Gdx.files.internal("peeButton.png"));
     private Texture contractPoo = new Texture(Gdx.files.internal("pooButton.png"));
-    private String price0 = "1000";
-    private String price1 = "5600";
-    private String price2 = "8000";
     private Texture cont0 = new Texture(Gdx.files.internal("textureField.png"));
     private Texture cont1 = new Texture(Gdx.files.internal("cabbageField.png"));
     private Texture cont2 = new Texture(Gdx.files.internal("onionField.png"));
     private Texture none = new Texture(Gdx.files.internal("plainField.png"));
 
+    private String price0 = "1500";
+    private String price1 = "15000";
+    private String price2 = "35000";
+    private int reward1 = 2500*2;
+    private int reward2 = 12000*2;
+    private int reward3 = 24500*2;
+    private long time1 = 20000;
+    private long time2 = 20000;
+    private long time3 = 20000;
     private int cont = 0;
-    private long example = 20000;
     private boolean state;
     private long startedTime;
 
@@ -42,9 +47,15 @@ public class Fields {
     }
 
     public void startProduction(int which) {
-        // 0 = vilja, 1 = kaali, 2 = sipuli
+        // 1 = vilja, 2 = kaali, 3 = sipuli
         setCont(which);
-        startedTime = example + MemoryReader.readCurrentTimestamp();
+        if (cont==1) {
+            startedTime = time1 + MemoryReader.readCurrentTimestamp();
+        } else if (cont==2) {
+            startedTime = time2 + MemoryReader.readCurrentTimestamp();
+        } else if (cont==3) {
+            startedTime = time3 + MemoryReader.readCurrentTimestamp();
+        }
         MemoryWriter.writeTimer(keyS, startedTime);
         field.setFieldTexture(setTextureByCont());
     }
@@ -57,13 +68,13 @@ public class Fields {
         if (startedTime < MemoryReader.readCurrentTimestamp()) {
             if (cont==1) {
                 RequestSound.playBalanceSound();
-                cash.addValue(1500);
+                cash.addValue(reward1);
             } else if (cont==2) {
                 RequestSound.playBalanceSound();
-                cash.addValue(2500);
+                cash.addValue(reward2);
             } else if (cont==3) {
                 RequestSound.playBalanceSound();
-                cash.addValue(10000);
+                cash.addValue(reward3);
             }
             setCont(0);
             field.setFieldTexture(setTextureByCont());
