@@ -145,7 +145,7 @@ public class CityScreen implements Screen {
                     objectMain.getUIStage().addActor(tmpContract);
                     objectMain.getFontSmall().draw(batch, "Virtsa", 740, 440);
                     objectMain.getFontSmallest().draw(batch, "Kerää virtsa kuivakäymälästä\n " +
-                            "ja aloita sen laimennus.",265, 460);
+                            "ja aloita laimentaminen.",265, 460);
                     objectMain.getUIStage().addActor(tmpContract2);
                     objectMain.getFontSmall().draw(batch, "Uloste", 740, 340);
                     objectMain.getFontSmallest().draw(batch, "Kerää virtsa/uloste kuivakäymälästä\n" +
