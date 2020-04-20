@@ -65,9 +65,11 @@ public class Toilets {
         // 0 = pee, 1 = poo
         setCont(which);
         if (cont == 0) {
-            startedTime = (peeTimeBase + tier * multiplierTime) + MemoryReader.readCurrentTimestamp();
+            startedTime = (peeTimeBase + tier * multiplierTime)
+                    + MemoryReader.readCurrentTimestamp();
         } else {
-            startedTime = (pooTimeBase + tier * multiplierTime) + MemoryReader.readCurrentTimestamp();
+            startedTime = (pooTimeBase + tier * multiplierTime)
+                    + MemoryReader.readCurrentTimestamp();
         }
         state = true;
         MemoryWriter.writeTimer(keyS, startedTime);

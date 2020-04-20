@@ -111,6 +111,7 @@ public class CityScreen implements Screen {
             objectMain.getSceneSwitch().setHappened(false);
         }
         //settings function
+        /*
         if (objectMain.getSettings().getHappened() && !menuOpen) {
             menuOpen = true;
             objectMain.getUIStage().addActor(objectMain.getSettings().getMenu());
@@ -119,7 +120,7 @@ public class CityScreen implements Screen {
                     || objectMain.getSettings().getBackButton().getHappened()) {
                 closeMenu();
             }
-        }
+        }*/
     }
 
     private void drawToilets() {

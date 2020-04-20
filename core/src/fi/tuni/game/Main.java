@@ -3,7 +3,6 @@ package fi.tuni.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -18,11 +17,6 @@ public class Main extends Game {
     private final float WINDOW_HEIGHT = 6.4f;
 
     private SpriteBatch batch;
-
-    public SpriteBatch getBatch() {
-        return batch;
-    }
-
     private StartScreen startScreen;
     private FieldScreen fieldScreen;
     private CityScreen cityScreen;
@@ -67,7 +61,6 @@ public class Main extends Game {
         cash = new Balance("Cash");
         pee = new Balance("Pee");
         poo = new Balance("Poo");
-        cash.addValue(1500000);
         if (cash.getValue() == 0 && pee.getValue()
                 == 0 && poo.getValue() == 0) {
             cash.addValue(1000);
@@ -121,6 +114,9 @@ public class Main extends Game {
     public Settings getSettings() {
         return settings;
     }
+    public SpriteBatch getBatch() {
+        return batch;
+    }
 
     @Override
     public void render () {
@@ -142,10 +138,12 @@ public class Main extends Game {
     @Override
     public void dispose () {
         batch.dispose();
+        startScreen.dispose();
         fieldScreen.dispose();
         cityScreen.dispose();
         fontBig.dispose();
         fontSmall.dispose();
+        fontSmallest.dispose();
         generator.dispose();
         uiStage.dispose();
     }
