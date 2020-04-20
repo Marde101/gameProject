@@ -59,7 +59,7 @@ public class CityScreen implements Screen {
         generateToilet(10.55f,0.36f, "Toilet_4");
         generateToilet(5.75f,2.6f, "Toilet_5");
         generateToilet(7.98f,2.28f, "Toilet_6");
-        generateToilet(10.87f,4.53f, "Toilet_7");
+        generateToilet(10.80f,4.53f, "Toilet_7");
     }
 
     private void generateToilet(float posX, float posY, String key) {
