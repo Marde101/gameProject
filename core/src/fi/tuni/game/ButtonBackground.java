@@ -1,6 +1,7 @@
 package fi.tuni.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,6 +21,7 @@ public class ButtonBackground extends Clickable {
         setBounds(posX,posY-2.2f, getWidth(), getHeight());
         addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
                 happened = true;
                 return true;
             }

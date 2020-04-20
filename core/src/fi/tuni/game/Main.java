@@ -36,7 +36,7 @@ public class Main extends Game {
     private Balance poo;
 
     // determines which screen is active
-    // and also which screen is the startscreen
+    // and also which screen launches from startScreen
     private boolean inCity = true;
 
     @Override
@@ -52,38 +52,22 @@ public class Main extends Game {
         uiStage = new Stage(new FitViewport(width, height));
         sceneSwitch = new Clickable();
         settings = new Settings();
-
         fetchValues();
         MemoryWriter.writeCurrentTimestamp();
+        RequestSound.playBackgroundMusic();
     }
 
     private void fetchValues() {
         cash = new Balance("Cash");
         pee = new Balance("Pee");
         poo = new Balance("Poo");
+        cash.addValue(1500000);
         if (cash.getValue() == 0 && pee.getValue()
                 == 0 && poo.getValue() == 0) {
             cash.addValue(1000);
             pee.addValue(100);
             poo.addValue(100);
         }
-    }
-    public ArrayList getFields() {
-        return fieldScreen.getAllFields();
-    }
-
-    public ArrayList getToilets() {
-        return cityScreen.getAllToilets();
-    }
-
-    public Balance getBalanceCash() {
-        return cash;
-    }
-    public Balance getBalancePee() {
-        return pee;
-    }
-    public Balance getBalancePoo() {
-        return poo;
     }
 
     private BitmapFont createFont(int size) {
@@ -95,6 +79,8 @@ public class Main extends Game {
         parameter.borderWidth = 3;
         return generator.generateFont(parameter);
     }
+
+
 
     public BitmapFont getFontBig() {
         return fontBig;
@@ -117,6 +103,21 @@ public class Main extends Game {
     public SpriteBatch getBatch() {
         return batch;
     }
+    public ArrayList getFields() {
+        return fieldScreen.getAllFields();
+    }
+    public ArrayList getToilets() {
+        return cityScreen.getAllToilets();
+    }
+    public Balance getBalanceCash() {
+        return cash;
+    }
+    public Balance getBalancePee() {
+        return pee;
+    }
+    public Balance getBalancePoo() {
+        return poo;
+    }
 
     @Override
     public void render () {
@@ -134,6 +135,12 @@ public class Main extends Game {
             uiStage.clear();
         }
     }
+
+    public void setStartScreen() {
+        setScreen(startScreen);
+        uiStage.clear();
+    }
+
 
     @Override
     public void dispose () {

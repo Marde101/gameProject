@@ -28,8 +28,8 @@ public class Toilets {
     private Texture tier1 = new Texture(Gdx.files.internal("sinihus.png"));
     private Texture tier2 = new Texture(Gdx.files.internal("sinihuus.png"));
     private Texture tier3 = new Texture(Gdx.files.internal("huussi.png"));
-    private Texture tier4 = new Texture(Gdx.files.internal("huussi.png"));
-    private Texture tier5 = new Texture(Gdx.files.internal("huussi.png"));
+    private Texture tier4 = new Texture(Gdx.files.internal("doubleHuus.png"));
+    private Texture tier5 = new Texture(Gdx.files.internal("goldenHuus.png"));
 
     private int cont;
     private long peeTimeBase = 20000;
@@ -83,10 +83,12 @@ public class Toilets {
         if (startedTime < MemoryReader.readCurrentTimestamp()) {
             state = false;
             if (cont==0) {
+                RequestSound.playBalanceSound();
                 pee.addValue((int)(
                         (peeTimeBase/1000 + tier * multiplierTime)
                                 *(perSecond*tier*multiplierValue)));
             } else if (cont==1) {
+                RequestSound.playBalanceSound();
                 poo.addValue((int)(
                         (pooTimeBase/1000 + tier * multiplierTime)
                                 *(perSecond*tier*multiplierValue)));

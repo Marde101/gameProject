@@ -96,21 +96,14 @@ public class FieldScreen implements Screen {
         Gdx.input.setInputProcessor(objectMain.getUIStage());
         //sceneswitch function
         if (objectMain.getSceneSwitch().getHappened()) {
-            closeMenu();
             objectMain.switchScene();
-            objectMain.getSceneSwitch().setHappened(false);
+            closeMenu();
         }
         //settings function
-        /*
-        if (objectMain.getSettings().getHappened() && !menuOpen) {
-            menuOpen = true;
-            objectMain.getUIStage().addActor(objectMain.getSettings().getMenu());
-            objectMain.getUIStage().addActor(objectMain.getSettings().getBackButton());
-            if (Gdx.input.isKeyPressed(Input.Keys.BACK)
-                    || objectMain.getSettings().getBackButton().getHappened()) {
-                closeMenu();
-            }
-        }*/
+        if (objectMain.getSettings().getHappened()) {
+            closeMenu();
+            objectMain.setStartScreen();
+        }
     }
 
     private void drawFields() {
@@ -124,9 +117,11 @@ public class FieldScreen implements Screen {
             ButtonBackground tmpContract3 = tmpFields.getContractButton3();
 
             objectMain.getUIStage().addActor(tmpFields.getField());
-
             //field menu
             if (tmpField.getHappened() && (!menuOpen || which.equals(tmpFields.getKey()))) {
+                if (!menuOpen) {
+                    RequestSound.playButtonClick();
+                }
                 which = tmpFields.getKey();
                 menuOpen = true;
                 if (!tmpFields.getState()) {
@@ -190,6 +185,7 @@ public class FieldScreen implements Screen {
     }
 
     private void closeMenu() {
+        RequestSound.playButtonClick();
         for(Fields tmpFields: allFields) {
             Field tmpField = tmpFields.getField();
             Menu tmpMenu = tmpFields.getMenu();

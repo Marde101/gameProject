@@ -51,7 +51,9 @@ public class StartScreen implements Screen {
         Gdx.input.setInputProcessor(objectMain.getUIStage());
         objectMain.getUIStage().addActor(setButton);
         objectMain.getUIStage().addActor(startButton);
+
         if (startButton.getHappened()) {
+            startButton.setHappened(false);
             objectMain.switchScene();
         }
 
@@ -63,6 +65,9 @@ public class StartScreen implements Screen {
         }
 
         if (setButton.getHappened()) {
+            if (!menuOpen) {
+                RequestSound.playButtonClick();
+            }
             menuOpen = true;
             objectMain.getUIStage().addActor(objectMain.getSettings().getMenu());
             objectMain.getUIStage().addActor(objectMain.getSettings().getBackButton());
@@ -83,7 +88,9 @@ public class StartScreen implements Screen {
     }
 
     private void closeMenu() {
+        RequestSound.playButtonClick();
         setButton.setHappened(false);
+        startButton.setHappened(false);
         objectMain.getSettings().setHappened(false);
         objectMain.getSettings().getMenu().setHappened(false);
         objectMain.getSettings().getBackButton().setHappened(false);

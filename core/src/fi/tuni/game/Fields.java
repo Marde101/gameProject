@@ -56,10 +56,13 @@ public class Fields {
     public void checkProduction(Balance cash) {
         if (startedTime < MemoryReader.readCurrentTimestamp()) {
             if (cont==1) {
+                RequestSound.playBalanceSound();
                 cash.addValue(1500);
             } else if (cont==2) {
+                RequestSound.playBalanceSound();
                 cash.addValue(2500);
             } else if (cont==3) {
+                RequestSound.playBalanceSound();
                 cash.addValue(10000);
             }
             setCont(0);
