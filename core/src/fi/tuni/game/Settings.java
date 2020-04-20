@@ -11,9 +11,16 @@ public class Settings extends Clickable {
     private boolean happened = false;
     private Menu menu;
     private BackButton backButton;
+    private ButtonBackground language;
+    private Texture finnish;
+    private Texture english;
+    private boolean fin = true;
+
 
     public Settings() {
         texture = new Texture(Gdx.files.internal("settingsButton.png"));
+        finnish = new Texture(Gdx.files.internal("englishFlag.png"));
+        english = new Texture(Gdx.files.internal("finnishFlag.png"));
         setWidth(0.8f);
         setHeight(0.8f);
         setBounds(0.2f,5.5f, getWidth(), getHeight());
@@ -23,7 +30,7 @@ public class Settings extends Clickable {
                 return true;
             }
         });
-
+        language = new ButtonBackground(finnish);
         menu = new Menu();
         backButton = new BackButton();
     }
@@ -38,5 +45,17 @@ public class Settings extends Clickable {
     }
     public BackButton getBackButton() {
         return backButton;
+    }
+    public ButtonBackground getLanguage() {
+        return language;
+    }
+    public void changeLanguage() {
+        if (fin) {
+            language.setTexture(english);
+            fin = false;
+        } else {
+            language.setTexture(finnish);
+            fin = true;
+        }
     }
 }

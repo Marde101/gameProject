@@ -66,7 +66,14 @@ public class StartScreen implements Screen {
             menuOpen = true;
             objectMain.getUIStage().addActor(objectMain.getSettings().getMenu());
             objectMain.getUIStage().addActor(objectMain.getSettings().getBackButton());
+            objectMain.getUIStage().addActor(objectMain.getSettings().getLanguage());
             objectMain.getFontBig().draw(batch, "BACK",575, 125);
+
+            if (objectMain.getSettings().getLanguage().getHappened()) {
+                objectMain.getSettings().changeLanguage();
+                closeMenu();
+            }
+
             if (Gdx.input.isKeyPressed(Input.Keys.BACK)
                     || objectMain.getSettings().getBackButton().getHappened()) {
                 closeMenu();
@@ -80,6 +87,7 @@ public class StartScreen implements Screen {
         objectMain.getSettings().setHappened(false);
         objectMain.getSettings().getMenu().setHappened(false);
         objectMain.getSettings().getBackButton().setHappened(false);
+        objectMain.getSettings().getLanguage().setHappened(false);
         objectMain.getUIStage().clear();
         menuOpen = false;
     }
