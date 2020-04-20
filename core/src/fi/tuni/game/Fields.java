@@ -107,7 +107,7 @@ public class Fields {
     public String getPrice(int x) {
         if (x==1) {
             return price0;
-        } else if (x==1) {
+        } else if (x==2) {
             return price1;
         } else {
             return price2;

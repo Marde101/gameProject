@@ -53,6 +53,7 @@ public class StartScreen implements Screen {
         objectMain.getUIStage().addActor(startButton);
 
         if (startButton.getHappened()) {
+            RequestSound.playButtonClick();
             startButton.setHappened(false);
             objectMain.switchScene();
         }

@@ -40,7 +40,7 @@ public class Main extends Game {
 
     // determines which screen is active
     // and also which screen launches from startScreen
-    private boolean inCity = true;
+    private boolean inCity = false;
 
     @Override
     public void create () {
