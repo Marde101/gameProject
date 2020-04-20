@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+
 import java.util.ArrayList;
 
 public class FieldScreen implements Screen {
@@ -16,7 +18,7 @@ public class FieldScreen implements Screen {
     private SpriteBatch batch;
     private Main objectMain;
     private OrthographicCamera fontCamera;
-    private Texture fence;
+    private Fence fence;
     private Texture balancePee;
     private Texture balancePoo;
     private Field field;
@@ -36,7 +38,8 @@ public class FieldScreen implements Screen {
                     WINDOW_HEIGHT*100);
         balancePee = new Texture("peeMoney.png");
         balancePoo = new Texture("pooMani.png");
-        fence = new Texture("fenceFix.png");
+        fence = new Fence();
+        fence.setTouchable(Touchable.disabled);
         allFields = new ArrayList<>();
         generateFields();
     }
@@ -78,10 +81,8 @@ public class FieldScreen implements Screen {
             allToilets = objectMain.getToilets();
             infoFetched = true;
         }
+        objectMain.getUIStage().addActor(fence);
         checkToiletsProduct();
-        if (!menuOpen) {
-            batch.draw(fence, 0,0);
-        }
         //balances
         objectMain.getFontBig().draw(batch, objectMain.getBalancePee().getValueToString(), 825, 615);
         batch.draw(balancePee, 740, 555);
