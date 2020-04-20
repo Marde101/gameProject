@@ -23,10 +23,11 @@ public class FieldScreen implements Screen {
     private Texture balancePoo;
     private Field field;
     private Fields fields;
-    private boolean menuOpen = false;
     private ArrayList<Fields> allFields;
     private ArrayList<Toilets> allToilets;
     private boolean infoFetched = false;
+    private boolean menuOpen = false;
+    private String which = "";
 
     public FieldScreen(Main x) {
         batch = x.getBatch();
@@ -119,7 +120,8 @@ public class FieldScreen implements Screen {
             objectMain.getUIStage().addActor(tmpFields.getField());
 
             //field menu
-            if (tmpField.getHappened()) {
+            if (tmpField.getHappened() && (!menuOpen || which.equals(tmpFields.getKey()))) {
+                which = tmpFields.getKey();
                 menuOpen = true;
                 if (!tmpFields.getState()) {
                     objectMain.getUIStage().addActor(tmpMenu);
@@ -171,6 +173,8 @@ public class FieldScreen implements Screen {
                         || tmpBackButton.getHappened()){
                     closeMenu();
                 }
+            } else if (tmpField.getHappened()){
+                closeMenu();
             }
 
             if (tmpFields.getState()) {
@@ -199,6 +203,7 @@ public class FieldScreen implements Screen {
         objectMain.getUIStage().clear();
         drawFields();
         menuOpen = false;
+        which = "";
     }
 
     public ArrayList getAllFields() {

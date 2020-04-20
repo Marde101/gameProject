@@ -24,14 +24,14 @@ public class CityScreen implements Screen {
     private OrthographicCamera fontCamera;
     private TiledMap cityTiledMap;
     private TiledMapRenderer cityTiledMapRenderer;
-
     private Texture cashBackground;
-
     private Toilet toilet;
     private Toilets toilets;
     private ArrayList<Toilets> allToilets;
     private ArrayList<Fields> allFields;
     private boolean infoFetched = false;
+    private boolean menuOpen = false;
+    private String which = "";
 
     public CityScreen(Main x) {
         batch = x.getBatch();
@@ -128,7 +128,10 @@ public class CityScreen implements Screen {
             objectMain.getUIStage().addActor(tmpToilets.getToilet());
 
             //toilet menu
-            if (tmpToilet.getHappened()) {
+            if (tmpToilet.getHappened() &&
+                    (!menuOpen || which.equals(tmpToilets.getKey()))) {
+                which = tmpToilets.getKey();
+                menuOpen = true;
                 if (tmpToilets.getTier() > 0 && !tmpToilets.getState()) {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
@@ -177,6 +180,8 @@ public class CityScreen implements Screen {
                         || tmpBackButton.getHappened()){
                     closeMenu();
                 }
+            } else if (tmpToilet.getHappened()){
+                closeMenu();
             }
 
             //production check
@@ -220,6 +225,8 @@ public class CityScreen implements Screen {
         objectMain.getSettings().setHappened(false);
         objectMain.getUIStage().clear();
         drawToilets();
+        menuOpen = false;
+        which = "";
     }
 
     @Override
