@@ -53,7 +53,7 @@ public class Toilets {
         getTier();
         getCont();
         getStartedTime();
-        if (cont!=0) {
+        if (cont!=1) {
             state = true;
         } else {
             state = false;
@@ -62,12 +62,12 @@ public class Toilets {
     }
 
     public void startProduction(int which) {
-        // 0 = pee, 1 = poo
+        // 1 = pee, 2 = poo
         setCont(which);
-        if (cont == 0) {
+        if (cont == 1) {
             startedTime = (peeTimeBase + tier * multiplierTime)
                     + MemoryReader.readCurrentTimestamp();
-        } else {
+        } else if (cont == 2){
             startedTime = (pooTimeBase + tier * multiplierTime)
                     + MemoryReader.readCurrentTimestamp();
         }
@@ -82,15 +82,15 @@ public class Toilets {
     public void checkProduction(Balance pee, Balance poo) {
         if (startedTime < MemoryReader.readCurrentTimestamp()) {
             state = false;
-            if (cont==0) {
+            if (cont==1) {
                 RequestSound.playBalanceSound();
                 pee.addValue((int)(
-                        (peeTimeBase/1000 + tier * multiplierTime)
+                        (peeTimeBase/1000 + tier * multiplierTime/1000)
                                 *(perSecond*tier*multiplierValue)));
-            } else if (cont==1) {
+            } else if (cont==2) {
                 RequestSound.playBalanceSound();
                 poo.addValue((int)(
-                        (pooTimeBase/1000 + tier * multiplierTime)
+                        (pooTimeBase/1000 + tier * multiplierTime/1000)
                                 *(perSecond*tier*multiplierValue)));
             }
             setCont(0);

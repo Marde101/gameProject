@@ -159,17 +159,17 @@ public class CityScreen implements Screen {
                     objectMain.getUIStage().addActor(tmpUpgrade);
                     objectMain.getFontSmall().draw(batch, tmpToilets.getPrice(), 810, 240);
                     objectMain.getFontSmallest().draw(batch, "Avaa kuivakäymälä",265, 260);
-                } else if (tmpToilets.getTier() < 5) {
+                } else if (tmpToilets.getTier() < 5 && !tmpToilets.getState()) {
                     objectMain.getUIStage().addActor(tmpUpgrade);
                     objectMain.getFontSmall().draw(batch, tmpToilets.getPrice(), 810, 240);
                     objectMain.getFontSmallest().draw(batch, "Päivitä kuivakäymälä",265, 260);
                 }
 
                 if (tmpContract.getHappened()) {
-                    tmpToilets.startProduction(0);
+                    tmpToilets.startProduction(1);
                     closeMenu();
                 } else if (tmpContract2.getHappened()) {
-                    tmpToilets.startProduction(1);
+                    tmpToilets.startProduction(2);
                     closeMenu();
                 }
 
