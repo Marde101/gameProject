@@ -19,6 +19,9 @@ public class Toilets {
     private Texture contractTe = new Texture(Gdx.files.internal("plainButton.png"));
     private Texture upgradeTe = new Texture(Gdx.files.internal("euroNappi.png"));
 
+    private ButtonBackground upgradeX;
+    private Texture upgradeTeX = new Texture(Gdx.files.internal("euroLocked.png"));
+
     private String price0 = "1000";
     private String price1 = "15600";
     private String price2 = "64400";
@@ -50,6 +53,7 @@ public class Toilets {
         contract = new ButtonBackground(7.3f,6f, contractTe);
         contract2 = new ButtonBackground(7.3f,5f, contractTe);
         upgrade = new ButtonBackground(7.3f,4f, upgradeTe);
+        upgradeX = new ButtonBackground(7.3f,4f, upgradeTeX);
         getTier();
         getCont();
         getStartedTime();
@@ -193,5 +197,8 @@ public class Toilets {
     }
     public ButtonBackground getUpgradeButton() {
         return upgrade;
+    }
+    public ButtonBackground getUpgradeButtonX() {
+        return upgradeX;
     }
 }

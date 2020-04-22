@@ -62,7 +62,11 @@ public class StartScreen implements Screen {
         batch.begin();
         if (!menuOpen) {
             objectMain.getFontBig().draw(batch, objectMain.getBundle().get("title"), WINDOW_WIDTH*100/2-60, 410);
-            objectMain.getFontBig().draw(batch, objectMain.getBundle().get("settings"), WINDOW_WIDTH*100/2-95, 280);
+            if (objectMain.getSettings().getFin()) {
+                objectMain.getFontBig().draw(batch, objectMain.getBundle().get("settings"), WINDOW_WIDTH*100/2-125, 280);
+            } else {
+                objectMain.getFontBig().draw(batch, objectMain.getBundle().get("settings"), WINDOW_WIDTH*100/2-95, 280);
+            }
         }
 
         if (setButton.getHappened()) {

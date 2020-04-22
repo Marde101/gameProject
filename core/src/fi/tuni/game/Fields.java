@@ -7,13 +7,21 @@ public class Fields {
     private Field field;
     private Menu menu;
     private BackButton backButton;
+    private String key;
+    private String keyS;
+
     private ButtonBackground contract;
     private ButtonBackground contract2;
     private ButtonBackground contract3;
-    private String key;
-    private String keyS;
     private Texture contractPee = new Texture(Gdx.files.internal("peeButton.png"));
     private Texture contractPoo = new Texture(Gdx.files.internal("pooButton.png"));
+
+    private ButtonBackground contractX;
+    private ButtonBackground contract2X;
+    private ButtonBackground contract3X;
+    private Texture contractPeeX = new Texture(Gdx.files.internal("peeLocked.png"));
+    private Texture contractPooX = new Texture(Gdx.files.internal("pooLocked.png"));
+
     private Texture cont0 = new Texture(Gdx.files.internal("textureField.png"));
     private Texture cont1 = new Texture(Gdx.files.internal("cabbageField.png"));
     private Texture cont2 = new Texture(Gdx.files.internal("onionField.png"));
@@ -41,6 +49,11 @@ public class Fields {
         contract = new ButtonBackground(7.3f,6f, contractPee);
         contract2 = new ButtonBackground(7.3f,5f, contractPee);
         contract3 = new ButtonBackground(7.3f,4f, contractPoo);
+
+        contractX = new ButtonBackground(7.3f,6f, contractPeeX);
+        contract2X = new ButtonBackground(7.3f,5f, contractPeeX);
+        contract3X = new ButtonBackground(7.3f,4f, contractPooX);
+
         getCont();
         getStartedTime();
         field.setFieldTexture(setTextureByCont());
@@ -134,7 +147,17 @@ public class Fields {
         }
         return state;
     }
+    public ButtonBackground getContractX() {
+        return contractX;
+    }
 
+    public ButtonBackground getContract2X() {
+        return contract2X;
+    }
+
+    public ButtonBackground getContract3X() {
+        return contract3X;
+    }
     public Field getField() {
         return field;
     }

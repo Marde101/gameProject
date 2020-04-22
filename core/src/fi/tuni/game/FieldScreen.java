@@ -114,6 +114,9 @@ public class FieldScreen implements Screen {
             ButtonBackground tmpContract = tmpFields.getContractButton();
             ButtonBackground tmpContract2 = tmpFields.getContractButton2();
             ButtonBackground tmpContract3 = tmpFields.getContractButton3();
+            ButtonBackground tmpContractX = tmpFields.getContractX();
+            ButtonBackground tmpContract2X = tmpFields.getContract2X();
+            ButtonBackground tmpContract3X = tmpFields.getContract3X();
 
             objectMain.getUIStage().addActor(tmpFields.getField());
             //field menu
@@ -127,14 +130,26 @@ public class FieldScreen implements Screen {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
                     objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),575, 125);
-                    objectMain.getUIStage().addActor(tmpContract);
+                    if (objectMain.getBalancePee().getValue() < Integer.parseInt(tmpFields.getPrice(1))) {
+                        objectMain.getUIStage().addActor(tmpContractX);
+                    } else {
+                        objectMain.getUIStage().addActor(tmpContract);
+                    }
+                    if (objectMain.getBalancePee().getValue() < Integer.parseInt(tmpFields.getPrice(2))) {
+                        objectMain.getUIStage().addActor(tmpContract2X);
+                    } else {
+                        objectMain.getUIStage().addActor(tmpContract2);
+                    }
+                    if (objectMain.getBalancePoo().getValue() < Integer.parseInt(tmpFields.getPrice(3))) {
+                        objectMain.getUIStage().addActor(tmpContract3X);
+                    } else {
+                        objectMain.getUIStage().addActor(tmpContract3);
+                    }
                     objectMain.getFontSmall().draw(batch, tmpFields.getPrice(1), 825, 440);
-                    objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("field1"),265, 460);
-                    objectMain.getUIStage().addActor(tmpContract2);
                     objectMain.getFontSmall().draw(batch, tmpFields.getPrice(2), 825, 340);
-                    objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("field2"),265, 360);
-                    objectMain.getUIStage().addActor(tmpContract3);
                     objectMain.getFontSmall().draw(batch, tmpFields.getPrice(3), 825, 240);
+                    objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("field1"),265, 460);
+                    objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("field2"),265, 360);
                     objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("field3"),265, 260);
                 } else {
                     objectMain.getUIStage().addActor(tmpMenu);

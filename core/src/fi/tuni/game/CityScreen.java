@@ -123,6 +123,7 @@ public class CityScreen implements Screen {
             ButtonBackground tmpContract = tmpToilets.getContractButton();
             ButtonBackground tmpContract2 = tmpToilets.getContractButton2();
             ButtonBackground tmpUpgrade = tmpToilets.getUpgradeButton();
+            ButtonBackground tmpUpgradeX = tmpToilets.getUpgradeButtonX();
             objectMain.getUIStage().addActor(tmpToilets.getToilet());
 
             //toilet menu
@@ -158,11 +159,19 @@ public class CityScreen implements Screen {
                 }
 
                 if (tmpToilets.getTier() == 0) {
-                    objectMain.getUIStage().addActor(tmpUpgrade);
+                    if (objectMain.getBalanceCash().getValue() < Integer.parseInt(tmpToilets.getPrice())) {
+                        objectMain.getUIStage().addActor(tmpUpgradeX);
+                    } else {
+                        objectMain.getUIStage().addActor(tmpUpgrade);
+                    }
                     objectMain.getFontSmall().draw(batch, tmpToilets.getPrice(), 810, 240);
                     objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("toiletupgrade1"),265, 260);
                 } else if (tmpToilets.getTier() < 5 && !tmpToilets.getState()) {
-                    objectMain.getUIStage().addActor(tmpUpgrade);
+                    if (objectMain.getBalanceCash().getValue() < Integer.parseInt(tmpToilets.getPrice())) {
+                        objectMain.getUIStage().addActor(tmpUpgradeX);
+                    } else {
+                        objectMain.getUIStage().addActor(tmpUpgrade);
+                    }
                     objectMain.getFontSmall().draw(batch, tmpToilets.getPrice(), 810, 240);
                     objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("toiletupgrade2"),265, 260);
                 }
@@ -179,6 +188,7 @@ public class CityScreen implements Screen {
                 if (tmpUpgrade.getHappened()) {
                     if (objectMain.getBalanceCash().getValue() >= Integer.parseInt(tmpToilets.getPrice())) {
                         objectMain.getBalanceCash().removeValue(Integer.parseInt(tmpToilets.getPrice()));
+                        RequestSound.playButtonClick();
                         tmpToilets.upgrade();
                         tmpUpgrade.setHappened(false);
                     }
