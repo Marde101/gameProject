@@ -22,9 +22,9 @@ public class Fields {
     private String price0 = "1500";
     private String price1 = "15000";
     private String price2 = "35000";
-    private int reward1 = 2500*2;
-    private int reward2 = 12000*2;
-    private int reward3 = 24500*2;
+    private int reward1 = 2500;
+    private int reward2 = 12000;
+    private int reward3 = 24500;
     private long time1 = 15000;
     private long time2 = 30000;
     private long time3 = 45000;

@@ -82,7 +82,23 @@ public class Main extends Game {
         return generator.generateFont(parameter);
     }
 
+    public void switchScene() {
+        if (Gdx.input.justTouched() && inCity == false) {
+            inCity = true;
+            setScreen(cityScreen);
+            uiStage.clear();
+        } else if (Gdx.input.justTouched() && inCity == true) {
+            inCity = false;
+            setScreen(fieldScreen);
+            uiStage.clear();
+        }
+        sceneSwitch.setHappened(false);
+    }
 
+    public void setStartScreen() {
+        setScreen(startScreen);
+        uiStage.clear();
+    }
 
     public BitmapFont getFontBig() {
         return fontBig;
@@ -125,25 +141,6 @@ public class Main extends Game {
     public void render () {
         super.render();
     }
-
-    public void switchScene() {
-        if (Gdx.input.justTouched() && inCity == false) {
-            inCity = true;
-            setScreen(cityScreen);
-            uiStage.clear();
-        } else if (Gdx.input.justTouched() && inCity == true) {
-            inCity = false;
-            setScreen(fieldScreen);
-            uiStage.clear();
-        }
-        sceneSwitch.setHappened(false);
-    }
-
-    public void setStartScreen() {
-        setScreen(startScreen);
-        uiStage.clear();
-    }
-
 
     @Override
     public void dispose () {

@@ -63,6 +63,21 @@ public class ButtonBackground extends Clickable {
         });
     }
 
+    public ButtonBackground(float posX, float posY, float width, float height, Texture t) {
+        texture = t;
+        setWidth(width);
+        setHeight(height);
+        setBounds(posX,posY, getWidth(), getHeight());
+        addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                happened = true;
+                ParallelAction parallel = new ParallelAction();
+                ButtonBackground.this.addAction(parallel);
+                return true;
+            }
+        });
+    }
+
     public void setTexture(Texture t) {
         texture = t;
     }

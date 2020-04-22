@@ -73,11 +73,24 @@ public class StartScreen implements Screen {
             objectMain.getUIStage().addActor(objectMain.getSettings().getMenu());
             objectMain.getUIStage().addActor(objectMain.getSettings().getBackButton());
             objectMain.getUIStage().addActor(objectMain.getSettings().getLanguage());
+            objectMain.getUIStage().addActor(objectMain.getSettings().getEffects());
+            objectMain.getUIStage().addActor(objectMain.getSettings().getMusic());
             objectMain.getFontBig().draw(batch, "BACK",575, 125);
+
+            if (objectMain.getSettings().getEffects().getHappened()) {
+                objectMain.getSettings().toggleEffects();
+                objectMain.getSettings().getEffects().setHappened(false);
+            }
+
+            if (objectMain.getSettings().getMusic().getHappened()) {
+                objectMain.getSettings().toggleMusics();
+                objectMain.getSettings().getMusic().setHappened(false);
+            }
+
 
             if (objectMain.getSettings().getLanguage().getHappened()) {
                 objectMain.getSettings().changeLanguage();
-                closeMenu();
+                objectMain.getSettings().getLanguage().setHappened(false);
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.BACK)
