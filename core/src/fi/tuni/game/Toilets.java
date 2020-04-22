@@ -53,7 +53,7 @@ public class Toilets {
         getTier();
         getCont();
         getStartedTime();
-        if (cont!=1) {
+        if (cont!=0) {
             state = true;
         } else {
             state = false;
@@ -127,6 +127,9 @@ public class Toilets {
         MemoryWriter.writeToilet(key, 0);
     }
 
+    public String getKeyC() {
+        return this.keyC;
+    }
     public String getKey() {
         return this.key;
     }

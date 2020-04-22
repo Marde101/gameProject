@@ -25,7 +25,7 @@ public class MemoryReader {
 
     static public void readToiletCont(Toilets x) {
         Preferences prefs = Gdx.app.getPreferences("MyPreferences");
-        int cont = prefs.getInteger(x.getKey());
+        int cont = prefs.getInteger(x.getKeyC());
         x.setCont(cont);
     }
 

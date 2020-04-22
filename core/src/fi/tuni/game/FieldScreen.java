@@ -145,7 +145,14 @@ public class FieldScreen implements Screen {
                     objectMain.getUIStage().addActor(tmpBackButton);
                     objectMain.getFontBig().draw(batch, "BACK",575, 125);
                     if (tmpFields.getState()) {
-                        objectMain.getFontBig().draw(batch, tmpFields.getTimeLeftString(),600, 300);
+                        objectMain.getFontBig().draw(batch, tmpFields.getTimeLeftString(),600, 420);
+                        if (tmpFields.getCont()==1) {
+                            objectMain.getFontSmall().draw(batch, "Viljan kasvattaminen käynnissä", 380, 350);
+                        } else if (tmpFields.getCont()==2) {
+                            objectMain.getFontSmall().draw(batch, "Kaalin kasvattaminen käynnissä", 380, 350);
+                        } else if (tmpFields.getCont()==3) {
+                            objectMain.getFontSmall().draw(batch, "Sipulien kasvattaminen käynnissä", 380, 350);
+                        }
                     }
                 }
 
@@ -170,8 +177,7 @@ public class FieldScreen implements Screen {
                         closeMenu();
                     }
                 }
-                if (Gdx.input.isKeyPressed(Input.Keys.BACK)
-                        || tmpBackButton.getHappened()){
+                if (tmpBackButton.getHappened()){
                     closeMenu();
                 }
             } else if (tmpField.getHappened()){
@@ -186,6 +192,8 @@ public class FieldScreen implements Screen {
 
     private void closeMenu() {
         RequestSound.playButtonClick();
+        menuOpen = false;
+        which = "";
         for(Fields tmpFields: allFields) {
             Field tmpField = tmpFields.getField();
             Menu tmpMenu = tmpFields.getMenu();
@@ -207,8 +215,6 @@ public class FieldScreen implements Screen {
         objectMain.getSettings().setHappened(false);
         objectMain.getUIStage().clear();
         drawFields();
-        menuOpen = false;
-        which = "";
     }
 
     public ArrayList getAllFields() {

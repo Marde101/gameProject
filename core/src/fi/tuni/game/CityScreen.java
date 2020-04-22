@@ -152,6 +152,11 @@ public class CityScreen implements Screen {
                     objectMain.getFontBig().draw(batch, "BACK",575, 125);
                     if (tmpToilets.getState()) {
                         objectMain.getFontBig().draw(batch, tmpToilets.getTimeLeftString(),600, 420);
+                        if (tmpToilets.getCont()==1) {
+                            objectMain.getFontSmall().draw(batch, "Virtsan laimentaminen käynnissä", 380, 350);
+                        } else if (tmpToilets.getCont()==2) {
+                            objectMain.getFontSmall().draw(batch, "Ulosteen kompostoiminen käynnissä", 380, 350);
+                        }
                     }
                 }
 
@@ -182,8 +187,7 @@ public class CityScreen implements Screen {
                     }
                 }
 
-                if (Gdx.input.isKeyPressed(Input.Keys.BACK)
-                        || tmpBackButton.getHappened()){
+                if (tmpBackButton.getHappened()){
                     closeMenu();
                 }
             } else if (tmpToilet.getHappened()){
@@ -191,9 +195,14 @@ public class CityScreen implements Screen {
             }
 
             //production check
-
             if (tmpToilets.getState()) {
                 tmpToilets.checkProduction(objectMain.getBalancePee(), objectMain.getBalancePoo());
+            }
+            if (tmpToilets.getState() && !menuOpen) {
+                objectMain.getFontBig().draw(batch,
+                        tmpToilets.getTimeLeftString(),
+                        tmpToilet.getPosX()*100,
+                        tmpToilet.getPosY()*100+120);
             }
         }
     }
@@ -212,6 +221,8 @@ public class CityScreen implements Screen {
 
     private void closeMenu() {
         RequestSound.playButtonClick();
+        menuOpen = false;
+        which = "";
         for(Toilets tmpToilets: allToilets) {
             Toilet tmpToilet = tmpToilets.getToilet();
             Menu tmpMenu = tmpToilets.getMenu();
@@ -232,9 +243,7 @@ public class CityScreen implements Screen {
         objectMain.getSettings().getBackButton().setHappened(false);
         objectMain.getSettings().setHappened(false);
         objectMain.getUIStage().clear();
-        drawToilets();
-        menuOpen = false;
-        which = "";
+        //drawToilets();
     }
 
     @Override
