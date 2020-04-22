@@ -71,10 +71,13 @@ public class StartScreen implements Screen {
             }
             menuOpen = true;
             objectMain.getUIStage().addActor(objectMain.getSettings().getMenu());
-            objectMain.getUIStage().addActor(objectMain.getSettings().getBackButton());
             objectMain.getUIStage().addActor(objectMain.getSettings().getLanguage());
+            objectMain.getFontSmall().draw(batch, "Language", 330, 420);
             objectMain.getUIStage().addActor(objectMain.getSettings().getEffects());
+            objectMain.getFontSmall().draw(batch, "Effects", 650, 380);
             objectMain.getUIStage().addActor(objectMain.getSettings().getMusic());
+            objectMain.getFontSmall().draw(batch, "Music", 650, 260);
+            objectMain.getUIStage().addActor(objectMain.getSettings().getBackButton());
             objectMain.getFontBig().draw(batch, "BACK",575, 125);
 
             if (objectMain.getSettings().getEffects().getHappened()) {
