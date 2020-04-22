@@ -44,4 +44,15 @@ public class MemoryWriter {
         prefs.flush();
     }
 
+    static public void writeVolume(String key, boolean ON) {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences");
+        prefs.putBoolean(key, ON);
+        prefs.flush();
+    }
+
+    static public void writeLang(boolean finnish) {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences");
+        prefs.putBoolean("Language", finnish);
+        prefs.flush();
+    }
 }

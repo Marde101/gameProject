@@ -40,4 +40,16 @@ public class MemoryReader {
         long time = prefs.getLong("CurrentTimestamp");
         return time;
     }
+
+    static public boolean readVolume(String key) {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences");
+        boolean ON = prefs.getBoolean(key);
+        return ON;
+    }
+
+    static public boolean readLang() {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences");
+        boolean finnish = prefs.getBoolean("Language");
+        return finnish;
+    }
 }

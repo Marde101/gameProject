@@ -54,10 +54,10 @@ public class Main extends Game {
         fontSmallest = createFont(20);
         uiStage = new Stage(new FitViewport(width, height));
         sceneSwitch = new Clickable();
+        RequestSound.playBackgroundMusic();
         settings = new Settings();
         fetchValues();
         MemoryWriter.writeCurrentTimestamp();
-        RequestSound.playBackgroundMusic();
     }
 
     private void fetchValues() {

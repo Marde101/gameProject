@@ -20,9 +20,9 @@ public class Settings extends Clickable {
     private Texture musicOn;
     private Texture soundOff;
     private Texture musicOff;
-    private boolean fin = true;
-    private boolean effectToggle = true;
-    private boolean musicToggle = true;
+    private boolean fin;
+    private boolean effectToggle;
+    private boolean musicToggle;
 
     public Settings() {
         texture = new Texture(Gdx.files.internal("settingsButton.png"));
@@ -50,6 +50,8 @@ public class Settings extends Clickable {
         language = new ButtonBackground(finnish);
         menu = new Menu();
         backButton = new BackButton();
+        fin = MemoryReader.readLang();
+        fetchVolumes();
     }
 
     public void changeLanguage() {
@@ -60,29 +62,52 @@ public class Settings extends Clickable {
             language.setTexture(musicOn);
             fin = true;
         }
+        MemoryWriter.writeLang(fin);
     }
 
     public void toggleMusics() {
         if (musicToggle) {
             RequestSound.setMusicVolume(0f);
-            music.setTexture(soundOff);
+            music.setTexture(musicOff);
             musicToggle = false;
         } else {
             RequestSound.setMusicVolume(0.5f);
-            music.setTexture(soundOn);
+            music.setTexture(musicOn);
             musicToggle = true;
         }
+        MemoryWriter.writeVolume("Music", musicToggle);
     }
 
     public void toggleEffects() {
         if (effectToggle) {
             RequestSound.setEffectVolume(0f);
-            effects.setTexture(musicOff);
+            effects.setTexture(soundOff);
             effectToggle = false;
         } else {
             RequestSound.setEffectVolume(0.5f);
             effects.setTexture(soundOn);
             effectToggle = true;
+        }
+        MemoryWriter.writeVolume("Effect", effectToggle);
+
+    }
+
+    private void fetchVolumes() {
+        musicToggle = MemoryReader.readVolume("Music");
+        effectToggle = MemoryReader.readVolume("Effect");
+        if (musicToggle) {
+            RequestSound.setMusicVolume(0.5f);
+            music.setTexture(musicOn);
+        } else {
+            RequestSound.setMusicVolume(0f);
+            music.setTexture(musicOff);
+        }
+        if (effectToggle) {
+            RequestSound.setEffectVolume(0.5f);
+            effects.setTexture(soundOn);
+        } else {
+            RequestSound.setEffectVolume(0f);
+            effects.setTexture(soundOff);
         }
     }
 
