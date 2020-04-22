@@ -50,8 +50,7 @@ public class Settings extends Clickable {
         language = new ButtonBackground(finnish);
         menu = new Menu();
         backButton = new BackButton();
-        fin = MemoryReader.readLang();
-        fetchVolumes();
+        fetchSettings();
     }
 
     public void changeLanguage() {
@@ -59,7 +58,7 @@ public class Settings extends Clickable {
             language.setTexture(english);
             fin = false;
         } else {
-            language.setTexture(musicOn);
+            language.setTexture(finnish);
             fin = true;
         }
         MemoryWriter.writeLang(fin);
@@ -92,9 +91,15 @@ public class Settings extends Clickable {
 
     }
 
-    private void fetchVolumes() {
+    private void fetchSettings() {
         musicToggle = MemoryReader.readVolume("Music");
         effectToggle = MemoryReader.readVolume("Effect");
+        fin = MemoryReader.readLang();
+        if (fin) {
+            language.setTexture(finnish);
+        } else {
+            language.setTexture(english);
+        }
         if (musicToggle) {
             RequestSound.setMusicVolume(0.5f);
             music.setTexture(musicOn);
