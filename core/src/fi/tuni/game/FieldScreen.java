@@ -127,31 +127,28 @@ public class FieldScreen implements Screen {
                 if (!tmpFields.getState()) {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
-                    objectMain.getFontBig().draw(batch, "BACK",575, 125);
+                    objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),575, 125);
                     objectMain.getUIStage().addActor(tmpContract);
                     objectMain.getFontSmall().draw(batch, tmpFields.getPrice(1), 825, 440);
-                    objectMain.getFontSmallest().draw(batch, "Kasvata viljaa. Rahaa saat vähiten.\n" +
-                            "Kasvamiseen menee aikaa vähiten.",265, 460);
+                    objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("field1"),265, 460);
                     objectMain.getUIStage().addActor(tmpContract2);
                     objectMain.getFontSmall().draw(batch, tmpFields.getPrice(2), 825, 340);
-                    objectMain.getFontSmallest().draw(batch, "Kasvata kaalia. Rahaa saat keskiverrosti.\n" +
-                            "Kasvamiseen menee aikaa keskiverrosti.",265, 360);
+                    objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("field2"),265, 360);
                     objectMain.getUIStage().addActor(tmpContract3);
                     objectMain.getFontSmall().draw(batch, tmpFields.getPrice(3), 825, 240);
-                    objectMain.getFontSmallest().draw(batch, "Kasvata sipuleita. Rahaa saat eniten.\n" +
-                            "Kasvamiseen menee aikaa kauiten.",265, 260);
+                    objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("field3"),265, 260);
                 } else {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
-                    objectMain.getFontBig().draw(batch, "BACK",575, 125);
+                    objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),575, 125);
                     if (tmpFields.getState()) {
                         objectMain.getFontBig().draw(batch, tmpFields.getTimeLeftString(),600, 420);
                         if (tmpFields.getCont()==1) {
-                            objectMain.getFontSmall().draw(batch, "Viljan kasvattaminen käynnissä", 380, 350);
+                            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("fieldtext1"), 380, 350);
                         } else if (tmpFields.getCont()==2) {
-                            objectMain.getFontSmall().draw(batch, "Kaalin kasvattaminen käynnissä", 380, 350);
+                            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("fieldtext2"), 380, 350);
                         } else if (tmpFields.getCont()==3) {
-                            objectMain.getFontSmall().draw(batch, "Sipulien kasvattaminen käynnissä", 380, 350);
+                            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("fieldtext3"), 380, 350);
                         }
                     }
                 }

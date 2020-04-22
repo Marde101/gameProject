@@ -61,8 +61,8 @@ public class StartScreen implements Screen {
         //texts
         batch.begin();
         if (!menuOpen) {
-            objectMain.getFontBig().draw(batch, "Start", WINDOW_WIDTH*100/2-60, 410);
-            objectMain.getFontBig().draw(batch, "Settings", WINDOW_WIDTH*100/2-95, 280);
+            objectMain.getFontBig().draw(batch, objectMain.getBundle().get("title"), WINDOW_WIDTH*100/2-60, 410);
+            objectMain.getFontBig().draw(batch, objectMain.getBundle().get("settings"), WINDOW_WIDTH*100/2-95, 280);
         }
 
         if (setButton.getHappened()) {
@@ -72,13 +72,13 @@ public class StartScreen implements Screen {
             menuOpen = true;
             objectMain.getUIStage().addActor(objectMain.getSettings().getMenu());
             objectMain.getUIStage().addActor(objectMain.getSettings().getLanguage());
-            objectMain.getFontSmall().draw(batch, "Language", 330, 420);
             objectMain.getUIStage().addActor(objectMain.getSettings().getEffects());
-            objectMain.getFontSmall().draw(batch, "Effects", 650, 380);
             objectMain.getUIStage().addActor(objectMain.getSettings().getMusic());
-            objectMain.getFontSmall().draw(batch, "Music", 650, 260);
             objectMain.getUIStage().addActor(objectMain.getSettings().getBackButton());
-            objectMain.getFontBig().draw(batch, "BACK",575, 125);
+            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("language"), 330, 420);
+            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("effects"), 650, 380);
+            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("music"), 650, 260);
+            objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),575, 125);
 
             if (objectMain.getSettings().getEffects().getHappened()) {
                 objectMain.getSettings().toggleEffects();

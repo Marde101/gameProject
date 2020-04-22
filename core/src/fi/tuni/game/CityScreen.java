@@ -137,25 +137,23 @@ public class CityScreen implements Screen {
                 if (tmpToilets.getTier() > 0 && !tmpToilets.getState()) {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
-                    objectMain.getFontBig().draw(batch, "BACK",575, 125);
+                    objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),575, 125);
                     objectMain.getUIStage().addActor(tmpContract);
-                    objectMain.getFontSmall().draw(batch, "Virtsa", 740, 440);
-                    objectMain.getFontSmallest().draw(batch, "Kerää virtsa kuivakäymälästä\n " +
-                            "ja aloita laimentaminen.",265, 460);
+                    objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("product1"), 740, 440);
+                    objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("productdesc1"),265, 460);
                     objectMain.getUIStage().addActor(tmpContract2);
-                    objectMain.getFontSmall().draw(batch, "Uloste", 740, 340);
-                    objectMain.getFontSmallest().draw(batch, "Kerää virtsa/uloste kuivakäymälästä\n" +
-                            "ja aloita kompostoiminen.",265, 360);
+                    objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("product2"), 740, 340);
+                    objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("productdesc2"),265, 360);
                 } else {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
-                    objectMain.getFontBig().draw(batch, "BACK",575, 125);
+                    objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),575, 125);
                     if (tmpToilets.getState()) {
                         objectMain.getFontBig().draw(batch, tmpToilets.getTimeLeftString(),600, 420);
                         if (tmpToilets.getCont()==1) {
-                            objectMain.getFontSmall().draw(batch, "Virtsan laimentaminen käynnissä", 380, 350);
+                            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("productstate1"), 380, 350);
                         } else if (tmpToilets.getCont()==2) {
-                            objectMain.getFontSmall().draw(batch, "Ulosteen kompostoiminen käynnissä", 380, 350);
+                            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("productstate2"), 380, 350);
                         }
                     }
                 }
@@ -163,11 +161,11 @@ public class CityScreen implements Screen {
                 if (tmpToilets.getTier() == 0) {
                     objectMain.getUIStage().addActor(tmpUpgrade);
                     objectMain.getFontSmall().draw(batch, tmpToilets.getPrice(), 810, 240);
-                    objectMain.getFontSmallest().draw(batch, "Avaa kuivakäymälä",265, 260);
+                    objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("toiletupgrade1"),265, 260);
                 } else if (tmpToilets.getTier() < 5 && !tmpToilets.getState()) {
                     objectMain.getUIStage().addActor(tmpUpgrade);
                     objectMain.getFontSmall().draw(batch, tmpToilets.getPrice(), 810, 240);
-                    objectMain.getFontSmallest().draw(batch, "Päivitä kuivakäymälä",265, 260);
+                    objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("toiletupgrade2"),265, 260);
                 }
 
                 if (tmpContract.getHappened()) {

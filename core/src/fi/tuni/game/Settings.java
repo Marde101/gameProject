@@ -126,7 +126,9 @@ public class Settings extends Clickable {
     public ButtonBackground getLanguage() {
         return language;
     }
-
+    public boolean getFin() {
+        return fin;
+    }
     @Override
     public void draw(Batch batch, float alpha) {
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());

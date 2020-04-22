@@ -7,9 +7,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Main extends Game {
 
@@ -42,6 +44,10 @@ public class Main extends Game {
     // and also which screen launches from startScreen
     private boolean inCity = false;
 
+
+    private I18NBundle myBundle;
+    private I18NBundle myBundle_fi;
+
     @Override
     public void create () {
         batch = new SpriteBatch();
@@ -58,6 +64,9 @@ public class Main extends Game {
         settings = new Settings();
         fetchValues();
         MemoryWriter.writeCurrentTimestamp();
+        Locale locale = new Locale("en", "UK");
+        myBundle =I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
+        myBundle_fi =I18NBundle.createBundle(Gdx.files.internal("MyBundle_fi"), locale);
     }
 
     private void fetchValues() {
@@ -100,6 +109,13 @@ public class Main extends Game {
         uiStage.clear();
     }
 
+    public I18NBundle getBundle() {
+        if (settings.getFin()) {
+            return myBundle_fi;
+        } else {
+            return myBundle;
+        }
+    }
     public BitmapFont getFontBig() {
         return fontBig;
     }
