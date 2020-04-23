@@ -20,7 +20,7 @@ public class Settings extends Clickable {
     private Texture musicOn;
     private Texture soundOff;
     private Texture musicOff;
-    private boolean fin;
+    private boolean eng;
     private boolean effectToggle;
     private boolean musicToggle;
 
@@ -54,38 +54,38 @@ public class Settings extends Clickable {
     }
 
     public void changeLanguage() {
-        if (fin) {
-            language.setTexture(english);
-            fin = false;
-        } else {
+        if (eng) {
             language.setTexture(finnish);
-            fin = true;
+            eng = false;
+        } else if (!eng) {
+            language.setTexture(english);
+            eng = true;
         }
-        MemoryWriter.writeLang(fin);
+        MemoryWriter.writeLang(eng);
     }
 
     public void toggleMusics() {
-        if (musicToggle) {
+        if (!musicToggle) {
             RequestSound.setMusicVolume(0f);
             music.setTexture(musicOff);
-            musicToggle = false;
+            musicToggle = true;
         } else {
             RequestSound.setMusicVolume(0.5f);
             music.setTexture(musicOn);
-            musicToggle = true;
+            musicToggle = false;
         }
         MemoryWriter.writeVolume("Music", musicToggle);
     }
 
     public void toggleEffects() {
-        if (effectToggle) {
+        if (!effectToggle) {
             RequestSound.setEffectVolume(0f);
             effects.setTexture(soundOff);
-            effectToggle = false;
+            effectToggle = true;
         } else {
             RequestSound.setEffectVolume(0.5f);
             effects.setTexture(soundOn);
-            effectToggle = true;
+            effectToggle = false;
         }
         MemoryWriter.writeVolume("Effect", effectToggle);
 
@@ -94,26 +94,29 @@ public class Settings extends Clickable {
     private void fetchSettings() {
         musicToggle = MemoryReader.readVolume("Music");
         effectToggle = MemoryReader.readVolume("Effect");
-        fin = MemoryReader.readLang();
-        if (fin) {
+        eng = MemoryReader.readLang();
+        if (!eng) {
             language.setTexture(finnish);
         } else {
             language.setTexture(english);
         }
-        if (musicToggle) {
+        if (!musicToggle) {
             RequestSound.setMusicVolume(0.5f);
             music.setTexture(musicOn);
         } else {
             RequestSound.setMusicVolume(0f);
             music.setTexture(musicOff);
         }
-        if (effectToggle) {
+        if (!effectToggle) {
             RequestSound.setEffectVolume(0.5f);
             effects.setTexture(soundOn);
         } else {
             RequestSound.setEffectVolume(0f);
             effects.setTexture(soundOff);
         }
+        MemoryWriter.writeVolume("Music", musicToggle);
+        MemoryWriter.writeVolume("Effect", effectToggle);
+        MemoryWriter.writeLang(eng);
     }
 
     public ButtonBackground getEffects(){
@@ -131,8 +134,8 @@ public class Settings extends Clickable {
     public ButtonBackground getLanguage() {
         return language;
     }
-    public boolean getFin() {
-        return fin;
+    public boolean getEng() {
+        return eng;
     }
     @Override
     public void draw(Batch batch, float alpha) {

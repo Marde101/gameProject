@@ -65,8 +65,10 @@ public class Main extends Game {
         fetchValues();
         MemoryWriter.writeCurrentTimestamp();
         Locale locale = new Locale("en", "UK");
+        Locale localefi = new Locale("fi", "FI");
+
         myBundle =I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
-        myBundle_fi =I18NBundle.createBundle(Gdx.files.internal("MyBundle_fi"), locale);
+        myBundle_fi =I18NBundle.createBundle(Gdx.files.internal("MyBundle_fi"), localefi);
     }
 
     private void fetchValues() {
@@ -110,7 +112,7 @@ public class Main extends Game {
     }
 
     public I18NBundle getBundle() {
-        if (settings.getFin()) {
+        if (!settings.getEng()) {
             return myBundle_fi;
         } else {
             return myBundle;
