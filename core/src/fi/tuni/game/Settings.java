@@ -25,16 +25,16 @@ public class Settings extends Clickable {
     private boolean musicToggle;
 
     public Settings() {
-        texture = new Texture(Gdx.files.internal("settingsButton.png"));
+        texture = new Texture(Gdx.files.internal("menuButton.png"));
 
         finnish = new Texture(Gdx.files.internal("englishFlag.png"));
         english = new Texture(Gdx.files.internal("finnishFlag.png"));
 
-        soundOn = new Texture(Gdx.files.internal("englishFlag.png"));
-        soundOff = new Texture(Gdx.files.internal("finnishFlag.png"));
+        soundOn = new Texture(Gdx.files.internal("soundOn.png"));
+        soundOff = new Texture(Gdx.files.internal("soundOff.png"));
 
-        musicOn = new Texture(Gdx.files.internal("englishFlag.png"));
-        musicOff = new Texture(Gdx.files.internal("finnishFlag.png"));
+        musicOn = new Texture(Gdx.files.internal("soundOn.png"));
+        musicOff = new Texture(Gdx.files.internal("soundOff.png"));
 
         setWidth(0.8f);
         setHeight(0.8f);
