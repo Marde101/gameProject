@@ -137,7 +137,11 @@ public class CityScreen implements Screen {
                 if (tmpToilets.getTier() > 0 && !tmpToilets.getState()) {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
-                    objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),575, 125);
+                    if (objectMain.getSettings().getEng()) {
+                        objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),575, 125);
+                    } else {
+                        objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),565, 125);
+                    }
                     objectMain.getUIStage().addActor(tmpContract);
                     objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("product1"), 740, 440);
                     objectMain.getFontSmallest().draw(batch, objectMain.getBundle().get("productdesc1"),265, 460);
@@ -147,7 +151,11 @@ public class CityScreen implements Screen {
                 } else {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
-                    objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),575, 125);
+                    if (objectMain.getSettings().getEng()) {
+                        objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),575, 125);
+                    } else {
+                        objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),565, 125);
+                    }
                     if (tmpToilets.getState()) {
                         objectMain.getFontBig().draw(batch, tmpToilets.getTimeLeftString(),600, 420);
                         if (tmpToilets.getCont()==1) {

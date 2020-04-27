@@ -129,7 +129,11 @@ public class FieldScreen implements Screen {
                 if (!tmpFields.getState()) {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
-                    objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),575, 125);
+                    if (objectMain.getSettings().getEng()) {
+                        objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),575, 125);
+                    } else {
+                        objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),565, 125);
+                    }
                     if (objectMain.getBalancePee().getValue() < Integer.parseInt(tmpFields.getPrice(1))) {
                         objectMain.getUIStage().addActor(tmpContractX);
                     } else {
@@ -154,7 +158,11 @@ public class FieldScreen implements Screen {
                 } else {
                     objectMain.getUIStage().addActor(tmpMenu);
                     objectMain.getUIStage().addActor(tmpBackButton);
-                    objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),575, 125);
+                    if (objectMain.getSettings().getEng()) {
+                        objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),575, 125);
+                    } else {
+                        objectMain.getFontBig().draw(batch, objectMain.getBundle().get("back"),565, 125);
+                    }
                     if (tmpFields.getState()) {
                         objectMain.getFontBig().draw(batch, tmpFields.getTimeLeftString(),600, 420);
                         if (tmpFields.getCont()==1) {
