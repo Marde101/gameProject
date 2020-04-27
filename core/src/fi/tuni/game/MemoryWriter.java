@@ -50,9 +50,9 @@ public class MemoryWriter {
         prefs.flush();
     }
 
-    static public void writeLang(boolean finnish) {
+    static public void writeLang(boolean eng) {
         Preferences prefs = Gdx.app.getPreferences("MyPreferences");
-        prefs.putBoolean("Language", finnish);
+        prefs.putBoolean("Language", eng);
         prefs.flush();
     }
 }

@@ -49,7 +49,7 @@ public class MemoryReader {
 
     static public boolean readLang() {
         Preferences prefs = Gdx.app.getPreferences("MyPreferences");
-        boolean finnish = prefs.getBoolean("Language");
-        return finnish;
+        boolean eng = prefs.getBoolean("Language");
+        return eng;
     }
 }
