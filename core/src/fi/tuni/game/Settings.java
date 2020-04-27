@@ -20,7 +20,7 @@ public class Settings extends Clickable {
     private Texture musicOn;
     private Texture soundOff;
     private Texture musicOff;
-    private boolean eng = false;
+    private boolean eng;
     private boolean effectToggle;
     private boolean musicToggle;
 
