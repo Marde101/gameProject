@@ -55,4 +55,10 @@ public class MemoryWriter {
         prefs.putBoolean("Language", eng);
         prefs.flush();
     }
+
+    static public void writeFirstLaunch(boolean launched) {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences");
+        prefs.putBoolean("Launched", launched);
+        prefs.flush();
+    }
 }

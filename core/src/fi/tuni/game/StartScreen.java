@@ -22,6 +22,8 @@ public class StartScreen implements Screen {
     private boolean menuOpen = false;
     private Tutorial tutorial;
     private boolean tutOpen;
+    private boolean firstLaunch;
+    private boolean languageSelected;
 
     public StartScreen(Main x) {
         batch = x.getBatch();
@@ -36,6 +38,9 @@ public class StartScreen implements Screen {
         tutorButton = new ButtonBackground(9f, 3f);
         tutorial = new Tutorial();
         tutOpen = false;
+        languageSelected = MemoryReader.readFirstLaunch();
+        firstLaunch = MemoryReader.readFirstLaunch();
+        MemoryWriter.writeFirstLaunch(firstLaunch);
     }
 
     @Override
@@ -55,9 +60,11 @@ public class StartScreen implements Screen {
         objectMain.getUIStage().act(Gdx.graphics.getDeltaTime());
         objectMain.getUIStage().draw();
         Gdx.input.setInputProcessor(objectMain.getUIStage());
-        objectMain.getUIStage().addActor(setButton);
-        objectMain.getUIStage().addActor(startButton);
-        objectMain.getUIStage().addActor(tutorButton);
+        if (firstLaunch) {
+            objectMain.getUIStage().addActor(setButton);
+            objectMain.getUIStage().addActor(startButton);
+            objectMain.getUIStage().addActor(tutorButton);
+        }
 
         if (startButton.getHappened()) {
             RequestSound.playButtonClick();
@@ -67,7 +74,7 @@ public class StartScreen implements Screen {
 
         //texts
         batch.begin();
-        if (!menuOpen && !tutOpen) {
+        if (!menuOpen && !tutOpen && languageSelected) {
             if (objectMain.getSettings().getEng()) {
                 objectMain.getFontBig().draw(batch, objectMain.getBundle().get("title"), WINDOW_WIDTH*100/2-60, 410);
             } else {
@@ -121,28 +128,49 @@ public class StartScreen implements Screen {
                 closeMenu();
             }
         }
-        if (tutorButton.getHappened()) {
-            tutOpen=true;
-            //english tutorial
-            if (objectMain.getSettings().getEng()) {
-                objectMain.getUIStage().addActor(tutorial);
-                if (tutorial.getHappened()) {
-                    tutorial.nextTextureEng();
-                    tutorial.setHappened(false);
-                }
-            } else { // finnish tutorial
-                objectMain.getUIStage().addActor(tutorial);
-                if (tutorial.getHappened()) {
-                    tutorial.nextTextureFin();
-                    tutorial.setHappened(false);
+        if (tutorButton.getHappened() || !firstLaunch) {
+            if (languageSelected) {
+                runTutorial();
+            } else {
+                objectMain.getFontBig().draw(batch, "Suomi    -    English",370, 470);
+                objectMain.getUIStage().addActor(objectMain.getSettings().getSuomi());
+                objectMain.getUIStage().addActor(objectMain.getSettings().getEnglish());
+                if (objectMain.getSettings().getSuomi().getHappened()) {
+                    objectMain.getSettings().setEng(false);
+                    languageSelected = true;
+                } else if (objectMain.getSettings().getEnglish().getHappened()) {
+                    objectMain.getSettings().setEng(true);
+                    languageSelected = true;
                 }
             }
-            tutorialTexts();
-            if (tutorial.getCount()==8) {
-                closeMenu();
+            if (!firstLaunch) {
+                MemoryWriter.writeFirstLaunch(firstLaunch);
             }
         }
         batch.end();
+    }
+
+    private void runTutorial() {
+        tutOpen=true;
+        //english tutorial
+        if (objectMain.getSettings().getEng()) {
+            objectMain.getUIStage().addActor(tutorial);
+            if (tutorial.getHappened()) {
+                tutorial.nextTextureEng();
+                tutorial.setHappened(false);
+            }
+        } else { // finnish tutorial
+            objectMain.getUIStage().addActor(tutorial);
+            if (tutorial.getHappened()) {
+                tutorial.nextTextureFin();
+                tutorial.setHappened(false);
+            }
+        }
+        tutorialTexts();
+        if (tutorial.getCount()==8) {
+            firstLaunch = true;
+            closeMenu();
+        }
     }
 
     private void tutorialTexts() {

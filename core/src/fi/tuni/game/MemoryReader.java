@@ -52,4 +52,10 @@ public class MemoryReader {
         boolean eng = prefs.getBoolean("Language");
         return eng;
     }
+
+    static public boolean readFirstLaunch() {
+        Preferences prefs = Gdx.app.getPreferences("MyPreferences");
+        boolean firstLaunch = prefs.getBoolean("Launched");
+        return firstLaunch;
+    }
 }

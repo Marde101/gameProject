@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
+import java.awt.Button;
+
 public class Settings extends Clickable {
     private Texture texture;
     private boolean happened = false;
@@ -24,11 +26,16 @@ public class Settings extends Clickable {
     private boolean effectToggle;
     private boolean musicToggle;
 
+
+    private ButtonBackground suomi;
+    private ButtonBackground enlgish;
+
+
     public Settings() {
         texture = new Texture(Gdx.files.internal("menuButton.png"));
 
-        finnish = new Texture(Gdx.files.internal("englishFlag.png"));
-        english = new Texture(Gdx.files.internal("finnishFlag.png"));
+        english = new Texture(Gdx.files.internal("englishFlag.png"));
+        finnish = new Texture(Gdx.files.internal("finnishFlag.png"));
 
         soundOn = new Texture(Gdx.files.internal("soundOn.png"));
         soundOff = new Texture(Gdx.files.internal("soundOff.png"));
@@ -47,7 +54,9 @@ public class Settings extends Clickable {
         });
         effects = new ButtonBackground(8f, 3.2f, 1f, 1f, soundOn);
         music = new ButtonBackground(8f, 2f, 1f, 1f, musicOn);
-        language = new ButtonBackground(finnish);
+        language = new ButtonBackground(finnish, 3.2f, 2.7f);
+        suomi = new ButtonBackground(finnish, 3.6f, 3f);
+        enlgish = new ButtonBackground(english, 6.6f, 3f);
         menu = new Menu();
         backButton = new BackButton();
         fetchSettings();
@@ -134,8 +143,18 @@ public class Settings extends Clickable {
     public ButtonBackground getLanguage() {
         return language;
     }
+    public void setEng(boolean x) {
+        eng = x;
+        MemoryWriter.writeLang(eng);
+    }
     public boolean getEng() {
         return eng;
+    }
+    public ButtonBackground getSuomi() {
+        return suomi;
+    }
+    public ButtonBackground getEnglish() {
+        return enlgish;
     }
     @Override
     public void draw(Batch batch, float alpha) {
