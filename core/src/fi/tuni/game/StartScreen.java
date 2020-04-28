@@ -18,7 +18,10 @@ public class StartScreen implements Screen {
     private Texture background;
     private ButtonBackground startButton;
     private ButtonBackground setButton;
+    private ButtonBackground tutorButton;
     private boolean menuOpen = false;
+    private Tutorial tutorial;
+    private boolean tutOpen;
 
     public StartScreen(Main x) {
         batch = x.getBatch();
@@ -30,6 +33,9 @@ public class StartScreen implements Screen {
         background = new Texture(Gdx.files.internal("menuBg.png"));
         startButton = new ButtonBackground((12.8f-3) / 2, 5.6f);
         setButton = new ButtonBackground((12.8f-3) / 2, 4.3f);
+        tutorButton = new ButtonBackground(9f, 3f);
+        tutorial = new Tutorial();
+        tutOpen = false;
     }
 
     @Override
@@ -51,6 +57,7 @@ public class StartScreen implements Screen {
         Gdx.input.setInputProcessor(objectMain.getUIStage());
         objectMain.getUIStage().addActor(setButton);
         objectMain.getUIStage().addActor(startButton);
+        objectMain.getUIStage().addActor(tutorButton);
 
         if (startButton.getHappened()) {
             RequestSound.playButtonClick();
@@ -60,7 +67,7 @@ public class StartScreen implements Screen {
 
         //texts
         batch.begin();
-        if (!menuOpen) {
+        if (!menuOpen && !tutOpen) {
             if (objectMain.getSettings().getEng()) {
                 objectMain.getFontBig().draw(batch, objectMain.getBundle().get("title"), WINDOW_WIDTH*100/2-60, 410);
             } else {
@@ -71,9 +78,14 @@ public class StartScreen implements Screen {
             } else {
                 objectMain.getFontBig().draw(batch, objectMain.getBundle().get("settings"), WINDOW_WIDTH*100/2-120, 280);
             }
+            if (objectMain.getSettings().getEng()) {
+                objectMain.getFontBig().draw(batch, objectMain.getBundle().get("tutorial"),950, 150);
+            } else {
+                objectMain.getFontBig().draw(batch, objectMain.getBundle().get("tutorial"),960, 150);
+            }
         }
 
-        if (setButton.getHappened()) {
+        if (setButton.getHappened() && !tutOpen) {
             if (!menuOpen) {
                 RequestSound.playButtonClick();
             }
@@ -109,7 +121,46 @@ public class StartScreen implements Screen {
                 closeMenu();
             }
         }
+        if (tutorButton.getHappened()) {
+            tutOpen=true;
+            //english tutorial
+            if (objectMain.getSettings().getEng()) {
+                objectMain.getUIStage().addActor(tutorial);
+                if (tutorial.getHappened()) {
+                    tutorial.nextTextureEng();
+                    tutorial.setHappened(false);
+                }
+            } else { // finnish tutorial
+                objectMain.getUIStage().addActor(tutorial);
+                if (tutorial.getHappened()) {
+                    tutorial.nextTextureFin();
+                    tutorial.setHappened(false);
+                }
+            }
+            tutorialTexts();
+            if (tutorial.getCount()==8) {
+                closeMenu();
+            }
+        }
         batch.end();
+    }
+
+    private void tutorialTexts() {
+        if (tutorial.getCount()==1) {
+            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("tuto1"),400, 550);
+        } else if (tutorial.getCount()==2) {
+            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("tuto2"),400, 550);
+        } else if (tutorial.getCount()==3) {
+            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("tuto3"),400, 550);
+        } else if (tutorial.getCount()==4) {
+            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("tuto4"),400, 550);
+        } else if (tutorial.getCount()==5) {
+            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("tuto5"),400, 550);
+        } else if (tutorial.getCount()==6) {
+            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("tuto6"),400, 550);
+        }
+
+        objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("move"),300, 50);
     }
 
     private void closeMenu() {
@@ -120,7 +171,10 @@ public class StartScreen implements Screen {
         objectMain.getSettings().getMenu().setHappened(false);
         objectMain.getSettings().getBackButton().setHappened(false);
         objectMain.getSettings().getLanguage().setHappened(false);
+        tutorButton.setHappened(false);
+        tutorial.resetCount();
         objectMain.getUIStage().clear();
+        tutOpen = false;
         menuOpen = false;
     }
 
@@ -146,6 +200,5 @@ public class StartScreen implements Screen {
 
     @Override
     public void dispose() {
-
     }
 }
