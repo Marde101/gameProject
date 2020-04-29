@@ -1,8 +1,7 @@
-package fi.tuni.game;
+package fi.tuni.shitionaire;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-
 
 
 public class Toilets {
@@ -70,21 +69,21 @@ public class Toilets {
         setCont(which);
         if (cont == 1) {
             startedTime = (peeTimeBase + tier * multiplierTime)
-                    + MemoryReader.readCurrentTimestamp();
+                    + fi.tuni.shitionaire.MemoryReader.readCurrentTimestamp();
         } else if (cont == 2){
             startedTime = (pooTimeBase + tier * multiplierTime)
-                    + MemoryReader.readCurrentTimestamp();
+                    + fi.tuni.shitionaire.MemoryReader.readCurrentTimestamp();
         }
         state = true;
         MemoryWriter.writeTimer(keyS, startedTime);
     }
 
     private void getStartedTime() {
-        startedTime = MemoryReader.readTimer(keyS);
+        startedTime = fi.tuni.shitionaire.MemoryReader.readTimer(keyS);
     }
 
     public void checkProduction(Balance pee, Balance poo) {
-        if (startedTime < MemoryReader.readCurrentTimestamp()) {
+        if (startedTime < fi.tuni.shitionaire.MemoryReader.readCurrentTimestamp()) {
             state = false;
             if (cont==1) {
                 RequestSound.playBalanceSound();
@@ -104,7 +103,7 @@ public class Toilets {
     }
 
     public String getTimeLeftString() {
-        long timeLeft = (startedTime - MemoryReader.readCurrentTimestamp())/1000;
+        long timeLeft = (startedTime - fi.tuni.shitionaire.MemoryReader.readCurrentTimestamp())/1000;
         String time = timeLeft+"s";
         return time;
     }
@@ -114,7 +113,7 @@ public class Toilets {
     }
 
     public int getTier() {
-        MemoryReader.readToilet(this);
+        fi.tuni.shitionaire.MemoryReader.readToilet(this);
         return tier;
     }
     public int getCont() {

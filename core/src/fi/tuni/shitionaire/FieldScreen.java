@@ -1,4 +1,4 @@
-package fi.tuni.game;
+package fi.tuni.shitionaire;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -23,7 +23,7 @@ public class FieldScreen implements Screen {
     private Field field;
     private Fields fields;
     private ArrayList<Fields> allFields;
-    private ArrayList<Toilets> allToilets;
+    private ArrayList<fi.tuni.shitionaire.Toilets> allToilets;
     private boolean infoFetched = false;
     private boolean menuOpen = false;
     private String which = "";
@@ -166,11 +166,23 @@ public class FieldScreen implements Screen {
                     if (tmpFields.getState()) {
                         objectMain.getFontBig().draw(batch, tmpFields.getTimeLeftString(),600, 420);
                         if (tmpFields.getCont()==1) {
-                            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("fieldtext1"), 380, 350);
+                            if (objectMain.getSettings().getEng()) {
+                                objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("fieldtext1"), 420, 350);
+                            } else {
+                                objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("fieldtext1"), 380, 350);
+                            }
                         } else if (tmpFields.getCont()==2) {
-                            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("fieldtext2"), 380, 350);
+                            if (objectMain.getSettings().getEng()) {
+                                objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("fieldtext2"), 420, 350);
+                            } else {
+                                objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("fieldtext2"), 380, 350);
+                            }
                         } else if (tmpFields.getCont()==3) {
-                            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("fieldtext3"), 380, 350);
+                            if (objectMain.getSettings().getEng()) {
+                                objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("fieldtext3"), 400, 350);
+                            } else {
+                                objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("fieldtext3"), 380, 350);
+                            }
                         }
                     }
                 }

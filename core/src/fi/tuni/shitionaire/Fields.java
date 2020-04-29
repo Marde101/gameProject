@@ -1,12 +1,12 @@
-package fi.tuni.game;
+package fi.tuni.shitionaire;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Fields {
-    private Field field;
+    private fi.tuni.shitionaire.Field field;
     private Menu menu;
-    private BackButton backButton;
+    private fi.tuni.shitionaire.BackButton backButton;
     private String key;
     private String keyS;
 
@@ -40,12 +40,12 @@ public class Fields {
     private boolean state;
     private long startedTime;
 
-    public Fields(Field x, String k) {
+    public Fields(fi.tuni.shitionaire.Field x, String k) {
         field = x;
         key = k;
         keyS = k+"S";
         menu = new Menu();
-        backButton = new BackButton();
+        backButton = new fi.tuni.shitionaire.BackButton();
         contract = new ButtonBackground(7.3f,6f, contractPee);
         contract2 = new ButtonBackground(7.3f,5f, contractPee);
         contract3 = new ButtonBackground(7.3f,4f, contractPoo);
@@ -63,27 +63,27 @@ public class Fields {
         // 1 = vilja, 2 = kaali, 3 = sipuli
         setCont(which);
         if (cont==1) {
-            startedTime = time1 + MemoryReader.readCurrentTimestamp();
+            startedTime = time1 + fi.tuni.shitionaire.MemoryReader.readCurrentTimestamp();
         } else if (cont==2) {
-            startedTime = time2 + MemoryReader.readCurrentTimestamp();
+            startedTime = time2 + fi.tuni.shitionaire.MemoryReader.readCurrentTimestamp();
         } else if (cont==3) {
-            startedTime = time3 + MemoryReader.readCurrentTimestamp();
+            startedTime = time3 + fi.tuni.shitionaire.MemoryReader.readCurrentTimestamp();
         }
-        MemoryWriter.writeTimer(keyS, startedTime);
+        fi.tuni.shitionaire.MemoryWriter.writeTimer(keyS, startedTime);
         field.setFieldTexture(setTextureByCont());
     }
 
     private void getStartedTime() {
-        startedTime = MemoryReader.readTimer(keyS);
+        startedTime = fi.tuni.shitionaire.MemoryReader.readTimer(keyS);
     }
 
     public void checkProduction(Balance cash) {
-        if (startedTime < MemoryReader.readCurrentTimestamp()) {
+        if (startedTime < fi.tuni.shitionaire.MemoryReader.readCurrentTimestamp()) {
             if (cont==1) {
-                RequestSound.playBalanceSound();
+                fi.tuni.shitionaire.RequestSound.playBalanceSound();
                 cash.addValue(reward1);
             } else if (cont==2) {
-                RequestSound.playBalanceSound();
+                fi.tuni.shitionaire.RequestSound.playBalanceSound();
                 cash.addValue(reward2);
             } else if (cont==3) {
                 RequestSound.playBalanceSound();
@@ -97,7 +97,7 @@ public class Fields {
     }
 
     public String getTimeLeftString() {
-        long timeLeft = (startedTime - MemoryReader.readCurrentTimestamp())/1000;
+        long timeLeft = (startedTime - fi.tuni.shitionaire.MemoryReader.readCurrentTimestamp())/1000;
         String time = timeLeft+"s";
         return time;
     }

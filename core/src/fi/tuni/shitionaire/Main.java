@@ -1,10 +1,9 @@
-package fi.tuni.game;
+package fi.tuni.shitionaire;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,8 +22,8 @@ public class Main extends Game {
 
     //screens
     private StartScreen startScreen;
-    private FieldScreen fieldScreen;
-    private CityScreen cityScreen;
+    private fi.tuni.shitionaire.FieldScreen fieldScreen;
+    private fi.tuni.shitionaire.CityScreen cityScreen;
 
     //fonts
     private FreeTypeFontGenerator generator;
@@ -35,8 +34,8 @@ public class Main extends Game {
     private Stage uiStage;
     private float width = WINDOW_WIDTH;
     private float height = WINDOW_HEIGHT;
-    private Clickable sceneSwitch;
-    private Settings settings;
+    private fi.tuni.shitionaire.Clickable sceneSwitch;
+    private fi.tuni.shitionaire.Settings settings;
     private Balance cash;
     private Balance pee;
     private Balance poo;
@@ -61,9 +60,9 @@ public class Main extends Game {
         fontSmall = createFont(35);
         fontSmallest = createFont(20);
         uiStage = new Stage(new FitViewport(width, height));
-        sceneSwitch = new Clickable();
+        sceneSwitch = new fi.tuni.shitionaire.Clickable();
         RequestSound.playBackgroundMusic();
-        settings = new Settings();
+        settings = new fi.tuni.shitionaire.Settings();
         fetchValues();
         MemoryWriter.writeCurrentTimestamp();
         Locale locale = new Locale("en", "UK");

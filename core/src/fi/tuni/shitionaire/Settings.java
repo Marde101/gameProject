@@ -1,12 +1,10 @@
-package fi.tuni.game;
+package fi.tuni.shitionaire;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-
-import java.awt.Button;
 
 public class Settings extends Clickable {
     private Texture texture;
@@ -101,8 +99,8 @@ public class Settings extends Clickable {
     }
 
     private void fetchSettings() {
-        musicToggle = MemoryReader.readVolume("Music");
-        effectToggle = MemoryReader.readVolume("Effect");
+        musicToggle = fi.tuni.shitionaire.MemoryReader.readVolume("Music");
+        effectToggle = fi.tuni.shitionaire.MemoryReader.readVolume("Effect");
         eng = MemoryReader.readLang();
         if (!eng) {
             language.setTexture(finnish);

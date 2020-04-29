@@ -1,4 +1,4 @@
-package fi.tuni.game;
+package fi.tuni.shitionaire;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -25,8 +25,8 @@ public class CityScreen implements Screen {
     private TiledMapRenderer cityTiledMapRenderer;
     private Texture cashBackground;
     private Toilet toilet;
-    private Toilets toilets;
-    private ArrayList<Toilets> allToilets;
+    private fi.tuni.shitionaire.Toilets toilets;
+    private ArrayList<fi.tuni.shitionaire.Toilets> allToilets;
     private ArrayList<Fields> allFields;
     private boolean infoFetched = false;
     private boolean menuOpen = false;
@@ -63,7 +63,7 @@ public class CityScreen implements Screen {
 
     private void generateToilet(float posX, float posY, String key) {
         toilet = new Toilet(posX, posY);
-        toilets = new Toilets(toilet, key);
+        toilets = new fi.tuni.shitionaire.Toilets(toilet, key);
         allToilets.add(toilets);
     }
 
@@ -116,10 +116,10 @@ public class CityScreen implements Screen {
 
     private void drawToilets() {
         //add actors
-        for(Toilets tmpToilets: allToilets) {
+        for(fi.tuni.shitionaire.Toilets tmpToilets: allToilets) {
             Toilet tmpToilet = tmpToilets.getToilet();
             Menu tmpMenu = tmpToilets.getMenu();
-            BackButton tmpBackButton = tmpToilets.getBackButton();
+            fi.tuni.shitionaire.BackButton tmpBackButton = tmpToilets.getBackButton();
             ButtonBackground tmpContract = tmpToilets.getContractButton();
             ButtonBackground tmpContract2 = tmpToilets.getContractButton2();
             ButtonBackground tmpUpgrade = tmpToilets.getUpgradeButton();
@@ -130,7 +130,7 @@ public class CityScreen implements Screen {
             if (tmpToilet.getHappened() &&
                     (!menuOpen || which.equals(tmpToilets.getKey()))) {
                 if (!menuOpen) {
-                    RequestSound.playButtonClick();
+                    fi.tuni.shitionaire.RequestSound.playButtonClick();
                 }
                 which = tmpToilets.getKey();
                 menuOpen = true;
@@ -159,9 +159,13 @@ public class CityScreen implements Screen {
                     if (tmpToilets.getState()) {
                         objectMain.getFontBig().draw(batch, tmpToilets.getTimeLeftString(),600, 420);
                         if (tmpToilets.getCont()==1) {
-                            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("productstate1"), 380, 350);
+                            if (objectMain.getSettings().getEng()) {
+                                objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("productstate1"), 420, 350);
+                            } else {
+                                objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("productstate1"), 380, 350);
+                            }
                         } else if (tmpToilets.getCont()==2) {
-                            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("productstate2"), 380, 350);
+                            objectMain.getFontSmall().draw(batch, objectMain.getBundle().get("productstate2"), 330, 350);
                         }
                     }
                 }
@@ -196,7 +200,7 @@ public class CityScreen implements Screen {
                 if (tmpUpgrade.getHappened()) {
                     if (objectMain.getBalanceCash().getValue() >= Integer.parseInt(tmpToilets.getPrice())) {
                         objectMain.getBalanceCash().removeValue(Integer.parseInt(tmpToilets.getPrice()));
-                        RequestSound.playButtonClick();
+                        fi.tuni.shitionaire.RequestSound.playButtonClick();
                         tmpToilets.upgrade();
                         tmpUpgrade.setHappened(false);
                     }

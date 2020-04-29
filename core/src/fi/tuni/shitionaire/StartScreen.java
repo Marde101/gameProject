@@ -1,4 +1,4 @@
-package fi.tuni.game;
+package fi.tuni.shitionaire;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -13,14 +13,14 @@ public class StartScreen implements Screen {
     private final float WINDOW_WIDTH = 12.8f;
     private final float WINDOW_HEIGHT = 6.4f;
     private SpriteBatch batch;
-    private Main objectMain;
+    private fi.tuni.shitionaire.Main objectMain;
     private OrthographicCamera camera;
     private Texture background;
     private ButtonBackground startButton;
     private ButtonBackground setButton;
     private ButtonBackground tutorButton;
     private boolean menuOpen = false;
-    private Tutorial tutorial;
+    private fi.tuni.shitionaire.Tutorial tutorial;
     private boolean tutOpen;
     private boolean firstLaunch;
     private boolean languageSelected;
@@ -38,9 +38,11 @@ public class StartScreen implements Screen {
         tutorButton = new ButtonBackground(9f, 3f);
         tutorial = new Tutorial();
         tutOpen = false;
-        languageSelected = MemoryReader.readFirstLaunch();
+        languageSelected = false;
+        firstLaunch = false;
+        languageSelected = fi.tuni.shitionaire.MemoryReader.readFirstLaunch();
         firstLaunch = MemoryReader.readFirstLaunch();
-        MemoryWriter.writeFirstLaunch(firstLaunch);
+        fi.tuni.shitionaire.MemoryWriter.writeFirstLaunch(firstLaunch);
     }
 
     @Override
@@ -67,7 +69,7 @@ public class StartScreen implements Screen {
         }
 
         if (startButton.getHappened()) {
-            RequestSound.playButtonClick();
+            fi.tuni.shitionaire.RequestSound.playButtonClick();
             startButton.setHappened(false);
             objectMain.switchScene();
         }
@@ -94,7 +96,7 @@ public class StartScreen implements Screen {
 
         if (setButton.getHappened() && !tutOpen) {
             if (!menuOpen) {
-                RequestSound.playButtonClick();
+                fi.tuni.shitionaire.RequestSound.playButtonClick();
             }
             menuOpen = true;
             objectMain.getUIStage().addActor(objectMain.getSettings().getMenu());
@@ -132,7 +134,7 @@ public class StartScreen implements Screen {
             if (languageSelected) {
                 runTutorial();
             } else {
-                objectMain.getFontBig().draw(batch, "Suomi    -    English",370, 470);
+                objectMain.getFontBig().draw(batch, "Suomi          English",370, 470);
                 objectMain.getUIStage().addActor(objectMain.getSettings().getSuomi());
                 objectMain.getUIStage().addActor(objectMain.getSettings().getEnglish());
                 if (objectMain.getSettings().getSuomi().getHappened()) {
@@ -142,9 +144,6 @@ public class StartScreen implements Screen {
                     objectMain.getSettings().setEng(true);
                     languageSelected = true;
                 }
-            }
-            if (!firstLaunch) {
-                MemoryWriter.writeFirstLaunch(firstLaunch);
             }
         }
         batch.end();
@@ -169,6 +168,7 @@ public class StartScreen implements Screen {
         tutorialTexts();
         if (tutorial.getCount()==8) {
             firstLaunch = true;
+            MemoryWriter.writeFirstLaunch(firstLaunch);
             closeMenu();
         }
     }

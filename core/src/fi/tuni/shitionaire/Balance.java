@@ -1,4 +1,4 @@
-package fi.tuni.game;
+package fi.tuni.shitionaire;
 
 public class Balance {
 
@@ -8,22 +8,22 @@ public class Balance {
     public Balance(String y, int x) {
         key = y;
         value = x;
-        MemoryWriter.writeBalance(key, value);
+        fi.tuni.shitionaire.MemoryWriter.writeBalance(key, value);
     }
 
     public Balance(String name) {
         key = name;
-        MemoryReader.readBalance(this);
+        fi.tuni.shitionaire.MemoryReader.readBalance(this);
     }
 
     public void setValue(int x) {
         value = x;
-        MemoryWriter.writeBalance(key, value);
+        fi.tuni.shitionaire.MemoryWriter.writeBalance(key, value);
     }
 
     public void addValue(int x) {
         value += x;
-        MemoryWriter.writeBalance(key, value);
+        fi.tuni.shitionaire.MemoryWriter.writeBalance(key, value);
     }
 
     public void removeValue(int x) {
