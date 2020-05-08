@@ -90,7 +90,7 @@ public class Settings extends Clickable {
             effects.setTexture(soundOff);
             effectToggle = true;
         } else {
-            RequestSound.setEffectVolume(0.5f);
+            RequestSound.setEffectVolume(1f);
             effects.setTexture(soundOn);
             effectToggle = false;
         }
@@ -115,7 +115,7 @@ public class Settings extends Clickable {
             music.setTexture(musicOff);
         }
         if (!effectToggle) {
-            RequestSound.setEffectVolume(0.5f);
+            RequestSound.setEffectVolume(1f);
             effects.setTexture(soundOn);
         } else {
             RequestSound.setEffectVolume(0f);

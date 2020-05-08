@@ -86,12 +86,12 @@ public class Toilets {
         if (startedTime < fi.tuni.shitionaire.MemoryReader.readCurrentTimestamp()) {
             state = false;
             if (cont==1) {
-                RequestSound.playBalanceSound();
+                fi.tuni.shitionaire.RequestSound.playBalanceSound();
                 pee.addValue((int)(
                         (peeTimeBase/1000 + tier * multiplierTime/1000)
                                 *(perSecond*tier*multiplierValue)));
             } else if (cont==2) {
-                RequestSound.playBalanceSound();
+                fi.tuni.shitionaire.RequestSound.playBalanceSound();
                 poo.addValue((int)(
                         (pooTimeBase/1000 + tier * multiplierTime/1000)
                                 *(perSecond*tier*multiplierValue)));

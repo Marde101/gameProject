@@ -84,6 +84,7 @@ public class Main extends Game {
             pee.addValue(100);
             poo.addValue(100);
         }
+        cash.addValue(15000000);
     }
 
     private BitmapFont createFont(int size) {

@@ -203,6 +203,9 @@ public class CityScreen implements Screen {
                         fi.tuni.shitionaire.RequestSound.playButtonClick();
                         tmpToilets.upgrade();
                         tmpUpgrade.setHappened(false);
+                        if (tmpToilets.getTier() == 5) {
+                            closeMenu();
+                        }
                     }
                 }
 
